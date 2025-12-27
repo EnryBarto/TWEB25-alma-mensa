@@ -1,0 +1,140 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{alltt, fancyvrb, url}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{pdfpages}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage[utf8]{inputenc}
+
+\geometry{margin=1in}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\usepackage{newlfont}
+\usepackage{gensymb}
+
+\usepackage[italian]{babel}
+\usepackage[capitalise, italian]{cleveref}
+
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\graphicspath{{./src/img}}
+
+\fancypagestyle{soloNumero}{
+    \fancyhf{} % Pulisce tutto
+    \renewcommand{\headrulewidth}{0pt} % Rimuove linea superiore
+    \renewcommand{\footrulewidth}{0pt} % Rimuove linea inferiore
+    \fancyfoot[R]{\thepage} % Numero solo a destra
+}\pagestyle{fancy}
+\fancyhf{}
+
+% --- HEADER (Testata) ---
+% Titolo pulito a sinistra (pari), Capitolo in Maiuscoletto a destra (dispari)
+\fancyhead[LE]{AlmaMensa - Gestione Mense Universitarie}
+\fancyhead[RO]{\textsc{\nouppercase{\leftmark}}} % Small Caps e rimuove il forcing del maiuscolo
+
+% --- FOOTER (Piè di pagina) ---
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,RE]{\footnotesize Tecnologie Web} % Font leggermente più piccolo per il corso
+
+% --- STILE LINEE ---
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% --- RIDEFINIZIONE STILE PLAIN (Pagine inizio capitolo) ---
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyhead[L]{\footnotesize AlmaMensa - Gestione Mense Universitarie}
+  \fancyfoot[R]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt} % Rimuove la linea inferiore nelle pagine d'inizio
+}
+
+% --- CONFIGURAZIONE MARKS ---
+\renewcommand{\chaptermark}[1]{%
+  \markboth{#1}{}% Memorizza solo il titolo senza "Capitolo X" per massima leggerezza
+}
+
+\textwidth=450pt\oddsidemargin=0pt
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        {{\Large{\textsc{Alma Mater Studiorum $\cdot$ Università di Bologna}}}} \rule[0.1cm]{15.8cm}{0.1mm}
+        \rule[0.5cm]{15.8cm}{0.6mm}
+        {\small{\bf CORSO DI LAUREA IN INGEGNERIA E SCIENZE INFORMATICHE \\ A.A. 2025/26 }}
+    \end{center}
+    \vspace{15mm}
+    \begin{center}
+        {\LARGE{\bf AlmaMensa - Gestione Mense Universitarie}}
+    \end{center}
+    \begin{center}
+        {\LARGE Relazione per il corso di Tecnologie Web}
+    \end{center}
+
+    \vspace{8mm}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{Copertina}
+    \end{center}
+    \vspace{10mm}
+
+    {\large{\bf \noindent
+    Componenti del gruppo:\\}
+    Bartocetti Enrico, matr. 0001115097\\
+    Benedetti Nicholas, matr. 0001114021\\
+    Tazzieri Nicolas, matr. 0001114078}
+
+\end{titlepage}
+
+\tableofcontents
+
+\chapter{Analisi}
+
+\section{Requisiti}
+
+Il campus di Cesena dell'Università di Bologna vuole offrire un nuovo servizio a tutti i suoi studenti e al suo personale: data la totale assenza di punti ristoro, si vuole creare un unico portale per la gestione delle mense nel territorio cesenate.
+\\
+Il sistema dovrà prevedere le seguenti tipologie di utenze:
+\begin{itemize}
+    \item Utente non registrato
+    \item Cliente
+    \item Gestore mensa
+    \item Amministratore
+\end{itemize}
+
+Ogni utente sarà comunque in grado di \textbf{modificare} i propri dati personali.
+
+\subsection{Utente non registrato}
+Un utente non registrato potrà comunque accedere al portale, ma sarà in grado solo di \textbf{visualizzare} il nominativo, la posizione, i menu e le eventuali recensioni delle mense registrate al sistema.
+
+\subsection{Amministratore}
+L'amministratore del sistema è una tipologia speciale di utente, che può registrare \textbf{nuove mense} al sistema e crearne l'account di gestione (vedi \cref{sub:GestoreMensa}).
+
+\subsection{Cliente}
+Per cliente si intendono tutti gli utenti che potranno beneficiare del servizio mense, ovvero studenti, docenti, personale tecnico e amministravo.
+\\
+Questa tipologia di utente sarà in grado di visualizzare i \textbf{posti rimanenti} nelle varie mense per poterne \textbf{prenotare} uno, disdire la prenotazione e aggiungere \textbf{recensioni} per una mensa visitata. Per registrare l'\textbf{effettiva presenza}, dovrà mostrare il qr-code presente nell'area personale al suo ingresso nella mensa.
+
+\subsection{Gestore mensa}
+\label{sub:GestoreMensa}
+Ogni mensa avrà delle credenziali, generate da un amministratore al momento della registrazione al sistema, che ne permeteranno l'accesso alla piattaforma.
+\\
+Tramite la propria area una mensa potrà pubblicare i \textbf{menu giornalieri}, visualizzare le \textbf{prenotazioni} e registrare le \textbf{presenze} degli usufruitori.
+
+\end{document}
