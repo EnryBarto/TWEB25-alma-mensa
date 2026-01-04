@@ -1,17 +1,22 @@
-// Required
-@import "../node_modules/bootstrap/scss/functions";
+$primary: #bb2e29;
+$navbar-dark-color: rgba(255, 255, 255, 0.85);
+$navbar-dark-hover-color: rgb(255, 255, 255);
 
-// Required
+@import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/variables-dark";
 @import "../node_modules/bootstrap/scss/maps";
 @import "../node_modules/bootstrap/scss/mixins";
 @import "../node_modules/bootstrap/scss/root";
 
-$primary: #bb2e29;
-// merge with existing $theme-colors map
 $theme-colors: map-merge($theme-colors, (
   "primary": $primary
 ));
+
+.navbar-nav .nav-link {
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
 
 @import "../node_modules/bootstrap/scss/bootstrap";
