@@ -1,0 +1,17 @@
+// Required
+@import "../node_modules/bootstrap/scss/functions";
+
+// Required
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+
+$primary: #bb2e29;
+// merge with existing $theme-colors map
+$theme-colors: map-merge($theme-colors, (
+  "primary": $primary
+));
+
+@import "../node_modules/bootstrap/scss/bootstrap";

@@ -8,3 +8,5 @@ report/*.aux
 report/*.out
 report/*.toc
 
+node_modules/
+
