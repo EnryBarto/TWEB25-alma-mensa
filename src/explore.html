@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <title>Barra di navigazione</title>
+</head>
+
+<body class="container-fluid p-0 overflow-x-hidden">
+    <nav class="navbar navbar-dark navbar-expand-lg bg-primary font-monospace">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon text-white"></span>
+            </button>
+            <a class="navbar-brand" href="#">AlmaMensa</a>
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="cards.html">Esplora</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mappa</a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Gestisci mensa
+                        </a>
+
+                        <ul class="dropdown-menu bg-primary p-2">
+                            <li><a class="dropdown-item bg-transparent nav-link" href="mod_dati_mensa.html">Modifica dati</a></li>
+                            <li><a class="dropdown-item bg-transparent nav-link" href="#">Gestione menu</a></li>
+                            <li><a class="dropdown-item bg-transparent nav-link" href="#">Gestione piatti</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Rileva presenza</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section>
+        <header class="mt-3 text-center container">
+            <h1>Le nostre mense</h1>
+            <p class="text-body-secondary">Trova la mensa che preferisci</p>
+        </header>
+        <div class="container text-center justify-content-center">
+            <div class="row justify-content-center border-bottom border-dark p-1">
+                <div class="col-10">
+                    <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link border border-2 rounded-pill active" id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all" aria-selected="true">Tutti</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link border border-2 rounded-pill" id="pills-bar-tab" data-bs-toggle="pill" data-bs-target="#pills-bar" type="button" role="tab" aria-controls="pills-bar" aria-selected="false">Bar</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link border border-2 rounded-pill" id="pills-canteen-tab" data-bs-toggle="pill" data-bs-target="#pills-canteen" type="button" role="tab" aria-controls="pills-canteen" aria-selected="false">Mensa</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link border border-2 rounded-pill" id="pills-restaurant-tab" data-bs-toggle="pill" data-bs-target="#pills-restaurant" type="button" role="tab" aria-controls="pills-restaurant" aria-selected="false">Ristorante</button>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3">
+            <div class="row justify-content-center mb-3">
+                <div class="col-10">
+                    <p><span class="bi bi-sliders2 text-primary"></span> Filtri</p>
+                    <label class ="form-label" for="select-sort-by">Ordina per</label>
+                    <select class="form-select" aria-label="Ordina mense per" id="select-sort-by">
+                        <option value="higher-rank" selected>Recensioni più alte</option>
+                        <option value="lower-rank">Recensioni più basse</option>
+                        <option value="alphabetical-a-z">Ordinamento alfabetico A-Z</option>
+                        <option value="alphabetical-z-a">Ordinamento alfabetico Z-A</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="container mb-5">
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabindex="0">
+                            <!-- INIZIO SEZIONE TUTTO -->
+                                <!-- INIZIO CARD 1 -->
+                                    <div class="card h-100 mb-3">
+                                        <img src="img/Volume.jpg" class="card-img-top" alt="">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title 1</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                                            <p class="card-text">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                            </p>
+                                            <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                                        </div>
+                                </div>
+                                <!-- INIZIO CARD 2 -->
+                                    <div class="card h-100 mb-3">
+                                        <img src="img/Volume.jpg" class="card-img-top" alt="">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title 2</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                                            <p class="card-text">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                                <i class="bi bi-star"></i>
+                                            </p>
+                                            <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                                        </div>
+                                </div>
+                                <!-- INIZIO CARD 3 -->
+                                <div class="card h-100 mb-3">
+                                    <img src="img/Volume.jpg" class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title 3</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                                        <p class="card-text">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star"></i>
+                                            <i class="bi bi-star"></i>
+                                        </p>
+                                        <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                                    </div>
+                                </div>
+                        </div>
+                        <!-- FINE SEZIONE TUTTO -->
+                        <div class="tab-pane fade" id="pills-bar" role="tabpanel" aria-labelledby="pills-bar-tab" tabindex="0">
+                            <!-- INIZIO SEZIONE BAR -->
+                                <div class="card h-100 mb-3">
+                                    <img src="img/Volume.jpg" class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Baaaar</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                                        <p class="card-text">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star"></i>
+                                            <i class="bi bi-star"></i>
+                                        </p>
+                                        <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                                    </div>
+                                </div>
+                            <!-- FINE SEZIONE BAR -->
+                        </div>
+                        <div class="tab-pane fade" id="pills-canteen" role="tabpanel" aria-labelledby="pills-canteen-tab" tabindex="0">
+                            <!-- INIZIO SEZIONE MENSA -->
+                             <div class="card h-100 mb-3">
+                                    <img src="img/Volume.jpg" class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Mensaaaa</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                                        <p class="card-text">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star"></i>
+                                            <i class="bi bi-star"></i>
+                                        </p>
+                                        <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                                    </div>
+                                </div>
+                            <!-- FINE SEZIONE MENSA -->
+                        </div>
+                        <div class="tab-pane fade" id="pills-restaurant" role="tabpanel" aria-labelledby="pills-restaurant-tab" tabindex="0">
+                            <!-- INIZIO SEZIONE RISTORANTE -->
+                             <p class="text-body-secondary">Non ci sono dati in questa sezione</p>
+                            <!-- FINE SEZIONE RISTORANTE -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
