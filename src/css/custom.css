@@ -75,8 +75,8 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg: #f5f7f9;
-  --bs-body-bg-rgb: 245, 247, 249;
+  --bs-body-bg: #fcfcfc;
+  --bs-body-bg-rgb: 252, 252, 252;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
   --bs-secondary-color: rgba(33, 37, 41, 0.75);
@@ -273,8 +273,8 @@ input[type=radio]:checked + label.btn {
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg: #f5f7f9;
-  --bs-body-bg-rgb: 245, 247, 249;
+  --bs-body-bg: #fcfcfc;
+  --bs-body-bg-rgb: 252, 252, 252;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
   --bs-secondary-color: rgba(33, 37, 41, 0.75);
@@ -2653,10 +2653,10 @@ textarea.form-control-lg {
   outline: 0;
 }
 .form-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px #f5f7f9, 0 0 0 0.25rem rgba(187, 46, 41, 0.25);
+  box-shadow: 0 0 0 1px #fcfcfc, 0 0 0 0.25rem rgba(187, 46, 41, 0.25);
 }
 .form-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #f5f7f9, 0 0 0 0.25rem rgba(187, 46, 41, 0.25);
+  box-shadow: 0 0 0 1px #fcfcfc, 0 0 0 0.25rem rgba(187, 46, 41, 0.25);
 }
 .form-range::-moz-focus-outer {
   border: 0;
