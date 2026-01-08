@@ -75,8 +75,8 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg: #fff;
-  --bs-body-bg-rgb: 255, 255, 255;
+  --bs-body-bg: #f5f7f9;
+  --bs-body-bg-rgb: 245, 247, 249;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
   --bs-secondary-color: rgba(33, 37, 41, 0.75);
@@ -180,6 +180,18 @@
   text-decoration: underline !important;
 }
 
+input[type=radio]:hover + label.btn {
+  background-color: rgb(158.95, 39.1, 34.85) !important;
+  color: white !important;
+  border: none;
+}
+
+input[type=radio]:checked + label.btn {
+  background-color: #bb2e29 !important;
+  color: white !important;
+  border: none;
+}
+
 /*!
  * Bootstrap  v5.3.8 (https://getbootstrap.com/)
  * Copyright 2011-2025 The Bootstrap Authors
@@ -261,8 +273,8 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg: #fff;
-  --bs-body-bg-rgb: 255, 255, 255;
+  --bs-body-bg: #f5f7f9;
+  --bs-body-bg-rgb: 245, 247, 249;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
   --bs-secondary-color: rgba(33, 37, 41, 0.75);
@@ -2641,10 +2653,10 @@ textarea.form-control-lg {
   outline: 0;
 }
 .form-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(187, 46, 41, 0.25);
+  box-shadow: 0 0 0 1px #f5f7f9, 0 0 0 0.25rem rgba(187, 46, 41, 0.25);
 }
 .form-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(187, 46, 41, 0.25);
+  box-shadow: 0 0 0 1px #f5f7f9, 0 0 0 0.25rem rgba(187, 46, 41, 0.25);
 }
 .form-range::-moz-focus-outer {
   border: 0;

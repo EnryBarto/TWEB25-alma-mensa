@@ -1,9 +1,7 @@
 $primary: #bb2e29;
+$body-bg: #f5f7f9;
 $navbar-dark-color: rgba(255, 255, 255, 0.85);
 $navbar-dark-hover-color: rgb(255, 255, 255);
-
-$bootstrap-icons-font-dir: "../node_modules/bootstrap-icons/font/fonts";
-
 
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
@@ -20,6 +18,18 @@ $theme-colors: map-merge($theme-colors, (
     &:hover {
         text-decoration: underline !important;
     }
+}
+
+input[type=radio]:hover + label.btn {
+    background-color: shade-color($primary, $btn-hover-bg-shade-amount) !important;
+    color: white !important;
+    border: none;
+}
+
+input[type=radio]:checked + label.btn {
+    background-color: $primary !important;
+    color: white !important;
+    border: none;
 }
 
 @import "../node_modules/bootstrap/scss/bootstrap";

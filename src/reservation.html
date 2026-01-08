@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <title>Prenotazione</title>
+</head>
+
+<body class="container-fluid p-0 overflow-x-hidden">
+    <nav class="navbar navbar-dark navbar-expand-lg bg-primary font-monospace">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon text-white"></span>
+            </button>
+            <a class="navbar-brand" href="#">AlmaMensa</a>
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="cards.html">Esplora</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mappa</a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Gestisci mensa
+                        </a>
+
+                        <ul class="dropdown-menu bg-primary p-2">
+                            <li><a class="dropdown-item bg-transparent nav-link" href="#">Modifica dati</a></li>
+                            <li><a class="dropdown-item bg-transparent nav-link" href="#">Gestione menu</a></li>
+                            <li><a class="dropdown-item bg-transparent nav-link" href="#">Gestione piatti</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Rileva presenza</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid">
+        <header class="row justify-content-center mt-4">
+            <div class="col-10">
+                <h1>Bar Volume</h1>
+            </div>
+        </header>
+
+        <form class="row justify-content-center" action="." method="POST">
+            <div class="col-10 mb-3">
+                <h2 class="text-primary">Prenota un tavolo</h2>
+            </div>
+            <div class="col-10">
+                <label for="data" class="form-label"><span class="bi bi-calendar text-primary"></span> Seleziona data</label>
+            </div>
+            <div class="col-10 mb-3">
+                <input class="form-control" type="date" id="data" />
+            </div>
+            <div class="col-10">
+                <p class="form-label mb-0"><span class="bi bi-clock text-primary"></span> Seleziona orario</p>
+            </div>
+            <div class="col-10 row g-2 mb-3 mt-0 px-2">
+                <div class="col-4 col-md-3">
+                    <input type="radio" class="btn-check" name="orario" id="time-1100" value="11:00">
+                    <label class="btn bg-white w-100 py-2 shadow-sm border-secondary-subtle text-secondary" for="time-1100">11:00</label>
+                </div>
+                <div class="col-4 col-md-3">
+                    <input type="radio" class="btn-check" name="orario" id="time-1130" value="11:30">
+                    <label class="btn bg-white w-100 py-2 shadow-sm border-secondary-subtle text-secondary" for="time-1130">11:30</label>
+                </div>
+                <div class="col-4 col-md-3">
+                    <input type="radio" class="btn-check" name="orario" id="time-1200" value="12:00">
+                    <label class="btn bg-white w-100 py-2 shadow-sm border-secondary-subtle text-secondary" for="time-1200">12:00</label>
+                </div>
+                <div class="col-4 col-md-3">
+                    <input type="radio" class="btn-check" name="orario" id="time-1230" value="12:30">
+                    <label class="btn bg-white w-100 py-2 shadow-sm border-secondary-subtle text-secondary" for="time-1230">12:30</label>
+                </div>
+                <div class="col-4 col-md-3">
+                    <input type="radio" class="btn-check" name="orario" id="time-1300" value="13:00">
+                    <label class="btn bg-white w-100 py-2 shadow-sm border-secondary-subtle text-secondary" for="time-1300">13:00</label>
+                </div>
+            </div>
+            <div class="col-10">
+                <label for="data" class="form-label"><span class="bi bi-people text-primary"></span> Numero di Ospiti</label>
+            </div>
+            <div class="col-10 mb-3">
+                <button type="button" class="btn btn-outline-primary rounded-circle px-3 py-2 font-monospace" onclick="changeValue(-1)">-</button>
+                <span class="mx-3 fs-5" id="num_people_text">1</span>
+                <button type="button" class="btn btn-outline-primary rounded-circle px-3 py-2 font-monospace" onclick="changeValue(1)">+</button>
+                <input type="hidden" id="num_people_input" name="ospiti" value="1"/>
+            </div>
+            <div class="col-10 d-grid mt-1">
+                <input type="submit" class="btn btn-primary" value="Conferma Prenotazione" />
+            </div>
+        </form>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        function changeValue(num) {
+            let people = parseInt(document.getElementById("num_people_text").innerText);
+            people = people + parseInt(num);
+            people = people >= 1 ? people : 1;
+            document.getElementById("num_people_text").innerText = people;
+            document.getElementById("num_people_input").value = people;
+        }
+    </script>
+</body>
+
+</html>
