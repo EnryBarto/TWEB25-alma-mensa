@@ -3,12 +3,12 @@ $body-bg: #fcfcfc;
 $navbar-dark-color: rgba(255, 255, 255, 0.85);
 $navbar-dark-hover-color: rgb(255, 255, 255);
 
-@import "../node_modules/bootstrap/scss/functions";
-@import "../node_modules/bootstrap/scss/variables";
-@import "../node_modules/bootstrap/scss/variables-dark";
-@import "../node_modules/bootstrap/scss/maps";
-@import "../node_modules/bootstrap/scss/mixins";
-@import "../node_modules/bootstrap/scss/root";
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/variables-dark";
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/root";
 
 $theme-colors: map-merge($theme-colors, (
   "primary": $primary
@@ -32,4 +32,4 @@ input[type=radio]:checked + label.btn {
     border: none;
 }
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/bootstrap/scss/bootstrap";
