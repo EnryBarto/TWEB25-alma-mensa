@@ -10,16 +10,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 
-<body class="container-fluid p-0 overflow-x-hidden">
+<body>
     <?php require("navbar.php"); ?>
-    <main>
+    <main class="container-fluid">
     <?php
     if(isset($currentPage["filename"])){
         require($currentPage["filename"]);
     }
     ?>
     </main>
-    <footer class="mt-2">
+    <footer class="container-fluid mt-2">
         <p>FOOTER: TODO</p>
     </footer>
 
