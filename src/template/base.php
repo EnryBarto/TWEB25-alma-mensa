@@ -12,10 +12,6 @@
     <?php if (isset($currentPage["externalcssfile"])): ?>
         <link rel="stylesheet" href="<?php echo $currentPage["externalcssfile"]; ?>">
     <?php endif; ?>
-    <?php if (isset($currentPage["filename"]) && $currentPage["filename"] == "map.php") : ?>
-        <link rel="stylesheet" href=""
-        crossorigin=""/>
-    <?php endif; ?>
     <?php if (isset($currentPage["cssfile"])) : ?>
     <link rel="stylesheet" href="assets/css/<?php echo $currentPage["cssfile"]; ?>" >
     <?php endif; ?>
