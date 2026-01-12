@@ -10,7 +10,7 @@
                         <a class="nav-link" href="explore.php">Esplora</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mappa</a>
+                        <a class="nav-link" href="map.php">Mappa</a>
                     </li>
                     <?php
                     switch ($userData["level"]) {
