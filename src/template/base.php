@@ -9,9 +9,11 @@
     <link href="assets/css/custom.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <!-- Map CSS -->
+    <?php if (isset($currentPage["externalcssfile"])): ?>
+        <link rel="stylesheet" href="<?php echo $currentPage["externalcssfile"]; ?>">
+    <?php endif; ?>
     <?php if (isset($currentPage["filename"]) && $currentPage["filename"] == "map.php") : ?>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        <link rel="stylesheet" href=""
         crossorigin=""/>
     <?php endif; ?>
     <?php if (isset($currentPage["cssfile"])) : ?>
@@ -35,14 +37,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <!-- Map lib -->
-    <?php if (isset($currentPage["filename"]) && $currentPage["filename"] == "map.php") : ?>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
-    <!-- QR code lib -->
-    <?php elseif (isset($currentPage["filename"]) && $currentPage["filename"] == "manage_reservations.php"): ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <?php if (isset($currentPage["externalscriptfile"])): ?>
+            <script src="<?php echo $currentPage["externalscriptfile"]; ?>"></script>
     <?php endif; ?>
     <?php if (isset($currentPage["scriptfile"])) : ?>
     <script src="assets/js/<?php echo $currentPage["scriptfile"]; ?>" ></script>
