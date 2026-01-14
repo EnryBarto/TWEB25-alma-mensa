@@ -22,7 +22,7 @@
     <main class="container-fluid">
     <?php
     if(isset($currentPage["filename"])){
-        require($currentPage["filename"]);
+        require("../src/template/".$currentPage["filename"]);
     }
     ?>
     </main>
