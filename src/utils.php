@@ -73,4 +73,9 @@ function uploadImage($path, $image){
     return array($result, $msg);
 }
 
+function logoutUser(){
+    session_unset();
+    session_destroy();
+}
+
 ?>
