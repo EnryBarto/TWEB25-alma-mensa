@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `almamensa`
 --
+create database almamensa;
+use almamensa;
 
 -- --------------------------------------------------------
 

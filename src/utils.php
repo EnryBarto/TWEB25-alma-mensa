@@ -13,12 +13,12 @@ function isActive($pagename){
 }
 
 function isUserLoggedIn(){
-    return !empty($_SESSION['username']);
+    return !empty($_SESSION['email']);
 }
 
 function registerLoggedUser($user){
     $_SESSION["email"] = $user["email"];
-    if ($user["mensa"] == null) {
+    if ($user["cliente"]) {
         $_SESSION["level"] = UserLevel::User;
     } else {
         $_SESSION["level"] = UserLevel::CanteenAdmin;
@@ -71,16 +71,6 @@ function uploadImage($path, $image){
         }
     }
     return array($result, $msg);
-}
-
-/**
- * Checks if hashed password is the same as the password provided in password
- * @param mixed $password
- * @param mixed $loginData
- * @return bool
- */
-function checkPassword($password, $loginData) {
-    return $loginData[0]['password'] === password_hash($password, PASSWORD_BCRYPT);
 }
 
 ?>

@@ -9,7 +9,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     $password = $_POST["password"];
 
     $loginData = $dbh->checkLogin($email, $password);
-    if (count($loginData) > 0 && checkPassword($password, $loginData)) {
+    if (count($loginData) > 0 && password_verify($password, $loginData[0]['password'])) {
         registerLoggedUser($loginData[0]);
     } else {
         $msg["error"] = "Email o password errati. Riprova.";
