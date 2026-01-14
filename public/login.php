@@ -11,6 +11,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     $loginData = $dbh->checkLogin($email, $password);
     if (count($loginData) > 0 && password_verify($password, $loginData[0]['password'])) {
         registerLoggedUser($loginData[0]);
+        $userData["level"] = $_SESSION["level"];
     } else {
         $msg["error"] = "Email o password errati. Riprova.";
     }
