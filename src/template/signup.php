@@ -4,6 +4,12 @@
                     <header class="mb-4 mt-4">
                         <h1>Crea account</h1>
                         <p class="text-body-secondary">Unisciti ad AlmaMensa oggi</p>
+                        <?php if (isset($msg["errore"])): ?>
+                            <div class="is-invalid"></div>
+                            <div class="mb-3 invalid-feedback">
+                                <span class="bi bi-exclamation-circle-fill"></span> <?php echo $msg["errore"]; ?>
+                            </div>
+                        <?php endif; ?>
                     </header>
                     <div class="mb-3">
                         <label for="name-input" class="form-label">Nome</label>

@@ -13,12 +13,20 @@ if (isset($_POST["name"]) && isset($_POST["surname"]) && isset($_POST["email"]) 
 
     if ($password === $confirmPassword) {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $success = $dbh->createUser($name, $surname, $email, $hashedPassword);
-        if ($success) {
-            header("Location: login.php");
-            exit();
-        } else {
-            $msg["erroreemail"] = "L'email è già in uso. Riprova con un'altra email.";
+        $exitCode = $dbh->createUser($name, $surname, $email, $hashedPassword);
+        switch ($exitCode) {
+            case 0:
+                header("Location: login.php");
+                exit();
+                break;
+
+            case 1062:
+                $msg["erroreemail"] = "L'email è già in uso. Riprova con un'altra email.";
+                break;
+
+            default:
+                $msg["errore"] = "Errore generico - Codice " . $exitCode;
+                break;
         }
     } else {
         $msg["errorpassword"] = "Le password non corrispondono. Riprova.";

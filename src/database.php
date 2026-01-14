@@ -20,18 +20,20 @@ class DatabaseHelper{
     public function createUser($name, $surname, $email, $hashedPassword){
         $this->db->begin_transaction();
         try {
-            $stmt = $this->db->prepare("INSERT INTO utenti (email, password) VALUES (?, ?);");
-            $stmt->bind_param("ss", $email, $hashedPassword);
+            $true = true;
+            $false = false;
+            $stmt = $this->db->prepare('INSERT INTO utenti (email, password, mensa, cliente) VALUES (?, ?, ?, ?);');
+            $stmt->bind_param("ssii", $email, $hashedPassword, $false, $true);
             $stmt->execute();
-            $stmt = $this->db->prepare("INSERT INTO clienti (email, name, surname) VALUES (?, ?, ?);");
+            $stmt = $this->db->prepare("INSERT INTO clienti (email, nome, cognome) VALUES (?, ?, ?);");
             $stmt->bind_param("sss", $email, $name, $surname);
             $stmt->execute();
             $this->db->commit();
         } catch (mysqli_sql_exception $e) {
             $this->db->rollback();
-            return false;
+            return $e->getCode();
         }
-        return true;
+        return 0;
     }
 }
 ?>
