@@ -60,34 +60,12 @@
         <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab"
             tabindex="0">
             <div class="row justify-content-center">
-                <?php if (count($templateParams["canteens"]) == 0): ?>
+                <?php if (count($templateParams["all"]) == 0): ?>
                     <p class="text-body-secondary">Non ci sono dati in questa sezione</p>
                 <?php endif;
-                foreach ($templateParams["canteens"] as $c): ?>
+                foreach ($templateParams["all"] as $c): ?>
                     <div class="col-10 col-md-5 col-xl-3 mb-3">
-                        <div class="card h-100">
-                            <img src="<?php echo empty($c->getImg()) ? "assets/img/no_img.jpg" : UPLOAD_DIR . $c->getImg(); ?>"
-                                class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $c->getName() ?></h5>
-                                <p class="card-text"><?php echo $c->getDescription() ?></p>
-                                <p class="card-text">
-                                    <?php for ($i = 1; $i <= $c->getAvgReviews(); $i++): ?>
-                                        <span class="bi bi-star-fill"></span>
-                                    <?php endfor;
-                                    $decimals = $c->getAvgReviews() - floor($c->getAvgReviews());
-                                    if ($decimals >= 0.5) {
-                                        echo "<span class=\"bi bi-star-half\"></span>";
-                                        $i++;
-                                    }
-                                    for (; $i <= 5; $i++): ?>
-                                        <span class="bi bi-star"></span>
-                                    <?php endfor; ?>
-                                </p>
-                                <a href="canteen_details.php?id=<?php echo $c->getId() ?>"
-                                    class="btn btn-primary mt-auto">Dettaglio</a>
-                            </div>
-                        </div>
+                        <?php include 'card.php'; ?>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -96,48 +74,30 @@
         <div class="tab-pane fade" id="pills-bar" role="tabpanel" aria-labelledby="pills-bar-tab" tabindex="0">
             <div class="row justify-content-center">
                 <!-- INIZIO SEZIONE BAR -->
-                <div class="col-10 col-md-5 col-xl-3 mb-3">
-                    <div class="card h-100">
-                        <img src="img/Volume.jpg" class="card-img-top" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">Baaaar</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up
-                                the bulk of the card’s content.</p>
-                            <p class="card-text">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                            </p>
-                            <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-                        </div>
+                <?php if (!isset($templateParams["Bar"]) || count($templateParams["Bar"]) == 0): ?>
+                    <p class="text-body-secondary">Non ci sono dati in questa sezione</p>
+                <?php else:
+                foreach ($templateParams["Bar"] as $c): ?>
+                    <div class="col-10 col-md-5 col-xl-3 mb-3">
+                        <?php include 'card.php'; ?>
                     </div>
-                </div>
+                <?php endforeach;
+                endif;?>
             </div>
             <!-- FINE SEZIONE BAR -->
         </div>
         <div class="tab-pane fade" id="pills-canteen" role="tabpanel" aria-labelledby="pills-canteen-tab" tabindex="0">
             <div class="row justify-content-center">
                 <!-- INIZIO SEZIONE MENSA -->
-                <div class="col-10 col-md-5 col-xl-3">
-                    <div class="card h-100">
-                        <img src="img/Volume.jpg" class="card-img-top" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">Mensaaaa</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up
-                                the bulk of the card’s content.</p>
-                            <p class="card-text">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                            </p>
-                            <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-                        </div>
+                <?php if (!isset($templateParams["Mensa"]) || count($templateParams["Mensa"]) == 0): ?>
+                    <p class="text-body-secondary">Non ci sono dati in questa sezione</p>
+                <?php else:
+                foreach ($templateParams["Mensa"] as $c): ?>
+                    <div class="col-10 col-md-5 col-xl-3 mb-3">
+                        <?php include 'card.php'; ?>
                     </div>
-                </div>
+                <?php endforeach;
+                endif;?>
             </div>
             <!-- FINE SEZIONE MENSA -->
         </div>
@@ -145,7 +105,15 @@
             tabindex="0">
             <!-- INIZIO SEZIONE RISTORANTE -->
             <div class="row justify-content-center">
-                <p class="text-body-secondary">Non ci sono dati in questa sezione</p>
+                <?php if (!isset($templateParams["Ristorante"]) || count($templateParams["Ristorante"]) == 0): ?>
+                    <p class="text-body-secondary">Non ci sono dati in questa sezione</p>
+                <?php else:
+                foreach ($templateParams["Ristorante"] as $c): ?>
+                    <div class="col-10 col-md-5 col-xl-3 mb-3">
+                        <?php include 'card.php'; ?>
+                    </div>
+                <?php endforeach;
+                endif;?>
                 <!-- FINE SEZIONE RISTORANTE -->
             </div>
         </div>

@@ -13,7 +13,18 @@ if (isset($_POST["sort"])) {
     $templateParams["orderBy"] = "rank-desc";
 }
 
-$templateParams["canteens"] = $dbh->getCanteens($orderBy);
+$allCanteens = $dbh->getCanteens($orderBy);
+$templateParams["all"] = $allCanteens;
+$categories = array_column($allCanteens, "category");
+$templateParams["categories"] = array_unique($categories);
+
+// Creation of arrays for each category
+foreach ($allCanteens as $c) {
+    if (!isset($templateParams[$c->getCategory()])) {
+        $templateParams[$c->getCategory()] = [];
+    }
+    array_push($templateParams[$c->getCategory()], $c);
+}
 
 require '../src/template/base.php';
 ?>
