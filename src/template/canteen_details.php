@@ -1,4 +1,7 @@
-<?php require("canteen_header.php"); ?>
+<?php
+    $canteen = $templateParams["canteen"];
+    require("canteen_header.php");
+?>
 
         <section class="row justify-content-center d-md-block">
             <div class="col-5 col-md-4 offset-md-1 d-grid gap-2 mb-md-2">
@@ -14,7 +17,7 @@
                 <ul class="list-unstyled">
                     <li class="d-flex align-items-center mb-3">
                         <span class="bi bi-geo-alt text-primary fs-3 me-3"></span>
-                        Via Principale 123, Cesena
+                        <?php echo $canteen->getAddress()->getFormatted(); ?>
                     </li>
 
                     <li class="d-flex align-items-center mb-3">

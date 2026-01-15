@@ -13,7 +13,7 @@ if (isset($_POST["sort"])) {
     $templateParams["orderBy"] = "rank-desc";
 }
 
-$templateParams["mense"] = $dbh->getCanteens($orderBy);
+$templateParams["canteens"] = $dbh->getCanteens($orderBy);
 
 require '../src/template/base.php';
 ?>

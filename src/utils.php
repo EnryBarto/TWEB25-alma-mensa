@@ -1,11 +1,5 @@
 <?php
 
-enum UserLevel {
-    case NotLogged;
-    case CanteenAdmin;
-    case User;
-}
-
 function isActive($pagename){
     if(basename($_SERVER['PHP_SELF'])==$pagename){
         echo " class='active' ";
@@ -19,7 +13,7 @@ function isUserLoggedIn(){
 function registerLoggedUser($user){
     $_SESSION["email"] = $user["email"];
     if ($user["cliente"]) {
-        $_SESSION["level"] = UserLevel::User;
+        $_SESSION["level"] = UserLevel::Customer;
     } else {
         $_SESSION["level"] = UserLevel::CanteenAdmin;
     }

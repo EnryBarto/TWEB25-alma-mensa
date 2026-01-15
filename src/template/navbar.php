@@ -17,7 +17,7 @@
                         case UserLevel::CanteenAdmin:
                             require("navbars/canteen.php");
                             break;
-                        case UserLevel::User:
+                        case UserLevel::Customer:
                             require("navbars/user.php");
                             break;
                     }
