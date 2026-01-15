@@ -1,6 +1,7 @@
 <?php
 define("UPLOAD_DIR", "../public/upload/");
 
+require_once("classes.php");
 require_once("utils.php");
 require_once("database.php");
 

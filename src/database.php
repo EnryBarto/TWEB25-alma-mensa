@@ -40,7 +40,12 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("SELECT m.*, r.media_voti, c.nome AS categoria FROM mense AS m JOIN (SELECT id_mensa, AVG(voto) as media_voti FROM `recensioni` GROUP BY id_mensa) AS r ON m.id = r.id_mensa JOIN categorie c ON m.id_categoria = c.id;");
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
+
+        $list = array();
+        foreach ($result->fetch_all(MYSQLI_ASSOC) as $c) {
+            array_push($list, new Canteen($c["id"], $c["email"], $c["nome"], $c["descrizione"], $c["ind_civico"], $c["ind_via"], $c["ind_comune"], $c["ind_cap"], $c["coo_latitudine"], $c["coo_longitudine"], $c["num_posti"], $c["immagine"], $c["categoria"], $c["media_voti"]));
+        }
+        return $list;
     }
 }
 ?>
