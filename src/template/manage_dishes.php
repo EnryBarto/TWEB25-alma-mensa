@@ -3,7 +3,7 @@
         </header>
         <!-- Add dish button -->
         <div class="d-flex justify-content-center mb-3">
-            <a href="create_dish.html" class="btn btn-primary col-9">Aggiungi Piatto</a>
+            <a href="create_dish.php" class="btn btn-primary col-9">Aggiungi Piatto</a>
         </div>
         <div class="container mb-5">
             <div class="row justify-content-center">

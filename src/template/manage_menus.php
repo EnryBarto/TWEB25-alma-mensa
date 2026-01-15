@@ -3,7 +3,7 @@
         </header>
         <!-- Add menu button -->
         <div class="d-flex justify-content-center mb-3">
-            <a href="create_menu.html" class="btn btn-primary col-9">Aggiungi Menù</a>
+            <a href="create_menu.php" class="btn btn-primary col-9">Aggiungi Menù</a>
         </div>
         <div class="container mb-5">
             <div class="row justify-content-center">

@@ -12,7 +12,7 @@
                             <div class="mb-4">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h6 class="text-uppercase text-secondary small mb-0">Piatti</h6>
-                                    <a href="create_dish.html" class="btn btn-sm btn-outline-primary">
+                                    <a href="create_dish.php" class="btn btn-sm btn-outline-primary">
                                         <i class="bi bi-plus-lg"></i> Aggiungi Piatto
                                     </a>
                                 </div>
