@@ -15,8 +15,7 @@ if (isset($_POST["sort"])) {
 
 $allCanteens = $dbh->getCanteens($orderBy);
 $templateParams["all"] = $allCanteens;
-$categories = array_column($allCanteens, "category");
-$templateParams["categories"] = array_unique($categories);
+$templateParams["categories"] = $dbh->getCategories();
 
 // Creation of arrays for each category
 foreach ($allCanteens as $c) {

@@ -65,5 +65,9 @@ class DatabaseHelper{
         }
     }
 
+    public function getCategories() {
+        $result = $this->db->query("SELECT nome FROM categorie;");
+        return array_column($result->fetch_all(MYSQLI_ASSOC), "nome");
+    }
 }
 ?>
