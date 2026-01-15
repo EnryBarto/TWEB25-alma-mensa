@@ -78,4 +78,19 @@ function logoutUser(){
     session_destroy();
 }
 
+function getOrderByFromSelectValue($sortValue) {
+    switch ($sortValue) {
+        case "rank-asc":
+            return "media_voti ASC";
+        case "rank-desc":
+            return "media_voti DESC";
+        case "alphabetical-asc":
+            return "nome ASC";
+        case "alphabetical-desc":
+            return "nome DESC";
+        default:
+            return "media_voti DESC";
+    }
+}
+
 ?>
