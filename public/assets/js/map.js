@@ -160,7 +160,6 @@ async function getSelectedCanteenCardHtml(canteenId) {
             throw new Error("Response status: " + response);
         }
         const html = await response.text();
-        console.log(html)
         return html;
     } catch(error) {
         console.log(error.message, error.stack);
