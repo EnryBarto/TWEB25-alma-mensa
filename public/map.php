@@ -8,5 +8,7 @@ $currentPage["cssfile"] = "map.css";
 $currentPage["externalcssfile"] = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
 $currentPage["externalscriptfile"] = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
 
+$templateParams["categories"] = $dbh->getCategories();
+
 require '../src/template/base.php';
 ?>

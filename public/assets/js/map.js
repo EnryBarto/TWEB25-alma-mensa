@@ -1,3 +1,21 @@
+class MapWrapper {
+
+    constructor(id, name) {
+        this.id = id;
+        this.name = name;
+        this.map = null;
+        this.markers = new Map();
+    }
+
+    addMarker(canteen, marker) {
+        this.markers.set(canteen.id, marker);
+    }
+
+    addMap(map) {
+        this.map = map;
+    }
+}
+
 /* Icon definition */
 var defaultIcon = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
@@ -17,86 +35,45 @@ var selectedIcon = new L.Icon({
   shadowSize: [41, 41]
 });
 
-
 /* Map initialization */
 const view = [44.1434086,12.2563127];
 const zoom = 13;
 
-// Now hardcoded for each category. In the future it should be based on the categories available.
-const maps = new Map([
-    ['all', L.map('map-all').setView(view, zoom)],
-    ['canteen', L.map('map-canteen').setView(view, zoom)],
-    ['restaurant', L.map('map-restaurant').setView(view, zoom)],
-    ['bar', L.map('map-bar').setView(view, zoom)]
-]);
+const mapObjs = [...document.getElementsByClassName("map-main")].map((e) => {return new MapWrapper(e.id, e.id.slice(4))});
+
+
+mapObjs.forEach((mapObj) => {
+    mapObj.addMap(L.map(mapObj.id).setView(view, zoom));
+});
 
 initializeTabChangeListener();
 
-maps.forEach((map) => {
+mapObjs.forEach((mapObj) => {
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+    }).addTo(mapObj.map);
 });
 
-const locations = new Map([
-    ["Bar Volume", [44.147839,12.2354743]],
-    ["Mensa coop", [44.1451961,12.2371467]],
-    ["Da zhou", [44.1443677,12.2516075]]
-]);
-
-const markers = new Map();
-for (const [name, coords] of locations.entries()) {
-    let marker = L.marker(coords, {icon: defaultIcon}).addTo(maps.get('all')).on('click', () => {
-        showSelectedPlace(name);
-    });
-    addMarker(name, marker);
-}
-
-// Rudimental implementation. JTK it works. (Replace with class implementation)
-let m = L.marker(locations.get("Bar Volume"), {icon: defaultIcon}).addTo(maps.get('bar')).on('click', () => {
-    showSelectedPlace("Bar Volume");
-});
-addMarker("Bar Volume", m);
-
-m = L.marker(locations.get("Mensa coop"), {icon: defaultIcon}).addTo(maps.get('canteen')).on('click', () => {
-    showSelectedPlace("Mensa coop");
-});
-addMarker("Mensa coop", m);
-
-m = L.marker(locations.get("Da zhou"), {icon: defaultIcon}).addTo(maps.get('bar')).on('click', () => {
-    showSelectedPlace("Da zhou");
-});
-addMarker("Da zhou", m);
-
-/**
- * Function to add a marker to the markers map. It creates the array if it does not exist.
- * @param {*} name Marker name
- * @param {*} marker Marker object
- */
-function addMarker(name, marker) {
-    if (!markers.has(name)) {
-        markers.set(name, []);
-    }
-    markers.get(name).push(marker);
-}
+fetchData();
 
 /**
  * Function to show the selected place by changing its icon and updating the selected item card.
- * @param {*} selectedKey key associated with an array of markers
+ * @param {*} canteen Canteen object representing the selected place.
  */
-function showSelectedPlace(selectedKey) {
-    markers.forEach((arr) => {
-        arr.forEach((marker) => {
+function showSelectedPlace(canteen) {
+    mapObjs.forEach((mapObj) => {
+        mapObj.markers.entries().forEach(([, marker]) => {
             marker.setIcon(defaultIcon);
         });
+        mapObj.markers.get(canteen.id)?.setIcon(selectedIcon);
     });
-    markers.get(selectedKey).forEach((marker) => {
-        marker.setIcon(selectedIcon);
-    });
+
     const selectedItemContainer = document.getElementById("selected-item");
 
-    selectedItemContainer.innerHTML = '<div class="card h-100 mb-3"><img src="img/Volume.jpg" class="card-img-top" alt=""><div class="card-body"><h5 class="card-title">' + selectedKey + '</h5><p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p><p class="card-text"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></p><a href="#" class="btn btn-primary mt-auto">Go somewhere</a></div>';
+    getSelectedCanteenCardHtml(canteen.id).then((html) => {
+        selectedItemContainer.innerHTML = html;
+    });
 }
 
 /**
@@ -110,13 +87,82 @@ function initializeTabChangeListener() {
                 return;
             }
             const key = targetId.replace('#pills-', '');
-            const map = maps.get(key);
-            if (map) {
+            const mapObj = mapObjs.find(m => m.name === key);
+            if (mapObj) {
                 setTimeout(() => {
-                    map.invalidateSize();
-                    map.setView(view, zoom);
+                    mapObj.map.invalidateSize();
+                    mapObj.map.setView(view, zoom);
                 }, 150);
             }
         });
     });
+}
+
+/**
+ * Function to populate the map with canteens markers.
+ * @param {JSON} data JSON object containing canteens data categorized by type.
+ */
+function populateMap(data) {
+    Object.entries(data).forEach((category) => {
+        const categoryName = category[0].toLocaleLowerCase();
+        const canteens = category[1];
+        if (canteens.length > 0) {
+            canteens.forEach((canteen) => {
+                const coords = [parseFloat(canteen.lat), parseFloat(canteen.long)];
+                const m = L.marker(coords, {icon: defaultIcon})
+                .addTo(mapFromCategoryName(mapObjs, categoryName).map)
+                .on('click', () => {
+                    showSelectedPlace(canteen);
+                });
+                mapFromCategoryName(mapObjs, categoryName).addMarker(canteen, m);
+            });
+        }
+    });
+}
+
+/**
+ * 
+ * @param {Array} mapObjs Array containing MapWrapper objects
+ * @param {String} categoryName Name of the category where to get the map from
+ * @returns MapWrapper object associated to the given category name
+ */
+function mapFromCategoryName(mapObjs, categoryName) {
+    return mapObjs.find(m => m.name === categoryName);
+}
+
+/**
+ * Function to fetch canteens data from the server.
+ */
+async function fetchData() {
+    const url = 'api_get_canteens.php';
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("Response status: " + response);
+        }
+        const json = await response.json();
+        populateMap(json);
+    } catch(error) {
+        console.log(error.message, error.stack);
+    }
+}
+
+/**
+ * Function to fetch the HTML code of the selected canteen card.
+ * @param {*} canteenId Id of the canteen
+ * @returns HTML code of the card
+ */
+async function getSelectedCanteenCardHtml(canteenId) {
+    const url = `api_get_canteen_card_html.php?id=${canteenId}`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("Response status: " + response);
+        }
+        const html = await response.text();
+        console.log(html)
+        return html;
+    } catch(error) {
+        console.log(error.message, error.stack);
+    }
 }
