@@ -14,16 +14,10 @@ if (isset($_POST["sort"])) {
 }
 
 $allCanteens = $dbh->getCanteens($orderBy);
-$templateParams["all"] = $allCanteens;
 $templateParams["categories"] = $dbh->getCategories();
+$templateParams["all"] = $allCanteens;
 
-// Creation of arrays for each category
-foreach ($allCanteens as $c) {
-    if (!isset($templateParams[$c->getCategory()])) {
-        $templateParams[$c->getCategory()] = [];
-    }
-    array_push($templateParams[$c->getCategory()], $c);
-}
+$templateParams += divideCanteensInCategories($allCanteens);
 
 require '../src/template/base.php';
 ?>

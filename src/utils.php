@@ -72,6 +72,17 @@ function logoutUser(){
     session_destroy();
 }
 
+function divideCanteensInCategories($canteens){
+    $ret = [];
+    foreach ($canteens as $c) {
+        if (!isset($ret[$c->getCategory()])) {
+            $ret[$c->getCategory()] = [];
+        }
+        array_push($ret[$c->getCategory()], $c);
+    }
+    return $ret;
+}
+
 function getOrderByFromSelectValue($sortValue) {
     switch ($sortValue) {
         case "rank-asc":

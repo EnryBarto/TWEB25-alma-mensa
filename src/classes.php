@@ -5,7 +5,7 @@ enum UserLevel {
     case Customer;
 }
 
-class Address {
+class Address implements JsonSerializable {
     public $num;
     public $avenue;
     public $municipality;
@@ -21,9 +21,18 @@ class Address {
     public function getFormatted() {
         return $this->avenue . " n." . $this->num . ", " . $this->postalCode . " " . $this->municipality;
     }
+
+    public function jsonSerialize(): array {
+        return [
+            'num' => $this->num,
+            'avenue' => $this->avenue,
+            'municipality' => $this->municipality,
+            'postalCode' => $this->postalCode,
+        ];
+    }
 }
 
-class Canteen {
+class Canteen implements JsonSerializable {
     private $id;
     private $email;
     private $name;
@@ -98,6 +107,23 @@ class Canteen {
 
     public function getNumReviews() {
         return $this->numReviews;
+    }
+
+    public function jsonSerialize(): array {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'name' => $this->name,
+            'desc' => $this->desc,
+            'address' => $this->address instanceof JsonSerializable ? $this->address : $this->address,
+            'long' => $this->long,
+            'lat' => $this->lat,
+            'maxSeatings' => $this->maxSeatings,
+            'img' => $this->img,
+            'category' => $this->category,
+            'avgReviews' => $this->avgReviews,
+            'numReviews' => $this->numReviews,
+        ];
     }
 }
 
