@@ -36,8 +36,11 @@ class DatabaseHelper{
         return 0;
     }
 
-    public function getCanteens() {
-        $stmt = $this->db->prepare("SELECT m.*, r.media_voti, c.nome AS categoria FROM mense AS m JOIN (SELECT id_mensa, AVG(voto) as media_voti FROM `recensioni` GROUP BY id_mensa) AS r ON m.id = r.id_mensa JOIN categorie c ON m.id_categoria = c.id;");
+    public function getCanteens($orderBy) {
+        if (empty($orderBy)) {
+            $orderBy = "media_voti DESC";
+        }
+        $stmt = $this->db->prepare("SELECT m.*, r.media_voti, c.nome AS categoria FROM mense AS m JOIN (SELECT id_mensa, AVG(voto) as media_voti FROM `recensioni` GROUP BY id_mensa) AS r ON m.id = r.id_mensa JOIN categorie c ON m.id_categoria = c.id ORDER BY $orderBy;");
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
