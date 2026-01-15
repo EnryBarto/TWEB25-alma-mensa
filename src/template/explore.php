@@ -49,64 +49,34 @@
                 <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab"
                     tabindex="0">
                     <div class="row justify-content-center">
-                        <!-- INIZIO SEZIONE TUTTO -->
+                        <?php if(count($templateParams["mense"]) == 0): ?>
+                        <p class="text-body-secondary">Non ci sono dati in questa sezione</p>
+                        <?php endif;
+                        foreach ($templateParams["mense"] as $mensa): ?>
                         <div class="col-10 col-md-5 col-xl-3 mb-3">
-                            <!-- INIZIO CARD 1 -->
                             <div class="card h-100">
-                                <img src="img/Volume.jpg" class="card-img-top" alt="">
+                                <img src="<?php echo empty($mensa["immagine"]) ? "assets/img/no_img.jpg" : UPLOAD_DIR . $mensa["immagine"] ?>" class="card-img-top" alt="">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title 1</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card’s content.</p>
+                                    <h5 class="card-title"><?php echo $mensa["nome"]?></h5>
+                                    <p class="card-text"><?php echo $mensa["descrizione"] ?></p>
                                     <p class="card-text">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
+                                        <?php for ($i = 1; $i <= $mensa["media_voti"]; $i++): ?>
+                                            <span class="bi bi-star-fill"></span>
+                                        <?php endfor;
+                                        $decimals = $mensa["media_voti"] - floor($mensa["media_voti"]);
+                                        if ($decimals >= 0.5) {
+                                            echo "<span class=\"bi bi-star-half\"></span>";
+                                            $i++;
+                                        }
+                                        for ( ; $i <= 5; $i++): ?>
+                                            <span class="bi bi-star"></span>
+                                        <?php endfor; ?>
                                     </p>
-                                    <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                                    <a href="canteen_details.php?id=<?php echo $mensa["id"] ?>" class="btn btn-primary mt-auto">Dettaglio</a>
                                 </div>
                             </div>
                         </div>
-                        <!-- INIZIO CARD 2 -->
-                        <div class="col-10 col-md-5 col-xl-3 mb-3">
-                            <div class="card h-100">
-                                <img src="img/Volume.jpg" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title 2</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card’s content.</p>
-                                    <p class="card-text">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
-                                        <i class="bi bi-star"></i>
-                                    </p>
-                                    <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- INIZIO CARD 3 -->
-                        <div class="col-10 col-md-5 col-xl-3 mb-3">
-                            <div class="card h-100">
-                                <img src="img/Volume.jpg" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title 3</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card’s content.</p>
-                                    <p class="card-text">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
-                                    </p>
-                                    <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
                 <!-- FINE SEZIONE TUTTO -->
