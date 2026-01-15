@@ -5,7 +5,7 @@
 <div class="container text-center justify-content-center">
     <div class="row justify-content-center border-bottom border-dark p-1">
         <div class="col-12">
-            <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
+            <ul class="nav nav-pills justify-content-center mx-1" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link border border-2 rounded-pill active" id="pills-all-tab"
                         data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab"
@@ -14,7 +14,7 @@
                 <?php if (isset($templateParams["categories"])):
                     foreach ($templateParams["categories"] as $category):;?>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link border border-2 rounded-pill" id="pills-bar-tab" data-bs-toggle="pill"
+                            <button class="nav-link border border-2 rounded-pill mx-1" id="pills-bar-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-<?php echo strtolower($category); ?>" type="button" role="tab"
                                 aria-controls="pills-<?php echo strtolower($category); ?>"
                                 aria-selected="false"><?php echo $category; ?></button>
@@ -71,12 +71,12 @@
             </div>
         </div>
         <!-- FINE SEZIONE TUTTO -->
+        <!-- INIZIO SEZIONI CATEGORIE -->
         <?php if (isset($templateParams["categories"])):
             foreach ($templateParams["categories"] as $category): ?>
                 <div class="tab-pane fade" id="pills-<?php echo strtolower($category); ?>" role="tabpanel"
                     aria-labelledby="pills-<?php echo strtolower($category); ?>-tab" tabindex="0">
                     <div class="row justify-content-center">
-                        <!-- INIZIO SEZIONI CATEGORIE -->
                         <?php if (!isset($templateParams[$category]) || count($templateParams[$category]) == 0): ?>
                             <p class="text-body-secondary">Non ci sono dati in questa sezione</p>
                         <?php else:
@@ -87,9 +87,9 @@
                             <?php endforeach;
                         endif; ?>
                     </div>
-                    <!-- FINE SEZIONI CATEGORIE -->
                 </div>
-            <?php endforeach;
+                <?php endforeach;
         endif; ?>
+        <!-- FINE SEZIONI CATEGORIE -->
     </div>
 </div>
