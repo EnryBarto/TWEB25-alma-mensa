@@ -19,7 +19,7 @@ class Address {
     }
 
     public function getFormatted() {
-        return $avenue . " n." . $num . ", " . $postalCode . " " . $municipality;
+        return $this->avenue . " n." . $this->num . ", " . $this->postalCode . " " . $this->municipality;
     }
 }
 
@@ -35,8 +35,9 @@ class Canteen {
     private $img;
     private $category;
     private $avgReviews;
+    private $numReviews;
 
-    public function __construct($id, $email, $name, $desc, $number, $avenue, $municipality, $postalCode, $lat, $long, $maxSeatings, $img, $category, $avgReviews) {
+    public function __construct($id, $email, $name, $desc, $number, $avenue, $municipality, $postalCode, $lat, $long, $maxSeatings, $img, $category, $avgReviews, $numReviews) {
         $this->id = $id;
         $this->email = $email;
         $this->name = $name;
@@ -45,9 +46,10 @@ class Canteen {
         $this->long = $long;
         $this->lat = $lat;
         $this->maxSeatings = $maxSeatings;
-        $this->img = $img;
+        $this->img = empty($img) ? "" : $img;
         $this->category = $category;
         $this->avgReviews = $avgReviews;
+        $this->numReviews = $numReviews;
     }
 
     public function getId() {
@@ -62,7 +64,7 @@ class Canteen {
         return $this->name;
     }
 
-    public function getDesc() {
+    public function getDescription() {
         return $this->desc;
     }
 
@@ -92,6 +94,10 @@ class Canteen {
 
     public function getAvgReviews() {
         return $this->avgReviews;
+    }
+
+    public function getNumReviews() {
+        return $this->numReviews;
     }
 }
 
