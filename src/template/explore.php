@@ -14,7 +14,7 @@
                 <?php if (isset($templateParams["categories"])):
                     foreach ($templateParams["categories"] as $category):;?>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link border border-2 rounded-pill mx-1" id="pills-bar-tab" data-bs-toggle="pill"
+                            <button class="nav-link border border-2 rounded-pill mx-1" id="pills-<?php echo strtolower($category); ?>-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-<?php echo strtolower($category); ?>" type="button" role="tab"
                                 aria-controls="pills-<?php echo strtolower($category); ?>"
                                 aria-selected="false"><?php echo $category; ?></button>
