@@ -187,16 +187,18 @@ class Review {
     private $desc;
     private $dateTime;
     private $canteenId;
+    private $authorEmail;
     private $authorSurname;
     private $authorName;
 
-    public function __construct($id, $value, $title, $desc, $dateTime, $canteenId, $authorSurname, $authorName) {
+    public function __construct($id, $value, $title, $desc, $dateTime, $canteenId, $authorEmail, $authorSurname, $authorName) {
         $this->id = $id;
         $this->value = $value;
         $this->title = $title;
         $this->desc = $desc;
         $this->dateTime = $dateTime instanceof DateTime ? $dateTime : new DateTime($dateTime);
         $this->canteenId = $canteenId;
+        $this->authorEmail = $authorEmail;
         $this->authorSurname = $authorSurname;
         $this->authorName = $authorName;
     }
@@ -223,6 +225,10 @@ class Review {
 
     public function getCanteenId() {
         return $this->canteenId;
+    }
+
+    public function getAuthorEmail() {
+        return $this->authorEmail;
     }
 
     public function getAuthor() {

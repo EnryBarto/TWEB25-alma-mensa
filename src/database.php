@@ -152,16 +152,31 @@ class DatabaseHelper{
     }
 
     public function getCanteenReviews($canteenId) {
-        $query = "SELECT r.*, c.* FROM `recensioni` r JOIN utenti u ON r.email = u.email JOIN clienti c ON u.email = c.email ORDER BY data_ora DESC;";
+        $query = "SELECT r.*, c.* FROM `recensioni` r JOIN utenti u ON r.email = u.email JOIN clienti c ON u.email = c.email WHERE r.id_mensa = ? ORDER BY data_ora DESC;";
         $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $canteenId);
         $stmt->execute();
         $result = $stmt->get_result();
 
         $list = array();
         foreach ($result->fetch_all(MYSQLI_ASSOC) as $r) {
-            array_push($list, new Review($r["id"], $r["voto"], $r["titolo"], $r["descrizione"], $r["data_ora"], $r["id_mensa"], $r["cognome"], $r["nome"]));
+            array_push($list, new Review($r["id"], $r["voto"], $r["titolo"], $r["descrizione"], $r["data_ora"], $r["id_mensa"], $r["email"], $r["cognome"], $r["nome"]));
         }
         return $list;
+    }
+
+    public function getCanteenReviewById($reviewId) {
+        $query = "SELECT r.*, c.* FROM `recensioni` r JOIN utenti u ON r.email = u.email JOIN clienti c ON u.email = c.email WHERE r.id = ?;";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $reviewId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $r = $result->fetch_assoc();
+            return new Review($r["id"], $r["voto"], $r["titolo"], $r["descrizione"], $r["data_ora"], $r["id_mensa"], $r["email"], $r["cognome"], $r["nome"]);
+        } else {
+            return null;
+        }
     }
 
     public function insertReview($canteenId, $authorEmail, $title, $description, $value) {
@@ -174,6 +189,28 @@ class DatabaseHelper{
             return $e->getCode();
         }
         return 0;
+    }
+
+    public function updateReview($reviewId, $title, $description, $value) {
+        $timestamp = date("Y/m/d H:i:s");
+        try {
+            $stmt = $this->db->prepare('UPDATE recensioni SET voto=?, titolo=?, descrizione=?, data_ora=? WHERE id=?');
+            $stmt->bind_param("isssi", $value, $title, $description, $timestamp, $reviewId);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return $e->getCode();
+        }
+        if ($stmt->affected_rows == 0) {
+            return -2;
+        } else {
+            return 0;
+        }
+    }
+
+    public function deleteReview($reviewId) {
+        $stmt = $this->db->prepare('DELETE FROM recensioni WHERE id=?');
+        $stmt->bind_param("i", $reviewId);
+        $stmt->execute();
     }
 }
 ?>
