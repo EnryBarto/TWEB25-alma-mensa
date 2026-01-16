@@ -1,13 +1,6 @@
-        <header class="row justify-content-center mt-4">
-            <div class="col-10">
-                <h1>Bar Volume</h1>
-            </div>
-        </header>
+<?php require("canteen_header_lite.php") ?>
 
         <form class="row justify-content-center" action="." method="POST">
-            <div class="col-10 mb-3">
-                <h2 class="text-primary">Prenota un tavolo</h2>
-            </div>
             <div class="col-10">
                 <label for="date" class="form-label"><span class="bi bi-calendar text-primary"></span> Seleziona data</label>
             </div>

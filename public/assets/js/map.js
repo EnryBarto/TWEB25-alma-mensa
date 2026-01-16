@@ -24,7 +24,7 @@ const mapObjs = [...document.getElementsByClassName("map-main")].map((e) => { re
 
 
 mapObjs.forEach((mapObj) => {
-    mapObj.addMap(L.map(mapObj.id).setView(view, zoom));
+    mapObj.addMap(L.map(mapObj.id).setView(view, zoom).locate().on('locationfound', onLocationFound));
 });
 
 initializeTabChangeListener();
@@ -78,6 +78,14 @@ function initializeTabChangeListener() {
         });
     });
 }
+
+function onLocationFound(e) {
+    var radius = e.accuracy;
+    mapObjs.forEach((mapObj) => {
+        L.circle(e.latlng, radius).addTo(mapObj.map);
+    })
+;}
+
 
 /**
  * Function to populate the map with canteens markers.

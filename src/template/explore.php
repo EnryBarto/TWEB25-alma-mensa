@@ -5,7 +5,7 @@
 <div class="container text-center justify-content-center">
     <div class="row justify-content-center border-bottom border-dark p-1">
         <div class="col-12">
-            <ul class="nav nav-pills justify-content-center mx-1" id="pills-tab" role="tablist">
+            <ul class="nav nav-pills justify-content-center mx-1 mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link border border-2 rounded-pill active" id="pills-all-tab"
                         data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab"
@@ -40,6 +40,10 @@
                                 echo "selected"; ?>>Recensioni più alte</option>
                             <option value="rank-asc" <?php if ($templateParams["orderBy"] === "rank-asc")
                                 echo "selected"; ?>>Recensioni più basse</option>
+                            <option value="num-rew-desc" <?php if ($templateParams["orderBy"] === "num-rew-desc")
+                                echo "selected"; ?>>Numero di recensioni più alto</option>
+                            <option value="num-rew-asc" <?php if ($templateParams["orderBy"] === "num-rew-asc")
+                                echo "selected"; ?>>Numero di recensioni più basso</option>
                             <option value="alphabetical-asc" <?php if ($templateParams["orderBy"] === "alphabetical-asc")
                                 echo "selected"; ?>>Ordinamento alfabetico A-Z</option>
                             <option value="alphabetical-desc" <?php if ($templateParams["orderBy"] === "alphabetical-desc")
@@ -64,7 +68,7 @@
                     <p class="text-body-secondary">Non ci sono dati in questa sezione</p>
                 <?php endif;
                 foreach ($templateParams["all"] as $c): ?>
-                    <div class="col-10 col-md-5 col-xl-3 mb-3">
+                    <div class="col-10 col-md-6 col-lg-4 col-xl-3 mb-3">
                         <?php include 'card.php'; ?>
                     </div>
                 <?php endforeach; ?>

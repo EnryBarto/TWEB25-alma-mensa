@@ -150,5 +150,30 @@ class DatabaseHelper{
         }
         return $list;
     }
+
+    public function getCanteenReviews($canteenId) {
+        $query = "SELECT r.*, c.* FROM `recensioni` r JOIN utenti u ON r.email = u.email JOIN clienti c ON u.email = c.email ORDER BY data_ora DESC;";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $list = array();
+        foreach ($result->fetch_all(MYSQLI_ASSOC) as $r) {
+            array_push($list, new Review($r["id"], $r["voto"], $r["titolo"], $r["descrizione"], $r["data_ora"], $r["id_mensa"], $r["cognome"], $r["nome"]));
+        }
+        return $list;
+    }
+
+    public function insertReview($canteenId, $authorEmail, $title, $description, $value) {
+        $timestamp = date("Y/m/d H:i:s");
+        try {
+            $stmt = $this->db->prepare('INSERT INTO recensioni (voto, titolo, descrizione, data_ora, id_mensa, email) VALUES (?, ?, ?, ?, ?, ?);');
+            $stmt->bind_param("isssis", $value, $title, $description, $timestamp, $canteenId, $authorEmail);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+    }
 }
 ?>

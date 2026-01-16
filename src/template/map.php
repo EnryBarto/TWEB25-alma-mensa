@@ -1,12 +1,12 @@
 <section>
     <header class="mt-3 text-center container">
-        <h1>Le nostre mense</h1>
-        <p class="text-body-secondary">Trova la mensa che preferisci</p>
+        <h1>Esplora la mappa</h1>
+        <p class="text-body-secondary">Trova la mensa nelle tue vicinanze</p>
     </header>
     <div class="container text-center justify-content-center">
         <div class="row justify-content-center border-bottom border-dark p-1">
             <div class="col-12">
-                <ul class="nav nav-pills justify-content-center mx-1" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills justify-content-center mx-1 mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link border border-2 rounded-pill active" id="pills-all-tab"
                             data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab"
@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="container mb-5">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-3">
             <div class="col-10 col-xl-6">
                 <div class="tab-content" id="pills-tabContent">
                     <!-- INIZIO SEZIONE TUTTO -->
