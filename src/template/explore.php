@@ -5,7 +5,7 @@
 <div class="container text-center justify-content-center">
     <div class="row justify-content-center border-bottom border-dark p-1">
         <div class="col-12">
-            <ul class="nav nav-pills justify-content-center mx-1" id="pills-tab" role="tablist">
+            <ul class="nav nav-pills justify-content-center mx-1 mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link border border-2 rounded-pill active" id="pills-all-tab"
                         data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab"
