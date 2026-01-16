@@ -17,18 +17,16 @@
     <?php endif; ?>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <?php require("navbar.php"); ?>
-    <main class="container-fluid">
+    <main class="container-fluid flex-grow-1">
     <?php
     if(isset($currentPage["filename"])){
         require("../src/template/".$currentPage["filename"]);
     }
     ?>
     </main>
-    <footer class="container-fluid mt-2">
-        <p>FOOTER: TODO</p>
-    </footer>
+    <?php require("footer.php"); ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
