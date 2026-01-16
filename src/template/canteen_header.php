@@ -7,7 +7,7 @@
             <?php else: ?>
             <div class="col-10">
             <?php endif; ?>
-                <h1><?php echo $canteen->getName() ?></h1>
+                <a class="col-10 p-0 text-dark h1 d-block" href="canteen_details.php?id=<?php echo $templateParams["canteen"]->getId(); ?>"><?php echo $templateParams["canteen"]->getName(); ?></a>
                 <p class="badge bg-secondary"><?php echo $canteen->getCategory() ?></p>
                 <p>
                 <?php
