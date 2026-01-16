@@ -28,7 +28,7 @@
 <div class="container mt-3">
     <div class="row justify-content-center mb-3">
         <div class="col-10">
-            <form action="#" method="post">
+            <form action="#" method="get">
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <p><span class="bi bi-sliders2 text-primary"></span> Filtri</p>
