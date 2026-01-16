@@ -105,4 +105,18 @@ function getOrderByFromSelectValue($sortValue) {
     }
 }
 
+function printStars($value) {
+    for ($i = 1; $i <= $value; $i++) {
+        echo "<span class=\"bi bi-star-fill\"></span>\n";
+    }
+    $decimals = $value - floor($value);
+    if ($decimals >= 0.5) {
+        echo "<span class=\"bi bi-star-half\"></span>\n";
+        $i++;
+    }
+    for ( ; $i <= 5; $i++) {
+        echo "<span class=\"bi bi-star\"></span>\n";
+    }
+}
+
 ?>

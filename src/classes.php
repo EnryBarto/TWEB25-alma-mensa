@@ -180,4 +180,55 @@ class Reservation {
     }
 }
 
+class Review {
+    private $id;
+    private $value;
+    private $title;
+    private $desc;
+    private $dateTime;
+    private $canteenId;
+    private $authorSurname;
+    private $authorName;
+
+    public function __construct($id, $value, $title, $desc, $dateTime, $canteenId, $authorSurname, $authorName) {
+        $this->id = $id;
+        $this->value = $value;
+        $this->title = $title;
+        $this->desc = $desc;
+        $this->dateTime = $dateTime instanceof DateTime ? $dateTime : new DateTime($dateTime);
+        $this->canteenId = $canteenId;
+        $this->authorSurname = $authorSurname;
+        $this->authorName = $authorName;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getValue() {
+        return $this->value;
+    }
+
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function getDescription() {
+        return $this->desc;
+    }
+
+    public function getTimestamp() {
+        return date_format($this->dateTime,"d/m/Y H:i");
+    }
+
+    public function getCanteenId() {
+        return $this->canteenId;
+    }
+
+    public function getAuthor() {
+        return $this->authorSurname . " " . $this->authorName;
+    }
+
+}
+
 ?>

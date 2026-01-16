@@ -6,17 +6,7 @@
         <p class="card-text"><?php echo $c->getDescription() ?></p>
         <p class="card-text" title="Valutazione media e numero di recensioni">
             <span title="Valutazione media: <?php echo number_format($c->getAvgReviews(), 1); ?>">
-                <?php for ($i = 1; $i <= $c->getAvgReviews(); $i++): ?>
-                    <span class="bi bi-star-fill"></span>
-                <?php endfor;
-                $decimals = $c->getAvgReviews() - floor($c->getAvgReviews());
-                if ($decimals >= 0.5) {
-                    echo "<span class=\"bi bi-star-half\"></span>";
-                    $i++;
-                }
-                for (; $i <= 5; $i++): ?>
-                    <span class="bi bi-star"></span>
-                <?php endfor; ?>
+                <?php printStars($c->getAvgReviews()); ?>
             </span>
             <span class="text-body-secondary"><?php echo number_format($c->getAvgReviews(), 1); ?> su
                 <?php echo $c->getNumReviews(); ?> recensioni</span>
