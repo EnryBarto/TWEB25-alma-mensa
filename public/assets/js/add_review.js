@@ -1,4 +1,7 @@
 function setVote(val) {
+    if (val > 5) val = 5;
+    else if (val < 1) val = 1;
+
     let stars = document.getElementById("stars").children;
     let i;
 
@@ -12,4 +15,7 @@ function setVote(val) {
     }
 
     document.getElementById("vote").value = val;
+    return val;
 }
+
+document.getElementsByTagName("body")[0].onload = setVote(document.getElementById("vote").value);

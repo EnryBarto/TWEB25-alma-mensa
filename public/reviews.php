@@ -1,6 +1,14 @@
 <?php
 require_once '../src/bootstrap.php';
 
+if (isset($_GET["id"])) {
+    $templateParams["canteen"] = $dbh->getCanteenById($_GET["id"]);
+    $templateParams["reviews"] = $dbh->getCanteenReviews($_GET["id"]);
+} else {
+    header("Location: explore.php");
+    exit();
+}
+
 $currentPage["title"] = "Recensioni";
 $currentPage["filename"] = "reviews.php";
 

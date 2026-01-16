@@ -1,38 +1,41 @@
-        <header class="row justify-content-center mt-md-4">
-            <div class="col-12 col-md-4 offset-md-1 order-md-2 p-0">
-                <img src="assets/img/Volume.jpg" class="img-fluid mb-3" alt="">
-            </div>
-            <div class="col-10 col-md-5 order-md-1">
-                <h1>Bar Volume</h1>
-                <p class="badge bg-secondary">Bar</p>
-                <p class="col-10 text-primary p-0 fs-5 fw-bold">Recensisci la mensa</p>
-                <p class="col-10 text-secondary p-0">Condividi la tua esperienza con altri studenti</p>
-            </div>
-        </header>
+<?php
+$canteen = $templateParams["canteen"];
+require("canteen_header.php");
+?>
 
-        <form class="row justify-content-center" action="." method="POST">
+        <form class="row justify-content-center" action="add_review.php" method="POST">
+            <input type="hidden" id="canteen_id" name="canteen_id" value="<?php echo $canteen->getId(); ?>" />
             <div class="col-10">
                 <label class="form-label">Valutazione</label>
             </div>
             <div class="col-10 mb-3" id="stars">
-                <button type="button" class="btn btn-lg p-1" onclick="setVote(1)"><span class="bi bi-star-fill text-warning fs-4"></span></button>
-                <button type="button" class="btn btn-lg p-1" onclick="setVote(2)"><span class="bi bi-star fs-4"></span></button>
-                <button type="button" class="btn btn-lg p-1" onclick="setVote(3)"><span class="bi bi-star fs-4"></span></button>
-                <button type="button" class="btn btn-lg p-1" onclick="setVote(4)"><span class="bi bi-star fs-4"></span></button>
-                <button type="button" class="btn btn-lg p-1" onclick="setVote(5)"><span class="bi bi-star fs-4"></span></button>
-                <input type="hidden" id="vote" name="voto" value="1" />
+                <button type="button" class="btn btn-lg p-1" onclick="setVote(1)"></button>
+                <button type="button" class="btn btn-lg p-1" onclick="setVote(2)"></button>
+                <button type="button" class="btn btn-lg p-1" onclick="setVote(3)"></button>
+                <button type="button" class="btn btn-lg p-1" onclick="setVote(4)"></button>
+                <button type="button" class="btn btn-lg p-1" onclick="setVote(5)"></button>
+                <input type="hidden" id="vote" name="vote" value="<?php echo isset($_GET["vote"]) ? $_GET["vote"] : 3; ?>" />
             </div>
             <div class="col-10">
-                <label for="titolo" class="form-label">Titolo</label>
+                <label for="title" class="form-label">Titolo</label>
             </div>
             <div class="col-10 mb-3">
-                <input class="form-control" type="text" id="titolo" placeholder="Dai un titolo alla tua recensione" />
+                <input class="form-control <?php if (isset($_GET["errorCode"])) echo "is-invalid" ; ?>" type="text" id="title" name="title" placeholder="Dai un titolo alla tua recensione" <?php if(isset($_GET["title"])) echo "value=\"$_GET[title]\""; ?> required/>
+                <?php if(isset($_GET["errorCode"]) && $_GET["errorCode"] == -1): ?>
+                    <div class="invalid-feedback">
+                        <span class="bi bi-exclamation-circle-fill"></span>&nbsp;Compila correttamente tutti i campi
+                    </div>
+                <?php else: ?>
+                    <div class="invalid-feedback">
+                        <span class="bi bi-exclamation-circle-fill"></span>&nbsp;Errore nell'aggiunta della recensione - Codice: <?php echo $_GET["errorCode"]; ?>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="col-10">
-                <label for="descrizione" class="form-label">Descrizione</label>
+                <label for="description" class="form-label">Descrizione</label>
             </div>
             <div class="col-10 mb-3">
-                <textarea class="form-control" type="text" id="descrizione" rows="4" placeholder="Descrivi la tua esperienza in dettaglio..."></textarea>
+                <textarea class="form-control <?php if (isset($_GET["errorCode"])) echo "is-invalid" ; ?>" type="text" id="description" name="description" rows="4" placeholder="Descrivi la tua esperienza in dettaglio..." required><?php if(isset($_GET["desc"])) echo $_GET["desc"]; ?></textarea>
             </div>
             <div class="col-10 d-grid mt-1">
                 <input type="submit" class="btn btn-primary" value="Conferma Recensione" />
