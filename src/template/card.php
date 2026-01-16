@@ -1,8 +1,8 @@
-<div class="card h-100">
+<div class="card border rounded-4 shadow h-100">
     <img src="<?php echo empty($c->getImg()) ? "assets/img/no_img.jpg" : UPLOAD_DIR . $c->getImg(); ?>"
-        class="card-img-top" alt="">
+        class="card-img-top rounded-top-4" alt="" />
     <div class="card-body">
-        <h5 class="card-title"><?php echo $c->getName() ?></h5>
+        <h2 class="card-title fs-4"><?php echo $c->getName() ?></h2>
         <p class="card-text"><?php echo $c->getDescription() ?></p>
         <p class="card-text" title="Valutazione media e numero di recensioni">
             <span title="Valutazione media: <?php echo number_format($c->getAvgReviews(), 1); ?>">
