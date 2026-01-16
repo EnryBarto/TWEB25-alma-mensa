@@ -6,6 +6,13 @@ function isActive($pagename){
     }
 }
 
+function getUserLevel(){
+    if(isset($_SESSION["level"])){
+        return $_SESSION["level"];
+    }
+    return UserLevel::NotLogged;
+}
+
 function isUserLoggedIn(){
     return !empty($_SESSION['email']);
 }

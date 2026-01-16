@@ -69,5 +69,18 @@ class DatabaseHelper{
         $result = $this->db->query("SELECT nome FROM categorie;");
         return array_column($result->fetch_all(MYSQLI_ASSOC), "nome");
     }
+
+    public function getReservationsByCustomerEmail($email) {
+        $stmt = $this->db->prepare("SELECT * FROM prenotazioni WHERE email = ? ORDER BY data_ora DESC;");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $resArray = $result->fetch_all(MYSQLI_ASSOC);
+        $reservations = [];
+        foreach ($resArray as $res) {
+            array_push($reservations, new Reservation($res["codice"], $this->getCanteenById($res["id_mensa"]), $res["data_ora"], $email, $res["num_persone"], $res["convalidata"]));
+        }
+        return $reservations;
+    }
 }
 ?>

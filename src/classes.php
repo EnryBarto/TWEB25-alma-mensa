@@ -127,4 +127,50 @@ class Canteen implements JsonSerializable {
     }
 }
 
+class Reservation {
+    private $code;
+    private $canteen;
+    private $dateTime;
+    private $userEmail;
+    private $numPeople;
+    private $convalidated;
+
+    public function __construct($code, Canteen $canteen, $dateTime, $userEmail, $numPeople, $convalidated) {
+        $this->code = $code;
+        $this->canteen = $canteen;
+        $this->dateTime = date_create_from_format("Y-m-d", $dateTime); // [TODO] Adjust format when time will be included
+        $this->userEmail = $userEmail;
+        $this->numPeople = $numPeople;
+        $this->convalidated = $convalidated;
+    }
+
+    public function getCode() {
+        return $this->code;
+    }
+    public function getCanteen() {
+        return $this->canteen;
+    }
+    public function getDateTime() {
+        return $this->dateTime;
+    }
+    public function getUserEmail() {
+        return $this->userEmail;
+    }
+    public function getNumPeople() {
+        return $this->numPeople;
+    }
+    public function isConvalidated() {
+        return $this->convalidated;
+    }
+
+    public function convalidate() {
+        $this->convalidated = true;
+    }
+
+    public function isActive() {
+        $now = new DateTime();
+        return $this->dateTime > $now && !$this->convalidated;
+    }
+}
+
 ?>
