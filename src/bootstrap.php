@@ -11,6 +11,7 @@ if (!isUserLoggedIn()) {
     $userData["level"] = UserLevel::NotLogged;
 } else {
     $userData["level"] = $_SESSION["level"];
+    $userData["email"] = $_SESSION["email"];
 }
 
 $dbh = new DatabaseHelper("localhost", "root", "", "almamensa", 3306);
