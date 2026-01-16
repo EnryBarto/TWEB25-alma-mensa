@@ -16,30 +16,11 @@ class MapWrapper {
     }
 }
 
-/* Icon definition */
-var defaultIcon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
-var selectedIcon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [30, 46],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
 /* Map initialization */
-const view = [44.1434086,12.2563127];
+const view = [44.1434086, 12.2563127];
 const zoom = 13;
 
-const mapObjs = [...document.getElementsByClassName("map-main")].map((e) => {return new MapWrapper(e.id, e.id.slice(4))});
+const mapObjs = [...document.getElementsByClassName("map-main")].map((e) => { return new MapWrapper(e.id, e.id.slice(4)) });
 
 
 mapObjs.forEach((mapObj) => {
@@ -63,10 +44,10 @@ fetchData();
  */
 function showSelectedPlace(canteen) {
     mapObjs.forEach((mapObj) => {
-        mapObj.markers.entries().forEach(([, marker]) => {
-            marker.setIcon(defaultIcon);
+        mapObj.markers.entries().forEach(([id, marker]) => {
+            marker.setIcon(createIcon(canteen.name, false));
         });
-        mapObj.markers.get(canteen.id)?.setIcon(selectedIcon);
+        mapObj.markers.get(canteen.id)?.setIcon(createIcon("Selezionato " + canteen.name, true));
     });
 
     const selectedItemContainer = document.getElementById("selected-item");
@@ -109,11 +90,11 @@ function populateMap(data) {
         if (canteens.length > 0) {
             canteens.forEach((canteen) => {
                 const coords = [parseFloat(canteen.lat), parseFloat(canteen.long)];
-                const m = L.marker(coords, {icon: defaultIcon})
-                .addTo(mapFromCategoryName(mapObjs, categoryName).map)
-                .on('click', () => {
-                    showSelectedPlace(canteen);
-                });
+                const m = L.marker(coords, { alt: canteen.name, icon: createIcon(canteen.name, false) })
+                    .addTo(mapFromCategoryName(mapObjs, categoryName).map)
+                    .on('click', () => {
+                        showSelectedPlace(canteen);
+                    });
                 mapFromCategoryName(mapObjs, categoryName).addMarker(canteen, m);
             });
         }
@@ -121,13 +102,27 @@ function populateMap(data) {
 }
 
 /**
- * 
+ * Function to get the MapWrapper object associated to a given category name.
  * @param {Array} mapObjs Array containing MapWrapper objects
  * @param {String} categoryName Name of the category where to get the map from
  * @returns MapWrapper object associated to the given category name
  */
 function mapFromCategoryName(mapObjs, categoryName) {
     return mapObjs.find(m => m.name === categoryName);
+}
+
+function createIcon(altText, selected) {
+    return new L.Icon({
+      iconUrl: selected
+        ? 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png'
+        : 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: selected ? [30, 46] : [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
+      alt: altText
+    });
 }
 
 /**
@@ -142,7 +137,7 @@ async function fetchData() {
         }
         const json = await response.json();
         populateMap(json);
-    } catch(error) {
+    } catch (error) {
         console.log(error.message, error.stack);
     }
 }
@@ -161,7 +156,7 @@ async function getSelectedCanteenCardHtml(canteenId) {
         }
         const html = await response.text();
         return html;
-    } catch(error) {
+    } catch (error) {
         console.log(error.message, error.stack);
     }
 }
