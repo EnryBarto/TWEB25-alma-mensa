@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `almamensa`
 --
-create database almamensa;
+create database if not exists almamensa;
 use almamensa;
 
 -- --------------------------------------------------------
@@ -85,7 +85,9 @@ CREATE TABLE `mense` (
   `coo_longitudine` varchar(15) NOT NULL,
   `num_posti` int(11) NOT NULL,
   `immagine` varchar(255) DEFAULT NULL,
-  `id_categoria` int(11) NOT NULL
+  `id_categoria` int(11) NOT NULL,
+  `media_recensioni` decimal(3,2) NOT NULL,
+  `num_recensioni` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -93,7 +95,7 @@ CREATE TABLE `mense` (
 --
 
 INSERT INTO `mense` (`id`, `email`, `nome`, `descrizione`, `ind_civico`, `ind_via`, `ind_comune`, `ind_cap`, `coo_latitudine`, `coo_longitudine`, `num_posti`, `immagine`, `id_categoria`) VALUES
-(1, 'volume@unibo.it', 'Volume', '[Spazio] [Ascolto] [Alimento]', '50', 'Via Cesare Pavese', 'Cesena', 47521, '44.1478691', '12.2355525', 50, NULL, 1);
+(1, 'volume@unibo.it', 'Volume', '[Spazio] [Ascolto] [Alimento]', '50', 'Via Cesare Pavese', 'Cesena', 47521, '44.1478691', '12.2355525', 50, 'Volume.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -129,7 +131,7 @@ CREATE TABLE `piatti` (
 --
 
 CREATE TABLE `prenotazioni` (
-  `data_ora` date NOT NULL,
+  `data_ora` datetime NOT NULL,
   `codice` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `convalidata` char(1) NOT NULL,
@@ -148,7 +150,7 @@ CREATE TABLE `recensioni` (
   `voto` decimal(2,1) NOT NULL,
   `titolo` varchar(25) NOT NULL,
   `descrizione` varchar(255) NOT NULL,
-  `data_ora` date NOT NULL,
+  `data_ora` datetime NOT NULL,
   `id_mensa` int(11) NOT NULL,
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
