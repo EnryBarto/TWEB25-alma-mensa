@@ -36,11 +36,13 @@ class DatabaseHelper{
         return 0;
     }
 
-    public function getCanteens($orderBy) {
+    public function getCanteens($orderBy, $limit = null) {
         if (empty($orderBy)) {
             $orderBy = "media_voti DESC";
         }
-        $stmt = $this->db->prepare("SELECT m.*, r.media_voti, r.num_voti, c.nome AS categoria FROM mense AS m LEFT JOIN (SELECT id_mensa, TRUNCATE(AVG(voto), 1) as media_voti, COUNT(voto) AS num_voti FROM `recensioni` GROUP BY id_mensa) AS r ON m.id = r.id_mensa JOIN categorie c ON m.id_categoria = c.id ORDER BY $orderBy;");
+        $limit = $limit != null ? "LIMIT " . intval($limit) . " " : "";
+        $query = "SELECT m.*, r.media_voti, r.num_voti, c.nome AS categoria FROM mense AS m LEFT JOIN (SELECT id_mensa, TRUNCATE(AVG(voto), 1) as media_voti, COUNT(voto) AS num_voti FROM `recensioni` GROUP BY id_mensa) AS r ON m.id = r.id_mensa JOIN categorie c ON m.id_categoria = c.id ORDER BY $orderBy $limit;";
+        $stmt = $this->db->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
 
