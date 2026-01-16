@@ -38,6 +38,7 @@ class Canteen implements JsonSerializable {
     private $name;
     private $desc;
     private $address;
+    private $tel;
     private $long;
     private $lat;
     private $maxSeatings;
@@ -46,12 +47,13 @@ class Canteen implements JsonSerializable {
     private $avgReviews;
     private $numReviews;
 
-    public function __construct($id, $email, $name, $desc, $number, $avenue, $municipality, $postalCode, $lat, $long, $maxSeatings, $img, $category, $avgReviews, $numReviews) {
+    public function __construct($id, $email, $name, $desc, $number, $avenue, $municipality, $postalCode, $tel, $lat, $long, $maxSeatings, $img, $category, $avgReviews, $numReviews) {
         $this->id = $id;
         $this->email = $email;
         $this->name = $name;
         $this->desc = $desc;
         $this->address = new Address($number, $avenue, $municipality, $postalCode);
+        $this->tel = empty($tel) ? "" : $tel;
         $this->long = $long;
         $this->lat = $lat;
         $this->maxSeatings = $maxSeatings;
@@ -79,6 +81,10 @@ class Canteen implements JsonSerializable {
 
     public function getAddress() {
         return $this->address;
+    }
+
+    public function getTelephone() {
+        return $this->tel;
     }
 
     public function getLong() {
@@ -116,6 +122,7 @@ class Canteen implements JsonSerializable {
             'name' => $this->name,
             'desc' => $this->desc,
             'address' => $this->address instanceof JsonSerializable ? $this->address : $this->address,
+            'tel' => $this->tel,
             'long' => $this->long,
             'lat' => $this->lat,
             'maxSeatings' => $this->maxSeatings,

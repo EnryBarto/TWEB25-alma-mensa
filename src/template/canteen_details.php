@@ -20,10 +20,12 @@
                         <?php echo $canteen->getAddress()->getFormatted(); ?>
                     </li>
 
+                    <?php if (!empty($canteen->getTelephone())): ?>
                     <li class="d-flex align-items-center mb-3">
                         <span class="bi bi-telephone text-primary fs-3 me-3"></span>
-                        +39 055 123 4567
+                        <?php echo $canteen->getTelephone(); ?>
                     </li>
+                    <?php endif; ?>
 
                     <li class="d-flex align-items-start">
                         <span class="bi bi-clock text-primary fs-3 me-3"></span>

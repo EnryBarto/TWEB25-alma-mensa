@@ -81,6 +81,7 @@ CREATE TABLE `mense` (
   `ind_via` varchar(100) NOT NULL,
   `ind_comune` varchar(50) NOT NULL,
   `ind_cap` int(11) NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
   `coo_latitudine` varchar(15) NOT NULL,
   `coo_longitudine` varchar(15) NOT NULL,
   `num_posti` int(11) NOT NULL,
@@ -94,8 +95,8 @@ CREATE TABLE `mense` (
 -- Dump dei dati per la tabella `mense`
 --
 
-INSERT INTO `mense` (`id`, `email`, `nome`, `descrizione`, `ind_civico`, `ind_via`, `ind_comune`, `ind_cap`, `coo_latitudine`, `coo_longitudine`, `num_posti`, `immagine`, `id_categoria`) VALUES
-(1, 'volume@unibo.it', 'Volume', '[Spazio] [Ascolto] [Alimento]', '50', 'Via Cesare Pavese', 'Cesena', 47521, '44.1478691', '12.2355525', 50, 'Volume.jpg', 1);
+INSERT INTO `mense` (`id`, `email`, `nome`, `descrizione`, `ind_civico`, `ind_via`, `ind_comune`, `ind_cap`, `telefono`, `coo_latitudine`, `coo_longitudine`, `num_posti`, `immagine`, `id_categoria`) VALUES
+(1, 'volume@unibo.it', 'Volume', '[Spazio] [Ascolto] [Alimento]', '50', 'Via Cesare Pavese', 'Cesena', 47521, '+39 320 3562325', '44.1478691', '12.2355525', 50, 'Volume.jpg', 1);
 
 -- --------------------------------------------------------
 
