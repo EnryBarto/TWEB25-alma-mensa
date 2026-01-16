@@ -1,7 +1,7 @@
 <section>
     <header class="mt-3 text-center container">
-        <h1>Le nostre mense</h1>
-        <p class="text-body-secondary">Trova la mensa che preferisci</p>
+        <h1>Esplora la mappa</h1>
+        <p class="text-body-secondary">Trova la mensa nelle tue vicinanze</p>
     </header>
     <div class="container text-center justify-content-center">
         <div class="row justify-content-center border-bottom border-dark p-1">

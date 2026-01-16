@@ -100,6 +100,10 @@ function getOrderByFromSelectValue($sortValue) {
             return "nome ASC";
         case "alphabetical-desc":
             return "nome DESC";
+        case "num-rew-asc":
+            return "num_recensioni ASC";
+        case "num-rew-desc":
+            return "num_recensioni DESC";
         default:
             return "media_recensioni DESC";
     }
