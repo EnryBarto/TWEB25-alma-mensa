@@ -6,9 +6,9 @@ $currentPage["filename"] = "explore.php";
 
 
 $orderBy = "media_voti DESC";
-if (isset($_POST["sort"])) {
-    $orderBy = getOrderByFromSelectValue($_POST["sort"]);
-    $templateParams["orderBy"] = $_POST["sort"];
+if (isset($_GET["sort"])) {
+    $orderBy = getOrderByFromSelectValue($_GET["sort"]);
+    $templateParams["orderBy"] = $_GET["sort"];
 } else {
     $templateParams["orderBy"] = "rank-desc";
 }
