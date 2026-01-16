@@ -9,11 +9,11 @@ require("canteen_header.php");
                 <label class="form-label">Valutazione</label>
             </div>
             <div class="col-10 mb-3" id="stars">
-                <button type="button" class="btn btn-lg p-1" onclick="setVote(1)"></button>
-                <button type="button" class="btn btn-lg p-1" onclick="setVote(2)"></button>
-                <button type="button" class="btn btn-lg p-1" onclick="setVote(3)"></button>
-                <button type="button" class="btn btn-lg p-1" onclick="setVote(4)"></button>
-                <button type="button" class="btn btn-lg p-1" onclick="setVote(5)"></button>
+                <button title="Voto 1" type="button" class="btn btn-lg p-1" onclick="setVote(1)"></button>
+                <button title="Voto 2" type="button" class="btn btn-lg p-1" onclick="setVote(2)"></button>
+                <button title="Voto 3" type="button" class="btn btn-lg p-1" onclick="setVote(3)"></button>
+                <button title="Voto 4" type="button" class="btn btn-lg p-1" onclick="setVote(4)"></button>
+                <button title="Voto 5" type="button" class="btn btn-lg p-1" onclick="setVote(5)"></button>
                 <input type="hidden" id="vote" name="vote" value="<?php echo empty($templateParams["reviewVote"]) ? 3 : $templateParams["reviewVote"]; ?>" />
             </div>
             <div class="col-10">
@@ -39,7 +39,7 @@ require("canteen_header.php");
                 <label for="description" class="form-label">Descrizione</label>
             </div>
             <div class="col-10 mb-3">
-                <textarea class="form-control <?php if (isset($_GET["errorCode"])) echo "is-invalid" ; ?>" type="text" id="description" name="description" rows="4" placeholder="Descrivi la tua esperienza in dettaglio..." required><?php echo $templateParams["reviewDescription"]; ?></textarea>
+                <textarea class="form-control <?php if (isset($_GET["errorCode"])) echo "is-invalid" ; ?>" id="description" name="description" rows="4" placeholder="Descrivi la tua esperienza in dettaglio..." required><?php echo $templateParams["reviewDescription"]; ?></textarea>
             </div>
             <div class="col-10 d-grid mt-1">
                 <input type="submit" class="btn btn-primary" value="Conferma Recensione" />
