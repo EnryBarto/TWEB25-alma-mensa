@@ -145,7 +145,7 @@ class Reservation {
     public function __construct($code, Canteen $canteen, $dateTime, $userEmail, $numPeople, $convalidated) {
         $this->code = $code;
         $this->canteen = $canteen;
-        $this->dateTime = date_create_from_format("Y-m-d", $dateTime); // [TODO] Adjust format when time will be included
+        $this->dateTime = date_create_from_format("Y-m-d H:i:s", $dateTime);
         $this->userEmail = $userEmail;
         $this->numPeople = $numPeople;
         $this->convalidated = $convalidated;
