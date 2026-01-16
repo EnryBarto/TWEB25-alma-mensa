@@ -93,15 +93,15 @@ function divideCanteensInCategories($canteens){
 function getOrderByFromSelectValue($sortValue) {
     switch ($sortValue) {
         case "rank-asc":
-            return "media_voti ASC";
+            return "media_recensioni ASC";
         case "rank-desc":
-            return "media_voti DESC";
+            return "media_recensioni DESC";
         case "alphabetical-asc":
             return "nome ASC";
         case "alphabetical-desc":
             return "nome DESC";
         default:
-            return "media_voti DESC";
+            return "media_recensioni DESC";
     }
 }
 

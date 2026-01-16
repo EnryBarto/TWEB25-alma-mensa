@@ -5,7 +5,7 @@ $currentPage["title"] = "Esplora";
 $currentPage["filename"] = "explore.php";
 
 
-$orderBy = "media_voti DESC";
+$orderBy = "media_recensioni DESC";
 if (isset($_GET["sort"])) {
     $orderBy = getOrderByFromSelectValue($_GET["sort"]);
     $templateParams["orderBy"] = $_GET["sort"];
