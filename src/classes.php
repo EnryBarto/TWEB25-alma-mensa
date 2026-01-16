@@ -180,4 +180,101 @@ class Reservation {
     }
 }
 
+class Dish implements JsonSerializable {
+    private $id;
+    private $name;
+    private $desc;
+    private $price;
+    private $img;
+
+    public function __construct($id, $name, $desc, $price, $img) {
+        $this->id = $id;
+        $this->name = $name;
+        $this->desc = $desc;
+        $this->price = $price;
+        $this->img = empty($img) ? "" : $img;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function getDescription() {
+        return $this->desc;
+    }
+
+    public function getPrice() {
+        return $this->price;
+    }
+
+    public function getImg() {
+        return $this->img;
+    }
+
+    public function jsonSerialize(): array {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'desc' => $this->desc,
+            'price' => $this->price,
+            'img' => $this->img,
+        ];
+    }
+}
+
+class Menu implements JsonSerializable {
+    private $id;
+    private $nome;
+    private $attivo;
+    private $idCanteen;
+    private $dishes = [];
+
+    public function __construct($id, $nome, $attivo, $idCanteen, $dishes = []) {
+        $this->id = $id;
+        $this->nome = $nome;
+        $this->attivo = $attivo;
+        $this->idCanteen = $idCanteen;
+        $this->dishes = $dishes;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getNome() {
+        return $this->nome;
+    }
+
+    public function isAttivo() {
+        return $this->attivo;
+    }
+
+    public function getIdCanteen() {
+        return $this->idCanteen;
+    }
+
+    public function getDishes() {
+        return $this->dishes;
+    }
+
+    public function jsonSerialize(): array {
+        return [
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'attivo' => $this->attivo,
+            'idCanteen' => $this->idCanteen,
+            'dishes' => array_map(
+                function($dish) {
+                    return $dish instanceof JsonSerializable ? $dish : $dish;
+                },
+                $this->dishes
+            ),
+        ];
+    }
+}
+
 ?>

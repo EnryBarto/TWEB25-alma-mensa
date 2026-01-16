@@ -84,5 +84,71 @@ class DatabaseHelper{
         }
         return $reservations;
     }
+
+    public function getCanteenByEmail($email) {
+        $stmt = $this->db->prepare("SELECT m.*, r.media_voti, r.num_voti, c.nome AS categoria FROM mense AS m LEFT JOIN (SELECT id_mensa, TRUNCATE(AVG(voto), 1) as media_voti, COUNT(voto) AS num_voti FROM `recensioni` GROUP BY id_mensa) AS r ON m.id = r.id_mensa JOIN categorie c ON m.id_categoria = c.id WHERE m.email = ?;");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $c = $result->fetch_assoc();
+            return new Canteen($c["id"], $c["email"], $c["nome"], $c["descrizione"], $c["ind_civico"], $c["ind_via"], $c["ind_comune"], $c["ind_cap"], $c["telefono"], $c["coo_latitudine"], $c["coo_longitudine"], $c["num_posti"], $c["immagine"], $c["categoria"], $c["media_voti"], $c["num_voti"]);
+        } else {
+            return null;
+        }
+    }
+
+    public function getAllDishes() {
+        $stmt = $this->db->prepare("SELECT * FROM piatti ORDER BY nome ASC;");
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $list = array();
+        foreach ($result->fetch_all(MYSQLI_ASSOC) as $d) {
+            array_push($list, new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["img"]));
+        }
+        return $list;
+    }
+
+    public function getMenusByCanteenId($canteenId) {
+        $stmt = $this->db->prepare("SELECT * FROM menu WHERE id_mensa = ? ORDER BY attivo DESC, nome ASC;");
+        $stmt->bind_param("i", $canteenId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $list = array();
+        foreach ($result->fetch_all(MYSQLI_ASSOC) as $m) {
+            $dishes = $this->getDishesByMenuId($m["id"]);
+            array_push($list, new Menu($m["id"], $m["nome"], $m["attivo"], $m["id_mensa"], $dishes));
+        }
+        return $list;
+    }
+
+    public function getDishesByMenuId($menuId) {
+        $stmt = $this->db->prepare("SELECT p.* FROM piatti p JOIN composizioni c ON p.id = c.id_piatto WHERE c.id_menu = ? ORDER BY p.nome ASC;");
+        $stmt->bind_param("i", $menuId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $list = array();
+        foreach ($result->fetch_all(MYSQLI_ASSOC) as $d) {
+            array_push($list, new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["img"]));
+        }
+        return $list;
+    }
+
+    public function getDishesByCanteenId($canteenId) {
+        $stmt = $this->db->prepare("SELECT DISTINCT p.* FROM piatti p JOIN composizioni c ON p.id = c.id_piatto JOIN menu m ON c.id_menu = m.id WHERE m.id_mensa = ? ORDER BY p.nome ASC;");
+        $stmt->bind_param("i", $canteenId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $list = array();
+        foreach ($result->fetch_all(MYSQLI_ASSOC) as $d) {
+            array_push($list, new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["img"]));
+        }
+        return $list;
+    }
 }
 ?>
