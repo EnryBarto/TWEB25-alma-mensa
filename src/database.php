@@ -250,5 +250,20 @@ class DatabaseHelper{
         $stmt->bind_param("i", $reviewId);
         $stmt->execute();
     }
+
+    public function updateCanteen($id, $name, $desc, $seats, $avenue, $num, $postal_code, $municipality, $lat, $lon) {
+        try {
+            $stmt = $this->db->prepare('UPDATE mense SET nome=?, descrizione=?, num_posti=?, ind_via=?, ind_civico=?, ind_cap=?, ind_comune=?, coo_latitudine=?, coo_longitudine=? WHERE id=?');
+            $stmt->bind_param("ssississsi", $name, $desc, $seats, $avenue, $num, $postal_code, $municipality, $lat, $lon, $id);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return $e->getCode();
+        }
+        if ($stmt->affected_rows == 0) {
+            return -2;
+        } else {
+            return 0;
+        }
+    }
 }
 ?>
