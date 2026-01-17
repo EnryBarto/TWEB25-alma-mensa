@@ -1,4 +1,4 @@
-<?php require("canteen_header_lite.php") ?>
+<?php require("components/canteen_header_lite.php") ?>
 
         <div class="row justify-content-center px-3">
             <div class="card col-10 p-0 mb-2">

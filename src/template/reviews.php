@@ -1,4 +1,4 @@
-<?php require("canteen_header_lite.php"); ?>
+<?php require("components/canteen_header_lite.php"); ?>
         <div class="row justify-content-center align-items-md-center px-3">
             <div class="col-10 <?php if(isUserLoggedIn()) echo "col-md-7"; ?> card mb-3 py-2">
                 <div class="row g-0">
