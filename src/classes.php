@@ -310,7 +310,7 @@ class Menu implements JsonSerializable {
         return $this->attivo;
     }
 
-    public function getIdCanteen() {
+    public function getCanteenId() {
         return $this->idCanteen;
     }
 

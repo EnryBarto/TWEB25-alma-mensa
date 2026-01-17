@@ -4,9 +4,12 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <form class="needs-validation" method="POST" action="create_menu.php" novalidate>
+                            <?php if (isset($menu)): ?>
+                                <input type="hidden" name="menu_id" value="<?php echo htmlspecialchars($menu->getId()); ?>">
+                            <?php endif; ?>
                             <div class="mb-4">
                                 <h6 class="text-uppercase text-secondary small mb-3">Nome Menu<span class="text-primary">*</span></h6>
-                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Es: Menu freddo" required>
+                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Es: Menu freddo" value="<?php echo isset($menu) ? htmlspecialchars($menu->getNome()) : ''; ?>" required>
                             </div>
 
                             <div class="mb-4">
@@ -20,8 +23,9 @@
                                 <!-- Dishes to load dynamically here -->
                                 <?php if (!empty($templateParams["dishes"])): ?>
                                     <?php foreach ($templateParams["dishes"] as $dish): ?>
+                                        <?php $isChecked = isset($selectedDishIds) && in_array($dish->getId(), $selectedDishIds); ?>
                                         <label class="border rounded p-3 mb-3 d-block checkbox-label" style="cursor: pointer;">
-                                            <input type="checkbox" class="form-check-input" name="dishes[]" value="<?php echo $dish->getId(); ?>">
+                                            <input type="checkbox" class="form-check-input" name="dishes[]" value="<?php echo $dish->getId(); ?>" <?php echo $isChecked ? 'checked' : ''; ?>>
                                             <span class="ms-2">
                                                 <strong><?php echo htmlspecialchars($dish->getName()); ?></strong>
                                                 <br>
@@ -40,7 +44,7 @@
 
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <a href="manage_menus.php" class="btn btn-outline-secondary">Annulla</a>
-                                <button type="submit" class="btn btn-primary">Salva</button>
+                                <button type="submit" class="btn btn-primary"><?php echo isset($menu) ? 'Aggiorna' : 'Salva'; ?></button>
                             </div>
                         </form>
                     </div>

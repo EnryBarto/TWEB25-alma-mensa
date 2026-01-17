@@ -125,6 +125,21 @@ class DatabaseHelper{
         return $list;
     }
 
+    public function getMenuById($menuId) {
+        $stmt = $this->db->prepare("SELECT * FROM menu WHERE id = ?;");
+        $stmt->bind_param("i", $menuId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $m = $result->fetch_assoc();
+            $dishes = $this->getDishesByMenuId($m["id"]);
+            return new Menu($m["id"], $m["nome"], $m["attivo"], $m["id_mensa"], $dishes);
+        } else {
+            return null;
+        }
+    }
+
     public function getDishesByMenuId($menuId) {
         $stmt = $this->db->prepare("SELECT p.* FROM piatti p JOIN composizioni c ON p.id = c.id_piatto WHERE c.id_menu = ? ORDER BY p.nome ASC;");
         $stmt->bind_param("i", $menuId);
@@ -151,11 +166,32 @@ class DatabaseHelper{
         return $list;
     }
 
+    public function getDishById($dishId) {
+        $stmt = $this->db->prepare("SELECT * FROM piatti WHERE id = ?;");
+        $stmt->bind_param("i", $dishId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $d = $result->fetch_assoc();
+            return new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["id_mensa"]);
+        } else {
+            return null;
+        }
+    }
+
     public function insertDish($nome, $descrizione, $prezzo, $id_mensa) {
         $stmt = $this->db->prepare("INSERT INTO piatti (nome, descrizione, prezzo, id_mensa) VALUES (?, ?, ?, ?);");
         $stmt->bind_param("ssdi", $nome, $descrizione, $prezzo, $id_mensa);
         $stmt->execute();
-        return $this->db->insert_id;
+        return $stmt->affected_rows > 0;
+    }
+
+    public function updateDish($dishId, $nome, $descrizione, $prezzo) {
+        $stmt = $this->db->prepare("UPDATE piatti SET nome = ?, descrizione = ?, prezzo = ? WHERE id = ?;");
+        $stmt->bind_param("ssdi", $nome, $descrizione, $prezzo, $dishId);
+        $stmt->execute();
+        return $stmt->affected_rows > 0;
     }
 
     public function insertMenu($nome, $id_mensa, $attivo = 0, $dishes = []) {
@@ -173,6 +209,36 @@ class DatabaseHelper{
             }
         }
         return $menuId;
+    }
+
+    public function updateMenu($menuId, $nome, $attivo = 0, $dishes = []) {
+        $this->db->begin_transaction();
+        try {
+            // Update menu core data
+            $stmt = $this->db->prepare("UPDATE menu SET nome = ?, attivo = ? WHERE id = ?;");
+            $stmt->bind_param("sii", $nome, $attivo, $menuId);
+            $stmt->execute();
+
+            // Delete compositions
+            $stmt = $this->db->prepare("DELETE FROM composizioni WHERE id_menu = ?");
+            $stmt->bind_param("i", $menuId);
+            $stmt->execute();
+
+            // Re-insert compositions
+            if (!empty($dishes)) {
+                $stmt = $this->db->prepare("INSERT INTO composizioni (id_menu, id_piatto) VALUES (?, ?);");
+                foreach ($dishes as $dishId) {
+                    $stmt->bind_param("ii", $menuId, $dishId);
+                    $stmt->execute();
+                }
+            }
+
+            $this->db->commit();
+            return true;
+        } catch (mysqli_sql_exception $e) {
+            $this->db->rollback();
+            return false;
+        }
     }
 
     public function getCanteenReviews($canteenId) {
@@ -236,5 +302,48 @@ class DatabaseHelper{
         $stmt->bind_param("i", $reviewId);
         $stmt->execute();
     }
+
+    public function deleteMenu($menuId) {
+        $this->db->begin_transaction();
+        try {
+            // Delete compositions first (foreign key constraint)
+            $stmt = $this->db->prepare('DELETE FROM composizioni WHERE id_menu = ?');
+            $stmt->bind_param("i", $menuId);
+            $stmt->execute();
+
+            // Delete the menu
+            $stmt = $this->db->prepare('DELETE FROM menu WHERE id = ?');
+            $stmt->bind_param("i", $menuId);
+            $stmt->execute();
+
+            $this->db->commit();
+            return true;
+        } catch (mysqli_sql_exception $e) {
+            $this->db->rollback();
+            return false;
+        }
+    }
+
+    public function deleteDish($dishId) {
+        $this->db->begin_transaction();
+        try {
+            // Delete compositions first (foreign key constraint)
+            $stmt = $this->db->prepare('DELETE FROM composizioni WHERE id_piatto = ?');
+            $stmt->bind_param("i", $dishId);
+            $stmt->execute();
+
+            // Delete the dish
+            $stmt = $this->db->prepare('DELETE FROM piatti WHERE id=?');
+            $stmt->bind_param("i", $dishId);
+            $stmt->execute();
+
+            $this->db->commit();
+            return true;
+        } catch (mysqli_sql_exception $e) {
+            $this->db->rollback();
+            return false;
+        }
+    }
+
 }
 ?>

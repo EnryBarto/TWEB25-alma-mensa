@@ -19,5 +19,20 @@ if (isUserLoggedIn() && getUserLevel() == UserLevel::CanteenAdmin) {
     exit();
 }
 
+// Handle menu deletion
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_menu_id'])) {
+    $menuId = intval($_POST['delete_menu_id']);
+    // Verify that the menu belongs to this canteen
+    $menu = $dbh->getMenuById($menuId);
+    if ($menu !== null && $menu->getCanteenId() == $canteen->getId()) {
+        if ($dbh->deleteMenu($menuId)) {
+            header("Location: manage_menus.php");
+            exit();
+        } else {
+            $templateParams["error"] = "Errore durante l'eliminazione del menù.";
+        }
+    }
+}
+
 require '../src/template/base.php';
 ?>

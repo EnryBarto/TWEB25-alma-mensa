@@ -16,9 +16,39 @@ if ($canteen === null) {
     exit();
 }
 
-// Load canteen's dishes
+// Track the menu we might be editing
+$menuId = null;
+$menu = null;
+$selectedDishIds = [];
+
+// Accept menu id from GET (page load) or POST (form submit)
+if (isset($_GET["id"])) {
+    $menuId = intval($_GET["id"]);
+} elseif (isset($_POST["menu_id"])) {
+    $menuId = intval($_POST["menu_id"]);
+}
+
+// If an id is present, load and authorize the menu
+if ($menuId !== null) {
+    $menu = $dbh->getMenuById($menuId);
+
+    // If the menu does not exist or does not belong to the canteen, redirect to manage menus page
+    if ($menu === null || $menu->getCanteenId() !== $canteen->getId()) {
+        header("Location: manage_menus.php");
+        exit();
+    }
+
+    // Collect selected dish ids for pre-checking
+    $selectedDishIds = array_map(function($dish) {
+        return $dish->getId();
+    }, $menu->getDishes());
+}
+
+// Load canteen's dishes for selection
 $templateParams["dishes"] = $dbh->getDishesByCanteenId($canteen->getId());
 $templateParams["canteen"] = $canteen;
+$templateParams["selectedDishIds"] = $selectedDishIds;
+$templateParams["menu"] = $menu;
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -28,13 +58,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Convert dish IDs to integers
     $selectedDishes = array_map('intval', $selectedDishes);
 
-    // Insert menu into database
-    $menuId = $dbh->insertMenu($nome, $canteen->getId(), 1, $selectedDishes);
+    if ($menuId !== null) {
+        // Update existing menu
+        $attivo = $menu ? $menu->isAttivo() : 1;
+        $res = $dbh->updateMenu($menuId, $nome, $attivo, $selectedDishes);
 
-    if ($menuId) {
-        header("Location: manage_menus.php");
-        exit();
+        if (!$res) {
+            echo "Errore durante l'aggiornamento del menù.";
+            exit();
+        }
+    } else {
+        // Insert new menu
+        $menuId = $dbh->insertMenu($nome, $canteen->getId(), 1, $selectedDishes);
+        if (!$menuId) {
+            echo "Errore durante la creazione del menù.";
+            exit();
+        }
     }
+
+    header("Location: manage_menus.php");
+    exit();
 }
 
 require '../src/template/base.php';
