@@ -1,6 +1,11 @@
 <?php
 require_once '../src/bootstrap.php';
 
+if (isUserLoggedIn()) {
+    header("Location: profile.php");
+    exit();
+}
+
 $currentPage["title"] = "Login";
 $currentPage["filename"] = "login.php";
 

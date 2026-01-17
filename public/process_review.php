@@ -1,10 +1,16 @@
 <?php
 require_once '../src/bootstrap.php';
 
-if (!isUserLoggedIn()) {
-    // User isn't logged in
-    header("Location: login.php");
-    exit();
+switch (getUserLevel()) {
+    case UserLevel::CanteenAdmin:
+        header("Location: index.php");
+        exit();
+        break;
+
+    case UserLevel::NotLogged:
+        header("Location: login.php");
+        exit();
+        break;
 }
 
 if (isset($_GET["action"])) {
