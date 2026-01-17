@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <title><?php echo $currentPage["title"]; ?></title>
     <!-- Bootstrap CSS -->
     <link href="assets/css/custom.css" rel="stylesheet">

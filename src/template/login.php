@@ -11,7 +11,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="password-input" class="form-label">Password</label>
-                        <input type="password" name="password" id="password-input" class="form-control <?php if(isset($msg["error"])) echo "is-invalid"; ?>" placeholder="Inserisci password" aria-label="Password input" aria-describedby="btn-show" required>
+                        <input type="password" name="password" id="password-input" class="form-control <?php if(isset($msg["error"])) echo "is-invalid"; ?>" placeholder="Inserisci password" aria-label="Password input" required>
                         <?php if(isset($msg["error"])): ?>
                             <div class="invalid-feedback">
                                 <?php echo $msg["error"]; ?>

@@ -30,11 +30,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="password-input" class="form-label">Password</label>
-                        <input type="password" name="password" id="password-input" class="form-control <?php if (isset($msg["errorpassword"])) echo "is-invalid"; ?>" placeholder="Inserisci password" aria-label="Password input" aria-describedby="btn-show" required>
+                        <input type="password" name="password" id="password-input" class="form-control <?php if (isset($msg["errorpassword"])) echo "is-invalid"; ?>" placeholder="Inserisci password" aria-label="Password input" required>
                     </div>
                     <div class="mb-3">
                         <label for="confirm-password-input" class="form-label">Conferma Password</label>
-                        <input type="password" name="confirm-password" id="confirm-password-input" class="form-control <?php if (isset($msg["errorpassword"])) echo "is-invalid"; ?>" placeholder="Inserisci password" aria-label="Confirm Password input" aria-describedby="btn-show" required>
+                        <input type="password" name="confirm-password" id="confirm-password-input" class="form-control <?php if (isset($msg["errorpassword"])) echo "is-invalid"; ?>" placeholder="Inserisci password" aria-label="Confirm Password input" required>
                         <?php if (isset($msg["errorpassword"])): ?>
                             <div class="invalid-feedback">
                                 <?php echo $msg["errorpassword"]; ?>
