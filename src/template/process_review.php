@@ -1,6 +1,6 @@
 <?php
 $canteen = $templateParams["canteen"];
-require("canteen_header.php");
+require("components/canteen_header.php");
 ?>
 
         <form class="row justify-content-center" action="process_review.php" method="POST">

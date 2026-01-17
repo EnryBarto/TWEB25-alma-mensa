@@ -1,6 +1,6 @@
 <?php
     $canteen = $templateParams["canteen"];
-    require("canteen_header.php");
+    require("components/canteen_header.php");
 ?>
 
         <div class="row justify-content-center d-md-block">

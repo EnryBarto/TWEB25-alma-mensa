@@ -4,7 +4,7 @@
     if (isset($_GET['id'])) {
         $c = $dbh->getCanteenById($_GET['id']);
         if ($c) {
-            include('../src/template/card.php');
+            include('../src/template/components/card.php');
         }
     }
 ?>

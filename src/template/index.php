@@ -53,7 +53,7 @@
                 <?php else:
                     foreach ($templateParams["topCanteens"] as $c): ?>
                         <div class="col-10 col-md-5 col-xl-3 mb-3">
-                            <?php include 'card.php'; ?>
+                            <?php include 'components/card.php'; ?>
                         </div>
                     <?php endforeach;
                 endif; ?>

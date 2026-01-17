@@ -1,4 +1,4 @@
-<?php require("canteen_header_lite.php") ?>
+<?php require("components/canteen_header_lite.php") ?>
 
         <form class="row justify-content-center" action="." method="POST">
             <div class="col-10">

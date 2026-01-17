@@ -7,7 +7,7 @@
         <div class="col-10">
             <?php foreach ($templateParams["reservations"] as $reservation){
                 if ($reservation->isActive()) {
-                    include('reservation_card.php');
+                    include('components/reservation_card.php');
                 }
             } ?>
         </div>
@@ -23,7 +23,7 @@
                     <h2 class="text-center mb-3">Prenotazioni passate</h2>
                     <?php foreach ($templateParams["reservations"] as $reservation): ?>
                         <?php if (!$reservation->isActive()): ?>
-                            <?php include('reservation_card.php'); ?>
+                            <?php include('components/reservation_card.php'); ?>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </div>

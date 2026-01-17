@@ -69,7 +69,7 @@
                 <?php endif;
                 foreach ($templateParams["all"] as $c): ?>
                     <div class="col-10 col-md-6 col-lg-4 col-xl-3 mb-3">
-                        <?php include 'card.php'; ?>
+                        <?php include 'components/card.php'; ?>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -86,7 +86,7 @@
                         <?php else:
                             foreach ($templateParams[$category] as $c): ?>
                                 <div class="col-10 col-md-5 col-xl-3 mb-3">
-                                    <?php include 'card.php'; ?>
+                                    <?php include 'components/card.php'; ?>
                                 </div>
                             <?php endforeach;
                         endif; ?>
