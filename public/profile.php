@@ -19,5 +19,18 @@ switch (getUserLevel()) {
         break;
 }
 
+if (isset($_GET['action']) && $_GET['action'] === 'D'
+    && isset($_GET['email']) && $_GET['email'] === $user->getEmail()
+    && getUserLevel() === UserLevel::Customer) {
+    $exitCode = $dbh->deleteCustomerByEmail($user->getEmail());
+    if ($exitCode === 0) {
+        logoutUser();
+        header("Location: index.php");
+        exit();
+    } else {
+        $templateParams["delete_error"] = "Si è verificato un errore durante l'eliminazione del profilo. Codice: $exitCode";
+    }
+}
+
 require '../src/template/base.php';
 ?>
