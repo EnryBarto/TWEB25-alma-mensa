@@ -37,8 +37,17 @@
                     </li>
                 </ul>
             </div>
-
-            <div class="col-10 col-md-4 offset-md-1 d-grid gap-2">
-                <a class="btn btn-primary" role="button" href="reservation.php"><span class="bi bi-journal-check"></span>&nbsp;Prenota</a>
-            </div>
+            <?php switch (getUserLevel()):
+                case UserLevel::Customer: ?>
+                <div class="col-10 col-md-4 offset-md-1 d-grid gap-2">
+                    <a class="btn btn-primary" role="button" href="reservation.php"><span class="bi bi-journal-check"></span>&nbsp;Prenota</a>
+                </div>
+            <?php break;
+                case UserLevel::CanteenAdmin: ?>
+                    <div class="col-10 col-md-4 offset-md-1 d-grid gap-2">
+                        <a href="manage_canteen.php" role="button" class="btn btn-primary"><span class="bi bi-pen-fill"></span> Modifica profilo</a>
+                        <a href="change_password.php" role="button" class="btn btn-primary"><span class="bi bi-key-fill"></span> Modifica password</a>
+                    </div>
+                <?php break; ?>
+            <?php endswitch; ?>
         </section>

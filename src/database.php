@@ -1,5 +1,5 @@
 <?php
-class DatabaseHelper{
+class DatabaseHelper {
     private $db;
 
     public function __construct($servername, $username, $password, $dbname, $port){
@@ -111,6 +111,40 @@ class DatabaseHelper{
         } else {
             return null;
         }
+    }
+
+    public function updateCustomerData($email, $name, $surname) {
+        $stmt = $this->db->prepare("UPDATE clienti SET nome = ?, cognome = ? WHERE email = ?;");
+        $stmt->bind_param("sss", $name, $surname, $email);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+    }
+
+    public function updateUserPassword($email, $hashedPassword) {
+        $stmt = $this->db->prepare("UPDATE utenti SET password = ? WHERE email = ?;");
+        $stmt->bind_param("ss", $hashedPassword, $email);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+    }
+
+    public function getAllDishes() {
+        $stmt = $this->db->prepare("SELECT * FROM piatti ORDER BY nome ASC;");
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $list = array();
+        foreach ($result->fetch_all(MYSQLI_ASSOC) as $d) {
+            array_push($list, new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["id_mensa"]));
+        }
+        return $list;
     }
 
     public function getMenusByCanteenId($canteenId) {
