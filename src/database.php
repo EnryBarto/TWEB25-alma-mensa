@@ -1,5 +1,5 @@
 <?php
-class DatabaseHelper{
+class DatabaseHelper {
     private $db;
 
     public function __construct($servername, $username, $password, $dbname, $port){
@@ -111,6 +111,18 @@ class DatabaseHelper{
         } else {
             return null;
         }
+    }
+
+    public function updateCustomerData($email, $name, $surname) {
+        $stmt = $this->db->prepare("UPDATE clienti SET nome = ?, cognome = ? WHERE email = ?;");
+        $stmt->bind_param("sss", $name, $surname, $email);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        $stmt->execute();
+        return 0;
     }
 
     public function getAllDishes() {

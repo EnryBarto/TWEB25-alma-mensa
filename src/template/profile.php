@@ -1,16 +1,17 @@
 <header class="mt-3 container">
     <h1>Il profilo di <strong><?php echo $user->getName(); ?></strong></h1>
 </header>
-<section>
+<section class="mt-4 container">
     <header>
         <h2>Le tue informazioni</h2>
     </header>
     <?php switch (getUserLevel()) {
         case UserLevel::Customer:
-            include('profiles/customer_info.php');
+            include('components/customer_info.php');
             break;
         case UserLevel::CanteenAdmin:
-            $canteen = $templateParams["canteen"];
+            include('components/canteen_info.php');
+            break;
         }
         ?>
 </section>
