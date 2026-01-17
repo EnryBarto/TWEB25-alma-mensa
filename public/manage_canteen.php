@@ -36,6 +36,7 @@ if (isset($_GET["action"])) {
                 $templateParams["municipality"] = isset($_GET["municipality"]) ? $_GET["municipality"] : $user->getAddress()->municipality;
                 $templateParams["lat"] = isset($_GET["lat"]) ? $_GET["lat"] : $user->getLat();
                 $templateParams["lon"] = isset($_GET["lon"]) ? $_GET["lon"] : $user->getLong();
+                $templateParams["telephone"] = isset($_GET["telephone"]) ? $_GET["telephone"] : $user->getTelephone();
             break;
 
         default:
@@ -48,15 +49,16 @@ if (isset($_GET["action"])) {
 
     if (!isset($_POST["name"]) || !isset($_POST["desc"]) || !isset($_POST["seats"]) || !isset($_POST["avenue"]) || !isset($_POST["num"]) || !isset($_POST["postal_code"]) || !isset($_POST["municipality"]) || !isset($_POST["lat"]) || !isset($_POST["lon"])) {
         $location = "Location: process_review.php?errorCode=-1&action=" . $_POST["action"];
-        if (isset($_POST["name"])) $location .= "&=" . $_POST["name"];
-        if (isset($_POST["desc"])) $location .= "&=" . $_POST["desc"];
-        if (isset($_POST["seats"])) $location .= "&=" . $_POST["seats"];
-        if (isset($_POST["avenue"])) $location .= "&=" . $_POST["avenue"];
-        if (isset($_POST["num"])) $location .= "&=" . $_POST["num"];
-        if (isset($_POST["postal_code"])) $location .= "&=" . $_POST["postal_code"];
-        if (isset($_POST["municipality"])) $location .= "&=" . $_POST["municipality"];
-        if (isset($_POST["lat"])) $location .= "&=" . $_POST["lat"];
-        if (isset($_POST["lon"])) $location .= "&=" . $_POST["lon"];
+        if (isset($_POST["name"])) $location .= "&name=" . $_POST["name"];
+        if (isset($_POST["desc"])) $location .= "&desc=" . $_POST["desc"];
+        if (isset($_POST["seats"])) $location .= "&seats=" . $_POST["seats"];
+        if (isset($_POST["avenue"])) $location .= "&avenue=" . $_POST["avenue"];
+        if (isset($_POST["num"])) $location .= "&num=" . $_POST["num"];
+        if (isset($_POST["postal_code"])) $location .= "&postal_code=" . $_POST["postal_code"];
+        if (isset($_POST["municipality"])) $location .= "&municipality=" . $_POST["municipality"];
+        if (isset($_POST["lat"])) $location .= "&lat=" . $_POST["lat"];
+        if (isset($_POST["lon"])) $location .= "&lon=" . $_POST["lon"];
+        if (isset($_POST["telephone"])) $location .= "&telephone=" . str_replace("+", "%2B", $_POST["telephone"]);
         header($location);
         exit();
     }
@@ -71,14 +73,14 @@ if (isset($_GET["action"])) {
                     exit();
                 }
                 // The review must be updated
-                $exitCode = $dbh->updateCanteen($_POST["id"], $_POST["name"], $_POST["desc"], $_POST["seats"], $_POST["avenue"], $_POST["num"], $_POST["postal_code"], $_POST["municipality"], $_POST["lat"], $_POST["lon"]);
+                $exitCode = $dbh->updateCanteen($_POST["id"], $_POST["name"], $_POST["desc"], $_POST["seats"], $_POST["avenue"], $_POST["num"], $_POST["postal_code"], $_POST["municipality"], $_POST["lat"], $_POST["lon"], $_POST["telephone"]);
                 if ($exitCode == 0) {
                     $user = $dbh->getCanteenByEmail($user->getEmail());
                     registerLoggedUser($user);
                     header("Location: canteen_details.php?id=$_POST[id]");
                     exit();
                 } else {
-                    header("Location: manage_canteen.php?action=U&id=$_POST[id]&errorCode=$exitCode&name=$_POST[name]&desc=$_POST[desc]&seats=$_POST[seats]&avenue=$_POST[avenue]&num=$_POST[num]&postal_code=$_POST[postal_code]&municipality=$_POST[municipality]&lat=$_POST[lat]&lon=$_POST[lon]");
+                    header("Location: manage_canteen.php?action=U&id=$_POST[id]&errorCode=$exitCode&name=$_POST[name]&desc=$_POST[desc]&seats=$_POST[seats]&avenue=$_POST[avenue]&num=$_POST[num]&postal_code=$_POST[postal_code]&municipality=$_POST[municipality]&lat=$_POST[lat]&lon=$_POST[lon]&telephone=".str_replace("+", "%2B", $_POST["telephone"]));
                     exit();
                 }
             } else {
