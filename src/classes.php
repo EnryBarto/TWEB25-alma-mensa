@@ -236,14 +236,14 @@ class Dish implements JsonSerializable {
     private $name;
     private $desc;
     private $price;
-    private $img;
+    private $canteenId;
 
-    public function __construct($id, $name, $desc, $price, $img) {
+    public function __construct($id, $name, $desc, $price, $canteenId) {
         $this->id = $id;
         $this->name = $name;
         $this->desc = $desc;
         $this->price = $price;
-        $this->img = empty($img) ? "" : $img;
+        $this->canteenId = $canteenId;
     }
 
     public function getId() {
@@ -262,8 +262,8 @@ class Dish implements JsonSerializable {
         return $this->price;
     }
 
-    public function getImg() {
-        return $this->img;
+    public function getCanteenId() {
+        return $this->canteenId;
     }
 
     public function jsonSerialize(): array {
@@ -272,7 +272,7 @@ class Dish implements JsonSerializable {
             'name' => $this->name,
             'desc' => $this->desc,
             'price' => $this->price,
-            'img' => $this->img,
+            'canteenId' => $this->canteenId,
         ];
     }
 }

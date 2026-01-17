@@ -106,7 +106,7 @@ class DatabaseHelper{
 
         $list = array();
         foreach ($result->fetch_all(MYSQLI_ASSOC) as $d) {
-            array_push($list, new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["img"]));
+            array_push($list, new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["id_mensa"]));
         }
         return $list;
     }
@@ -133,22 +133,46 @@ class DatabaseHelper{
 
         $list = array();
         foreach ($result->fetch_all(MYSQLI_ASSOC) as $d) {
-            array_push($list, new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["img"]));
+            array_push($list, new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["id_mensa"]));
         }
         return $list;
     }
 
     public function getDishesByCanteenId($canteenId) {
-        $stmt = $this->db->prepare("SELECT DISTINCT p.* FROM piatti p JOIN composizioni c ON p.id = c.id_piatto JOIN menu m ON c.id_menu = m.id WHERE m.id_mensa = ? ORDER BY p.nome ASC;");
+        $stmt = $this->db->prepare("SELECT * FROM piatti WHERE id_mensa = ? ORDER BY nome ASC;");
         $stmt->bind_param("i", $canteenId);
         $stmt->execute();
         $result = $stmt->get_result();
 
         $list = array();
         foreach ($result->fetch_all(MYSQLI_ASSOC) as $d) {
-            array_push($list, new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["img"]));
+            array_push($list, new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["id_mensa"]));
         }
         return $list;
+    }
+
+    public function insertDish($nome, $descrizione, $prezzo, $id_mensa) {
+        $stmt = $this->db->prepare("INSERT INTO piatti (nome, descrizione, prezzo, id_mensa) VALUES (?, ?, ?, ?);");
+        $stmt->bind_param("ssdi", $nome, $descrizione, $prezzo, $id_mensa);
+        $stmt->execute();
+        return $this->db->insert_id;
+    }
+
+    public function insertMenu($nome, $id_mensa, $attivo = 0, $dishes = []) {
+        $stmt = $this->db->prepare("INSERT INTO menu (nome, attivo, id_mensa) VALUES (?, ?, ?);");
+        $stmt->bind_param("sii", $nome, $attivo, $id_mensa);
+        $stmt->execute();
+        $menuId = $this->db->insert_id;
+
+        // Inserting dishes into the compositions table
+        if (!empty($dishes)) {
+            $stmt = $this->db->prepare("INSERT INTO composizioni (id_menu, id_piatto) VALUES (?, ?);");
+            foreach ($dishes as $dishId) {
+                $stmt->bind_param("ii", $menuId, $dishId);
+                $stmt->execute();
+            }
+        }
+        return $menuId;
     }
 
     public function getCanteenReviews($canteenId) {
