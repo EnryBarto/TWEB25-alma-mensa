@@ -113,18 +113,6 @@ class DatabaseHelper{
         }
     }
 
-    public function getAllDishes() {
-        $stmt = $this->db->prepare("SELECT * FROM piatti ORDER BY nome ASC;");
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        $list = array();
-        foreach ($result->fetch_all(MYSQLI_ASSOC) as $d) {
-            array_push($list, new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["id_mensa"]));
-        }
-        return $list;
-    }
-
     public function getMenusByCanteenId($canteenId) {
         $stmt = $this->db->prepare("SELECT * FROM menu WHERE id_mensa = ? ORDER BY attivo DESC, nome ASC;");
         $stmt->bind_param("i", $canteenId);
@@ -168,7 +156,7 @@ class DatabaseHelper{
     }
 
     public function getDishesByCanteenId($canteenId) {
-        $stmt = $this->db->prepare("SELECT * FROM piatti WHERE id = ? ORDER BY nome ASC;");
+        $stmt = $this->db->prepare("SELECT * FROM piatti WHERE id_mensa = ? ORDER BY nome ASC;");
         $stmt->bind_param("i", $canteenId);
         $stmt->execute();
         $result = $stmt->get_result();
