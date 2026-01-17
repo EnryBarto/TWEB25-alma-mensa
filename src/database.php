@@ -121,7 +121,17 @@ class DatabaseHelper {
         } catch (mysqli_sql_exception $e) {
             return $e->getCode();
         }
-        $stmt->execute();
+        return 0;
+    }
+
+    public function updateUserPassword($email, $hashedPassword) {
+        $stmt = $this->db->prepare("UPDATE utenti SET password = ? WHERE email = ?;");
+        $stmt->bind_param("ss", $hashedPassword, $email);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
         return 0;
     }
 
