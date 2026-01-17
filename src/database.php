@@ -86,14 +86,28 @@ class DatabaseHelper{
     }
 
     public function getCanteenByEmail($email) {
-        $stmt = $this->db->prepare("SELECT m.*, r.media_voti, r.num_voti, c.nome AS categoria FROM mense AS m LEFT JOIN (SELECT id_mensa, TRUNCATE(AVG(voto), 1) as media_voti, COUNT(voto) AS num_voti FROM `recensioni` GROUP BY id_mensa) AS r ON m.id = r.id_mensa JOIN categorie c ON m.id_categoria = c.id WHERE m.email = ?;");
+        $stmt = $this->db->prepare("SELECT m.*, c.nome AS categoria FROM mense AS m JOIN categorie c ON m.id_categoria = c.id WHERE m.email = ?;");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             $c = $result->fetch_assoc();
-            return new Canteen($c["id"], $c["email"], $c["nome"], $c["descrizione"], $c["ind_civico"], $c["ind_via"], $c["ind_comune"], $c["ind_cap"], $c["telefono"], $c["coo_latitudine"], $c["coo_longitudine"], $c["num_posti"], $c["immagine"], $c["categoria"], $c["media_voti"], $c["num_voti"]);
+            return new Canteen($c["id"], $c["email"], $c["nome"], $c["descrizione"], $c["ind_civico"], $c["ind_via"], $c["ind_comune"], $c["ind_cap"], $c["telefono"], $c["coo_latitudine"], $c["coo_longitudine"], $c["num_posti"], $c["immagine"], $c["categoria"], $c["media_recensioni"], $c["num_recensioni"]);
+        } else {
+            return null;
+        }
+    }
+
+    public function getCustomerByEmail($email) {
+        $stmt = $this->db->prepare("SELECT * FROM clienti WHERE email = ?;");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $c = $result->fetch_all(MYSQLI_ASSOC)[0];
+            return new Customer($c["email"], $c["nome"], $c["cognome"]);
         } else {
             return null;
         }
@@ -139,7 +153,7 @@ class DatabaseHelper{
     }
 
     public function getDishesByCanteenId($canteenId) {
-        $stmt = $this->db->prepare("SELECT * FROM piatti WHERE id_mensa = ? ORDER BY nome ASC;");
+        $stmt = $this->db->prepare("SELECT * FROM piatti WHERE id = ? ORDER BY nome ASC;");
         $stmt->bind_param("i", $canteenId);
         $stmt->execute();
         $result = $stmt->get_result();

@@ -7,11 +7,8 @@ require_once("database.php");
 
 session_start();
 
-if (!isUserLoggedIn()) {
-    $userData["level"] = UserLevel::NotLogged;
-} else {
-    $userData["level"] = $_SESSION["level"];
-    $userData["email"] = $_SESSION["email"];
+if (isUserLoggedIn()) {
+   $user = $_SESSION["user"];
 }
 
 $dbh = new DatabaseHelper("localhost", "root", "", "almamensa", 3306);

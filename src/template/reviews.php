@@ -37,7 +37,7 @@
                     </p>
                     <p class="card-text"><?php echo $r->getDescription(); ?></p>
                     <div class="card-text border-top mb-2"></div>
-                    <?php if (isUserLoggedIn() && $r->getAuthorEmail() == $_SESSION["email"]): ?>
+                    <?php if (isUserLoggedIn() && $r->getAuthorEmail() == $user->getEmail()): ?>
                     <div class="my-2">
                         <a class="btn btn-outline-primary btn-sm" title="Modifica recensione" href="process_review.php?action=U&id=<?php echo $r->getId(); ?>"><span class="bi bi-pen-fill"></span></a>
                         <!--Pulsante Modal-->

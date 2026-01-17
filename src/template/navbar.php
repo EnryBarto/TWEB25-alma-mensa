@@ -13,7 +13,7 @@
                         <a class="nav-link" href="map.php">Mappa</a>
                     </li>
                     <?php
-                    switch ($userData["level"]) {
+                    switch (getUserLevel()) {
                         case UserLevel::CanteenAdmin:
                             require("navbars/canteen.php");
                             break;
@@ -22,8 +22,11 @@
                             break;
                     }
 
-                    if ($userData["level"] != UserLevel::NotLogged):
+                    if (getUserLevel() != UserLevel::NotLogged):
                     ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.php">Profilo</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="logout.php">Logout</a>
                     </li>

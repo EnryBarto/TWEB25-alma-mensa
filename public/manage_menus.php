@@ -6,7 +6,7 @@ $currentPage["filename"] = "manage_menus.php";
 
 // Check if user is logged in and is a canteen account.
 if (isUserLoggedIn() && getUserLevel() == UserLevel::CanteenAdmin) {
-    $canteen = $dbh->getCanteenByEmail($_SESSION["email"]);
+    $canteen = $dbh->getCanteenByEmail($user->getEmail());
     if ($canteen !== null) {
         $templateParams["menus"] = $dbh->getMenusByCanteenId($canteen->getId());
         $templateParams["canteen"] = $canteen;

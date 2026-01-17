@@ -5,7 +5,7 @@ enum UserLevel {
     case Customer;
 }
 
-class Address implements JsonSerializable {
+class Address implements JsonSerializable  {
     public $num;
     public $avenue;
     public $municipality;
@@ -32,9 +32,8 @@ class Address implements JsonSerializable {
     }
 }
 
-class Canteen implements JsonSerializable {
+class Canteen extends User implements JsonSerializable {
     private $id;
-    private $email;
     private $name;
     private $desc;
     private $address;
@@ -48,8 +47,8 @@ class Canteen implements JsonSerializable {
     private $numReviews;
 
     public function __construct($id, $email, $name, $desc, $number, $avenue, $municipality, $postalCode, $tel, $lat, $long, $maxSeatings, $img, $category, $avgReviews, $numReviews) {
+        parent::__construct($email);
         $this->id = $id;
-        $this->email = $email;
         $this->name = $name;
         $this->desc = $desc;
         $this->address = new Address($number, $avenue, $municipality, $postalCode);
@@ -68,7 +67,7 @@ class Canteen implements JsonSerializable {
     }
 
     public function getEmail() {
-        return $this->email;
+        return parent::getEmail();
     }
 
     public function getName() {
@@ -118,7 +117,7 @@ class Canteen implements JsonSerializable {
     public function jsonSerialize(): array {
         return [
             'id' => $this->id,
-            'email' => $this->email,
+            'email' => $this->getEmail(),
             'name' => $this->name,
             'desc' => $this->desc,
             'address' => $this->address instanceof JsonSerializable ? $this->address : $this->address,
@@ -131,6 +130,10 @@ class Canteen implements JsonSerializable {
             'avgReviews' => $this->avgReviews,
             'numReviews' => $this->numReviews,
         ];
+    }
+
+    public function getLevel() {
+        return UserLevel::CanteenAdmin;
     }
 }
 
@@ -331,6 +334,43 @@ class Menu implements JsonSerializable {
                 $this->dishes
             ),
         ];
+    }
+}
+
+abstract class User {
+    private $email;
+
+    public function __construct($email) {
+        $this->email = $email;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public abstract function getLevel();
+}
+
+class Customer extends User {
+    private $name;
+    private $surname;
+
+    public function __construct($email, $name, $surname) {
+        parent::__construct($email);
+        $this->name = $name;
+        $this->surname = $surname;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function getSurname() {
+        return $this->surname;
+    }
+
+    public function getLevel() {
+        return UserLevel::Customer;
     }
 }
 

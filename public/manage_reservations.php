@@ -9,7 +9,7 @@ if (isUserLoggedIn() && getUserLevel() == UserLevel::Customer)
     $currentPage["scriptfile"] = "manage_reservations.js";
     $currentPage["externalscriptfile"] = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
 
-    $templateParams["reservations"] = $dbh->getReservationsByCustomerEmail($_SESSION["email"]);
+    $templateParams["reservations"] = $dbh->getReservationsByCustomerEmail($user->getEmail());
 } else {
     header("Location: index.php");
     exit();

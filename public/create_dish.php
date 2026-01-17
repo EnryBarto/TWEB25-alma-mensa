@@ -10,7 +10,7 @@ if (!isUserLoggedIn() || getUserLevel() != UserLevel::CanteenAdmin) {
     exit();
 }
 
-$canteen = $dbh->getCanteenByEmail($_SESSION["email"]);
+$canteen = $dbh->getCanteenByEmail($user->getEmail());
 if ($canteen === null) {
     header("Location: index.php");
     exit();
