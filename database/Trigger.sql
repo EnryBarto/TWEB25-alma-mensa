@@ -34,5 +34,18 @@ BEGIN
     CALL aggiorna_recensioni(OLD.id_mensa);
 END//
 
+--
+-- Trigger per validare che piatto e menu appartengono alla stessa mensa
+--
+CREATE TRIGGER check_composition_mensa
+BEFORE INSERT ON composizioni
+FOR EACH ROW
+BEGIN
+  IF (SELECT p.id_mensa FROM piatti p WHERE p.id = NEW.id_piatto) !=
+     (SELECT m.id_mensa FROM menu m WHERE m.id = NEW.id_menu) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Il piatto e il menu devono appartenere alla stessa mensa';
+  END IF;
+END//
+
 DELIMITER ;
 

@@ -78,17 +78,18 @@ INSERT INTO `mense` (`id`, `email`, `nome`, `descrizione`, `ind_civico`, `ind_vi
 -- 3. POPOLAMENTO MENU, PIATTI E COMPOSIZIONI
 -- --------------------------------------------------------
 
-INSERT INTO `piatti` (`nome`, `descrizione`, `prezzo`, `img`) VALUES
-('Cappelletti al ragù', 'Pasta fresca ripiena con ragù romagnolo', 12.00, NULL),
-('Tagliere Misto', 'Salumi e formaggi del territorio', 14.00, NULL),
-('Hamburger Welldone', 'Manzo locale, cheddar, cipolla caramellata', 11.00, NULL),
-('Pizza Margherita', 'Pomodoro, mozzarella, basilico', 7.50, NULL),
-('Caffè Espresso', 'Miscela pregiata', 1.30, NULL),
-('Cappuccino', 'Latte fresco montato a vapore', 1.60, NULL),
-('Lasagna alla Bolognese', 'Classica lasagna al forno', 10.00, NULL),
-('Insalata Cesar', 'Pollo, lattuga, crostini, salsa cesar', 9.00, NULL),
-('Grigliata Mista', 'Selezione di carni alla brace', 18.00, NULL),
-('Tiramisù', 'Fatto in casa con mascarpone fresco', 5.00, NULL);
+INSERT INTO `piatti` (`nome`, `descrizione`, `prezzo`, `id_mensa`) VALUES
+('Cappelletti al ragù', 'Pasta fresca ripiena con ragù romagnolo', 12.00, 13),
+('Tagliere Misto', 'Salumi e formaggi del territorio', 14.00, 1),
+('Hamburger Welldone', 'Manzo locale, cheddar, cipolla caramellata', 11.00, 15),
+('Pizza Margherita', 'Pomodoro, mozzarella, basilico', 7.50, 16),
+('Caffè Espresso', 'Miscela pregiata', 1.30, 1),
+('Cappuccino', 'Latte fresco montato a vapore', 1.60, 2),
+('Lasagna alla Bolognese', 'Classica lasagna al forno', 10.00, 5),
+('Insalata Cesar', 'Pollo, lattuga, crostini, salsa cesar', 9.00, 5),
+('Grigliata Mista', 'Selezione di carni alla brace', 18.00, 12),
+('Tiramisù', 'Fatto in casa con mascarpone fresco', 5.00, 19),
+('Spaghetti Carbonara', 'Pasta con guanciale, uova e pecorino', 9.50, 9);
 
 -- Menu (1 per locale)
 INSERT INTO `menu` (`nome`, `attivo`, `id_mensa`) VALUES
@@ -96,15 +97,15 @@ INSERT INTO `menu` (`nome`, `attivo`, `id_mensa`) VALUES
 
 -- Associazioni Piatti (Random verosimile)
 INSERT INTO `composizioni` (`id_menu`, `id_piatto`) VALUES
-(1, 2), (1, 5), -- Piccolo Bar
-(2, 5), (2, 6), -- Wilson
-(5, 7), (5, 8), -- Garden
-(9, 7), (9, 8), -- Cibus
-(12, 3), (12, 9), -- Scottadito
-(13, 1), (13, 2), -- Sangiomense
-(15, 3), -- Welldone
-(16, 4), -- Da Neo
-(19, 1), (19, 10); -- Cene
+(1, 2), (1, 5),     -- Piccolo Bar
+(2, 6),             -- Wilson
+(5, 7), (5, 8),     -- Garden
+(9, 11),             -- Cibus
+(12, 9),            -- Scottadito
+(13, 1),            -- Sangiomense
+(15, 3),            -- Welldone
+(16, 4),            -- Da Neo
+(19, 10);           -- Cene
 
 -- --------------------------------------------------------
 -- 4. POPOLAMENTO RECENSIONI (50 Totali)

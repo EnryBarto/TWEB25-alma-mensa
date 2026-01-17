@@ -29,7 +29,7 @@ use almamensa;
 -- Struttura della tabella `categorie`
 --
 
-CREATE TABLE `categorie` (
+CREATE TABLE if not exists `categorie` (
   `id` int(11) NOT NULL,
   `nome` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -49,7 +49,7 @@ INSERT INTO `categorie` (`id`, `nome`) VALUES
 -- Struttura della tabella `clienti`
 --
 
-CREATE TABLE `clienti` (
+CREATE TABLE if not exists `clienti` (
   `email` varchar(100) NOT NULL,
   `nome` varchar(25) NOT NULL,
   `cognome` varchar(25) NOT NULL
@@ -61,7 +61,7 @@ CREATE TABLE `clienti` (
 -- Struttura della tabella `composizioni`
 --
 
-CREATE TABLE `composizioni` (
+CREATE TABLE if not exists `composizioni` (
   `id_menu` int(11) NOT NULL,
   `id_piatto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -72,7 +72,7 @@ CREATE TABLE `composizioni` (
 -- Struttura della tabella `mense`
 --
 
-CREATE TABLE `mense` (
+CREATE TABLE if not exists `mense` (
   `id` int(11) NOT NULL,
   `email` varchar(100) NOT NULL,
   `nome` varchar(50) NOT NULL,
@@ -104,7 +104,7 @@ INSERT INTO `mense` (`id`, `email`, `nome`, `descrizione`, `ind_civico`, `ind_vi
 -- Struttura della tabella `menu`
 --
 
-CREATE TABLE `menu` (
+CREATE TABLE if not exists `menu` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `attivo` char(1) NOT NULL,
@@ -117,12 +117,12 @@ CREATE TABLE `menu` (
 -- Struttura della tabella `piatti`
 --
 
-CREATE TABLE `piatti` (
+CREATE TABLE if not exists `piatti` (
   `id` int(11) NOT NULL,
   `nome` varchar(25) NOT NULL,
   `descrizione` varchar(255) NOT NULL,
   `prezzo` decimal(5,2) NOT NULL,
-  `img` varchar(255) DEFAULT NULL
+  `id_mensa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -131,7 +131,7 @@ CREATE TABLE `piatti` (
 -- Struttura della tabella `prenotazioni`
 --
 
-CREATE TABLE `prenotazioni` (
+CREATE TABLE if not exists `prenotazioni` (
   `data_ora` datetime NOT NULL,
   `codice` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -146,7 +146,7 @@ CREATE TABLE `prenotazioni` (
 -- Struttura della tabella `recensioni`
 --
 
-CREATE TABLE `recensioni` (
+CREATE TABLE if not exists `recensioni` (
   `id` int(11) NOT NULL,
   `voto` decimal(2,1) NOT NULL,
   `titolo` varchar(25) NOT NULL,
@@ -162,7 +162,7 @@ CREATE TABLE `recensioni` (
 -- Struttura della tabella `utenti`
 --
 
-CREATE TABLE `utenti` (
+CREATE TABLE if not exists `utenti` (
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `mensa` tinyint(1) NOT NULL,
@@ -225,7 +225,8 @@ ALTER TABLE `menu`
 --
 ALTER TABLE `piatti`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `ID_piatti_IND` (`id`);
+  ADD UNIQUE KEY `ID_piatti_IND` (`id`),
+  ADD KEY `FKCom_Pia_IND` (`id_mensa`);
 
 --
 -- Indici per le tabelle `prenotazioni`
@@ -316,6 +317,12 @@ ALTER TABLE `mense`
 --
 ALTER TABLE `menu`
   ADD CONSTRAINT `FKProposta_FK` FOREIGN KEY (`id_mensa`) REFERENCES `mense` (`id`);
+
+--
+-- Limiti per la tabella `piatti`
+--
+ALTER TABLE `piatti`
+  ADD CONSTRAINT `FKCom_Pia_FK` FOREIGN KEY (`id_mensa`) REFERENCES `mense` (`id`);
 
 --
 -- Limiti per la tabella `prenotazioni`
