@@ -261,6 +261,37 @@ class DatabaseHelper {
         return $menuId;
     }
 
+    public function deleteCustomerByEmail($email) {
+        $this->db->begin_transaction();
+        try {
+            // Delete reviews
+            $stmt = $this->db->prepare('DELETE FROM recensioni WHERE email = ?;');
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+
+            // Delete reservations
+            $stmt = $this->db->prepare('DELETE FROM prenotazioni WHERE email = ?;');
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+
+            // Delete from clienti
+            $stmt = $this->db->prepare('DELETE FROM clienti WHERE email = ?;');
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+
+            // Delete from utenti
+            $stmt = $this->db->prepare('DELETE FROM utenti WHERE email = ?;');
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+
+            $this->db->commit();
+        } catch (mysqli_sql_exception $e) {
+            $this->db->rollback();
+            return $e->getCode();
+        }
+        return 0;
+    }
+
     public function updateMenu($menuId, $nome, $attivo = 0, $dishes = []) {
         $this->db->begin_transaction();
         try {
