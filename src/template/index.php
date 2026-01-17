@@ -1,5 +1,9 @@
 <header class="text-center my-4">
-    <h1>AlmaMensa</h1>
+    <?php if (isUserLoggedIn()): ?>
+        <h1>Benvenuto in AlmaMensa, <?php echo $user->getName() ; ?></h1>
+    <?php else: ?>
+        <h1>AlmaMensa</h1>
+    <?php endif; ?>
     <p class="text-secondary">Da universitari per universitari</p>
 </header>
 <div class="container mb-5">
