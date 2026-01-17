@@ -6,7 +6,7 @@ $currentPage["filename"] = "manage_dishes.php";
 
 // Check if user is logged in and is a canteen account.
 if (isUserLoggedIn() && getUserLevel() == UserLevel::CanteenAdmin) {
-    $canteen = $dbh->getCanteenByEmail($_SESSION["email"]);
+    $canteen = $dbh->getCanteenByEmail($user->getEmail());
     if ($canteen !== null) {
         $templateParams["dishes"] = $dbh->getDishesByCanteenId($canteen->getId());
         $templateParams["canteen"] = $canteen;

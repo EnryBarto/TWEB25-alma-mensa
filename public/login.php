@@ -10,8 +10,13 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 
     $loginData = $dbh->checkLogin($email, $password);
     if (count($loginData) > 0 && password_verify($password, $loginData[0]['password'])) {
-        registerLoggedUser($loginData[0]);
-        $userData["level"] = $_SESSION["level"];
+        $user;
+        if ($loginData[0]['cliente']) {
+            $user = $dbh->getCustomerByEmail($email);
+        } else {
+            $user = $dbh->getCanteenByEmail($email);
+        }
+        registerLoggedUser($user);
         header("Location: index.php");
         exit();
     } else {

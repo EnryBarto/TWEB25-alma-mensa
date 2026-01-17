@@ -7,23 +7,18 @@ function isActive($pagename){
 }
 
 function getUserLevel(){
-    if(isset($_SESSION["level"])){
-        return $_SESSION["level"];
+    if(isset($_SESSION["user"])){
+        return $_SESSION["user"]->getLevel();
     }
     return UserLevel::NotLogged;
 }
 
 function isUserLoggedIn(){
-    return !empty($_SESSION['email']);
+    return isset($_SESSION["user"]);
 }
 
 function registerLoggedUser($user){
-    $_SESSION["email"] = $user["email"];
-    if ($user["cliente"]) {
-        $_SESSION["level"] = UserLevel::Customer;
-    } else {
-        $_SESSION["level"] = UserLevel::CanteenAdmin;
-    }
+    $_SESSION["user"] = $user;
 }
 
 function uploadImage($path, $image){

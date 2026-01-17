@@ -33,7 +33,7 @@ if (isset($_GET["action"])) {
                 $currentPage["title"] = "Modifica recensione";
                 // Form to edit a review
                 $review = $dbh->getCanteenReviewById($_GET["id"]);
-                if ($review == null || $review->getAuthorEmail() != $_SESSION["email"]) {
+                if ($review == null || $review->getAuthorEmail() != $user->getEmail()) {
                     header("Location: explore.php");
                     exit();
                 }
@@ -65,7 +65,7 @@ if (isset($_GET["action"])) {
         case "C":
             if (isset($_POST["canteen_id"])) {
                 // The review must be inserted into the database
-                $exitCode = $dbh->insertReview($_POST["canteen_id"], $_SESSION["email"], $_POST["title"], $_POST["description"], $_POST["vote"]);
+                $exitCode = $dbh->insertReview($_POST["canteen_id"], $user->getEmail(), $_POST["title"], $_POST["description"], $_POST["vote"]);
                 if ($exitCode == 0) {
                     header("Location: reviews.php?id=$_POST[canteen_id]");
                     exit();
@@ -83,7 +83,7 @@ if (isset($_GET["action"])) {
             if (isset($_POST["review_id"])) {
                 // Check permission
                 $review = $dbh->getCanteenReviewById($_POST["review_id"]);
-                if ($review->getAuthorEmail() != $_SESSION["email"]) {
+                if ($review->getAuthorEmail() != $user->getEmail()) {
                     header("Location: explore.php");
                     exit();
                 }
@@ -106,7 +106,7 @@ if (isset($_GET["action"])) {
             if (isset($_POST["review_id"])) {
                 // Check permission
                 $review = $dbh->getCanteenReviewById($_POST["review_id"]);
-                if ($review->getAuthorEmail() != $_SESSION["email"]) {
+                if ($review->getAuthorEmail() != $user->getEmail()) {
                     header("Location: explore.php");
                     exit();
                 }
