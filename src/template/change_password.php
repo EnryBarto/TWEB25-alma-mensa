@@ -27,14 +27,14 @@
                 <input type="password" name="psw" id="password-input"
                     class="form-control <?php if (isset($msg["error_mismatch_psw"]))
                         echo "is-invalid"; ?>"
-                    placeholder="Inserisci password" aria-label="Password input" required>
+                    placeholder="Inserisci nuova password" aria-label="Nuova password" required>
             </div>
             <div class="mb-3">
                 <label for="confirm-password-input" class="form-label">Conferma nuova password</label>
                 <input type="password" name="confirmPsw" id="confirm-password-input"
                     class="form-control <?php if (isset($msg["error_mismatch_psw"]))
                         echo "is-invalid"; ?>"
-                    placeholder="Inserisci password" aria-label="Confirm Password input" required>
+                    placeholder="Inserisci nuova password" aria-label="Conferma nuova password" required>
                 <?php if (isset($msg["error_mismatch_psw"])): ?>
                     <div class="invalid-feedback">
                         <?php echo $msg["error_mismatch_psw"]; ?>

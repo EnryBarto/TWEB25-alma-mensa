@@ -10,7 +10,7 @@
             include('components/customer_info.php');
             break;
         case UserLevel::CanteenAdmin:
-            include('components/canteen_info.php');
+            include('canteen_details.php');
             break;
         }
         ?>
