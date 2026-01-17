@@ -5,6 +5,18 @@
     <div class="row justify-content-center">
         <h2 class="text-center">Le tue prenotazioni attive</h2>
         <div class="col-10">
+            <?php if (isset($_GET["success"]) && $_GET["success"] == 1): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span class="bi bi-check-circle-fill"> Prenotazione eliminata con successo!</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+            <?php if (isset($_GET["errorCode"])): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span class="bi bi-exclamation-circle-fill"> Si è verificato un errore. Codice errore: <?php echo htmlspecialchars($_GET["errorCode"]); ?></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
             <?php foreach ($templateParams["reservations"] as $reservation){
                 if ($reservation->isActive()) {
                     include('components/reservation_card.php');

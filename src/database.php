@@ -85,6 +85,20 @@ class DatabaseHelper {
         return $reservations;
     }
 
+    public function getReservationByCode($code) {
+        $stmt = $this->db->prepare("SELECT * FROM prenotazioni WHERE codice = ?;");
+        $stmt->bind_param("s", $code);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $res = $result->fetch_all(MYSQLI_ASSOC)[0];
+            return new Reservation($res["codice"], $this->getCanteenById($res["id_mensa"]), $res["data_ora"], $res["email"], $res["num_persone"], $res["convalidata"]);
+        } else {
+            return null;
+        }
+    }
+
     public function getCanteenByEmail($email) {
         $stmt = $this->db->prepare("SELECT m.*, c.nome AS categoria FROM mense AS m JOIN categorie c ON m.id_categoria = c.id WHERE m.email = ?;");
         $stmt->bind_param("s", $email);
@@ -337,6 +351,17 @@ class DatabaseHelper {
         $stmt = $this->db->prepare('DELETE FROM recensioni WHERE id=?');
         $stmt->bind_param("i", $reviewId);
         $stmt->execute();
+    }
+
+    public function deleteReservation($reservationCode) {
+        try{
+            $stmt = $this->db->prepare('DELETE FROM prenotazioni WHERE codice=?');
+            $stmt->bind_param("s", $reservationCode);
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        return 0;
     }
 
     public function deleteMenu($menuId) {

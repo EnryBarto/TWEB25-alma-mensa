@@ -51,7 +51,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annulla</button>
-                <a href="remove_reservation.php?code=<?php echo $reservation->getCode(); ?>" role="button"
+                <a href="process_reservation.php?action=D&code=<?php echo $reservation->getCode(); ?>" role="button"
                     class="btn btn-primary">Rimuovi</a>
             </div>
         </div>
