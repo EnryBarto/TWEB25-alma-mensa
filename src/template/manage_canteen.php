@@ -7,7 +7,7 @@
         <div class="col-12 col-md-10 col-lg-8">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <form class="needs-validation" action="manage_canteen.php" method="POST" novalidate>
+                    <form class="needs-validation" action="manage_canteen.php" method="POST"  enctype="multipart/form-data" novalidate>
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome <span class="text-primary">*</span></label>
                             <input type="text" class="form-control" id="nome" name="name" placeholder="Nome della mensa" value="<?php echo $templateParams["name"]; ?>" required>
@@ -67,16 +67,22 @@
                         <fieldset class="mb-4">
                             <legend class="text-uppercase text-secondary small fw-bold mb-1">Immagine</legend>
                             <?php if($user->getImg() != null): ?>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="removeImg" name="removeImg" value="true" />
+                                    <label class="form-check-label" for="removeImg">Rimuovi immagine</label>
+                                </div>
+                            </div>
                             <figure class="col-12 col-md-6">
                                 <figcaption class="mb-1">Immagine corrente:</figcaption>
                                 <img src="<?php echo UPLOAD_DIR . $user->getImg(); ?>" class="img-fluid mb-3 d-block w-100" alt="Immagine di sfondo attuale">
                             </figure>
-                            <label for="immagine" class="form-label">Sostituisci immagine della mensa</label>
+                            <label for="image" class="form-label">Sostituisci immagine della mensa</label>
                             <?php else: ?>
                             <p class="pt-2">Al momento non è impostata nessun immagine</p>
-                            <label for="immagine" class="form-label">Carica immagine della mensa</label>
+                            <label for="image" class="form-label">Carica immagine della mensa</label>
                             <?php endif; ?>
-                            <input class="form-control" type="file" id="immagine" name="image" accept="image/*">
+                            <input class="form-control" type="file" id="image" name="image" accept="image/*" />
                         </fieldset>
 
                         <p>I campi contrassegnati con <span class="text-primary">*</span> sono obbligatori</p>
@@ -85,8 +91,9 @@
                         <input type="hidden" name="action" value="U" />
 
                         <div class="d-flex gap-2 justify-content-end">
-                            <button type="reset" class="btn btn-outline-secondary">Annulla</button>
-                            <button type="submit" class="btn btn-primary">Salva</button>
+                            <a role="button" class="btn btn-outline-secondary" alt="Chiudi modifica" href="canteen_details.php?id=<?php echo $user->getId(); ?>"><span class="bi bi-arrow-left"></span> Annulla</a>
+                            <button type="reset" id="resBtn" class="btn btn-outline-primary"><span class="bi bi-x"></span> Reset</button>
+                            <button type="submit" class="btn btn-primary"><span class="bi bi-floppy-fill"></span> Salva</button>
                         </div>
                     </form>
                 </div>

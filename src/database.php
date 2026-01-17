@@ -381,7 +381,7 @@ class DatabaseHelper {
         }
     }
 
-    public function updateCanteen($id, $name, $desc, $seats, $avenue, $num, $postal_code, $municipality, $lat, $lon, $telephone) {
+    public function updateCanteen($id, $name, $desc, $seats, $avenue, $num, $postal_code, $municipality, $lat, $lon, $telephone, $image) {
         $this->db->begin_transaction();
         try {
             $stmt = $this->db->prepare('UPDATE mense SET nome=?, descrizione=?, num_posti=?, ind_via=?, ind_civico=?, ind_cap=?, ind_comune=?, coo_latitudine=?, coo_longitudine=? WHERE id=?');
@@ -405,6 +405,22 @@ class DatabaseHelper {
             $this->db->rollback();
             return $e->getCode();
         }
+
+        try {
+            if (empty($image)) {
+                $stmt = $this->db->prepare('UPDATE mense SET immagine = NULL WHERE id=?');
+                $stmt->bind_param("i", $id);
+            } else {
+                $stmt = $this->db->prepare('UPDATE mense SET immagine=? WHERE id=?');
+                $stmt->bind_param("si", $image, $id);
+            }
+            $stmt->execute();
+        } catch (Exception $e) {
+            $this->db->rollback();
+            return $e->getCode();
+        }
+
+
         if ($stmt->affected_rows == 0) {
             $this->db->rollback();
             return -2;

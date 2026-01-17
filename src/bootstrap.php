@@ -7,9 +7,20 @@ require_once("database.php");
 
 session_start();
 
+$dbh = new DatabaseHelper("localhost", "root", "", "almamensa", 3306);
+
 if (isUserLoggedIn()) {
-   $user = $_SESSION["user"];
+   switch (getUserLevel()) {
+      case UserLevel::Customer:
+         $user = $dbh->getCustomerByEmail($_SESSION["user"]->getEmail());
+         break;
+
+      case UserLevel::CanteenAdmin:
+         $user = $dbh->getCanteenByEmail($_SESSION["user"]->getEmail());
+         break;
+   }
+
+   registerLoggedUser($user);
 }
 
-$dbh = new DatabaseHelper("localhost", "root", "", "almamensa", 3306);
 ?>

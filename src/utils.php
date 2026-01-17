@@ -21,8 +21,9 @@ function registerLoggedUser($user){
     $_SESSION["user"] = $user;
 }
 
-function uploadImage($path, $image){
-    $imageName = basename($image["name"]);
+function uploadImage($path, $image, $name){
+    //$imageName = basename($image["name"]);
+    $imageName = basename($name) . "." . pathinfo($image["name"],PATHINFO_EXTENSION);
     $fullPath = $path.$imageName;
 
     $maxKB = 500;
@@ -50,7 +51,7 @@ function uploadImage($path, $image){
         $i = 1;
         do{
             $i++;
-            $imageName = pathinfo(basename($image["name"]), PATHINFO_FILENAME)."_$i.".$imageFileType;
+            $imageName = pathinfo(basename($name), PATHINFO_FILENAME)."_$i.".$imageFileType;
         }
         while(file_exists($path.$imageName));
         $fullPath = $path.$imageName;

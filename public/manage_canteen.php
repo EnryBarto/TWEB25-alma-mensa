@@ -16,6 +16,7 @@ if (isset($_GET["action"])) {
 
     $currentPage["filename"] = "manage_canteen.php";
     $templateParams["action"] = $_GET["action"];
+    $currentPage["scriptfile"] = "manage_canteen.js";
     if (isset($_GET["errorCode"])) $templateParams["errorCode"] = $_GET["errorCode"];
 
     switch($_GET["action"]) {
@@ -72,8 +73,23 @@ if (isset($_GET["action"])) {
                     header("Location: explore.php");
                     exit();
                 }
+                // Check image upload
+                if(isset($_FILES["image"]) && strlen($_FILES["image"]["name"])>0){
+                    list($result, $msg) = uploadImage(UPLOAD_DIR, $_FILES["image"], str_replace(" ", "_", strtolower($user->getName())));
+                    if($result == 0){
+                        header("location: login.php?formmsg=".$msg);
+                        exit();
+                    }
+                    $image = $msg;
+                    unlink(realpath(UPLOAD_DIR . $user->getImg()));
+                } else if (isset($_POST["removeImg"]) && $_POST["removeImg"] == "true") {
+                    unlink(realpath(UPLOAD_DIR . $user->getImg()));
+                    $image = "";
+                } else {
+                    $image = $user->getImg();
+                }
                 // The review must be updated
-                $exitCode = $dbh->updateCanteen($_POST["id"], $_POST["name"], $_POST["desc"], $_POST["seats"], $_POST["avenue"], $_POST["num"], $_POST["postal_code"], $_POST["municipality"], $_POST["lat"], $_POST["lon"], $_POST["telephone"]);
+                $exitCode = $dbh->updateCanteen($_POST["id"], $_POST["name"], $_POST["desc"], $_POST["seats"], $_POST["avenue"], $_POST["num"], $_POST["postal_code"], $_POST["municipality"], $_POST["lat"], $_POST["lon"], $_POST["telephone"], $image);
                 if ($exitCode == 0) {
                     $user = $dbh->getCanteenByEmail($user->getEmail());
                     registerLoggedUser($user);
