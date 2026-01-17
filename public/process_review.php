@@ -57,7 +57,7 @@ if (isset($_GET["action"])) {
         if (isset($_POST["vote"])) $location .= "&vote=" . $_POST["vote"];
         if (isset($_POST["title"])) $location .= "&title=" . $_POST["title"];
         if (isset($_POST["description"])) $location .= "&description=" . $_POST["description"];
-        header("Location: process_review.php?&errorCode=-1");
+        header($location);
         exit();
     }
 
