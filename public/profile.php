@@ -1,8 +1,7 @@
 <?php
 require_once '../src/bootstrap.php';
 
-if (!isUserLoggedIn())
-{
+if (!isUserLoggedIn()) {
     header("Location: index.php");
     exit();
 }
@@ -15,7 +14,8 @@ switch (getUserLevel()) {
         $templateParams["reservations"] = $dbh->getReservationsByCustomerEmail($user->getEmail());
         break;
     case UserLevel::CanteenAdmin:
-        $templateParams["canteen"] = $dbh->getCanteenByEmail($user->getEmail());
+        header("Location: canteen_details.php?id={$user->getId()}");
+        exit();
         break;
 }
 
