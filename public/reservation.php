@@ -16,17 +16,96 @@ switch (getUserLevel()) {
         break;
 }
 
-if (isset($_GET["id"])) {
-    $templateParams["canteen"] = $dbh->getCanteenById($_GET["id"]);
-} else {
-    header("Location: explore.php");
+if (isset($_GET["action"])) {
+
+    if (!isset($_GET["id"])) {
+        header("Location: explore.php");
+        exit();
+    }
+
+    $templateParams["action"] = $_GET["action"];
+    if (isset($_GET["errorCode"])) {
+        $templateParams["errorCode"] = $_GET["errorCode"];
+    }
+
+
+    switch($_GET["action"]) {
+        case "C":
+            $templateParams["canteen"] = $dbh->getCanteenById($_GET["id"]);
+            $currentPage["title"] = "Prenota";
+            $currentPage["filename"] = "reservation.php";
+            $currentPage["scriptfile"] = "reservation.js";
+            $templateParams["subtitle"] = "Prenota un tavolo";
+            break;
+
+        case "U":
+            $currentPage["title"] = "Modifica prenotazione";
+            $currentPage["filename"] = "reservation.php";
+            $currentPage["scriptfile"] = "reservation.js";
+            $templateParams["subtitle"] = "Modifica la tua prenotazione";
+            break;
+
+        default:
+            header("Location: explore.php");
+            exit();
+            break;
+    }
+}
+else if (isset($_POST["action"])) {
+
+    if (!isset($_POST["id"])) {
+        header("Location: explore.php");
+        exit();
+    }
+
+    if ($_POST["action"] != "D" && (!isset($_POST["date"]) || !isset($_POST["time"]) || !isset($_POST["guests"]))) {
+        $location = "Location: process_review.php?errorCode=-1&action=" . $_POST["action"];
+        if (isset($_POST["vote"])) $location .= "&vote=" . $_POST["vote"];
+        if (isset($_POST["title"])) $location .= "&title=" . $_POST["title"];
+        if (isset($_POST["description"])) $location .= "&description=" . $_POST["description"];
+        header($location);
+        exit();
+    }
+
+    switch($_POST["action"]) {
+        case "C":
+            $code = "PREN-" . $_POST["id"] . "-" . floor(microtime(true) * 1000);
+
+            try {
+                $dateTime = new DateTimeImmutable($_POST["date"] . " " . $_POST["time"]);
+            } catch (Exception $e) {
+                header("Location: index.php");
+                exit();
+            }
+
+            $exitCode = $dbh->insertReservation($user->getEmail(), $_POST["id"], $code, $dateTime->format("Y-m-d H:i"), $_POST["guests"]);
+            break;
+
+        case "D":
+            if ($dbh->getReservationByCode($_POST["id"])->getUserEmail() != $user->getEmail()) {
+                header("Location: explore.php");
+                exit();
+            }
+            $exitCode = $dbh->deleteReservation($_POST["id"]);
+            break;
+
+        default:
+            header("Location: explore.php");
+            exit();
+            break;
+    }
+
+    if ($exitCode == 0) {
+        header("Location: manage_reservations.php?success=1&action=".$_POST["action"]);
+    } else {
+        header("Location: manage_reservations.php?errorCode=$exitCode&action=".$_POST["action"]);
+    }
     exit();
 }
-
-$currentPage["title"] = "Prenota";
-$currentPage["filename"] = "reservation.php";
-$currentPage["scriptfile"] = "reservation.js";
-$templateParams["subtitle"] = "Prenota un tavolo";
+else {
+    header("Location: index.php");
+    exit();
+}
 
 require '../src/template/base.php';
 ?>

@@ -56,7 +56,7 @@
             <?php switch (getUserLevel()):
                 case UserLevel::Customer: ?>
                 <div class="col-10 col-md-4 offset-md-1 d-grid gap-2">
-                    <a class="btn btn-primary" role="button" href="reservation.php?id=<?php echo $canteen->getId(); ?>"><span class="bi bi-journal-check"></span>&nbsp;Prenota</a>
+                    <a class="btn btn-primary" role="button" href="reservation.php?action=C&id=<?php echo $canteen->getId(); ?>"><span class="bi bi-journal-check"></span>&nbsp;Prenota</a>
                 </div>
             <?php break;
                 case UserLevel::CanteenAdmin:

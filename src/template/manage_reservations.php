@@ -7,13 +7,33 @@
         <div class="col-10">
             <?php if (isset($_GET["success"]) && $_GET["success"] == 1): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?php switch($_GET["action"]):
+                    case "C": ?>
+                    <span class="bi bi-check-circle-fill"> Prenotazione registrata con successo!</span>
+                    <?php break; ?>
+                    <?php case "D": ?>
                     <span class="bi bi-check-circle-fill"> Prenotazione eliminata con successo!</span>
+                    <?php break; ?>
+                    <?php case "U": ?>
+                    <span class="bi bi-check-circle-fill"> Prenotazione aggiornata con successo!</span>
+                    <?php endswitch; ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif; ?>
             <?php if (isset($_GET["errorCode"])): ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <span class="bi bi-exclamation-circle-fill"> Si è verificato un errore. Codice errore: <?php echo htmlspecialchars($_GET["errorCode"]); ?></span>
+                    <span class="bi bi-exclamation-circle-fill"> Si è verificato un errore durante
+                    <?php switch($_GET["action"]):
+                    case "C": ?>
+                    la creazione
+                    <?php break; ?>
+                    <?php case "D": ?>
+                    la cancellazione
+                    <?php break; ?>
+                    <?php case "U": ?>
+                    l'aggiornamento
+                    <?php endswitch; ?>
+                    della prenotazione. Codice errore: <?php echo htmlspecialchars($_GET["errorCode"]); ?></span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif; ?>

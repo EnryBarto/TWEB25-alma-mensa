@@ -527,6 +527,7 @@ class DatabaseHelper {
         return $hours;
     }
 
+<<<<<<< HEAD
     public function createOpeningHour($canteenId, $dayOfWeek, $openTime, $closeTime) {
         $stmt = $this->db->prepare('INSERT INTO orari (giorno, ora_apertura, ora_chiusura, id_mensa) VALUES (?, ?, ?, ?);');
         $stmt->bind_param("sssi", $dayOfWeek, $openTime, $closeTime, $canteenId);
@@ -561,6 +562,18 @@ class DatabaseHelper {
             return $e->getCode();
         }
         return 0;
+=======
+    public function insertReservation($user, $canteenId, $code, $dateTime, $guests) {
+        try {
+            $stmt = $this->db->prepare('INSERT INTO prenotazioni (data_ora, codice, email, num_persone, id_mensa) VALUES (?, ?, ?, ?, ?);');
+            $stmt->bind_param("sssii", $dateTime, $code, $user, $guests, $canteenId);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+
+>>>>>>> c85bfb4 (feat: Reservation creation and deletion)
     }
 }
 ?>
