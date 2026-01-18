@@ -384,6 +384,20 @@ class DatabaseHelper {
         $stmt->execute();
     }
 
+    public function modifyReservation($reservationCode, $newDateTime, $newNumPeople) {
+        if (!isValidReservationForInsertion($this->getReservationByCode($reservationCode), $this)) {
+            return -1;
+        }
+        try {
+            $stmt = $this->db->prepare('UPDATE prenotazioni SET data_ora = ?, num_persone = ? WHERE codice = ?');
+            $stmt->bind_param("sis", $newDateTime, $newNumPeople, $reservationCode);
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+    }
+
     public function deleteReservation($reservationCode) {
         try{
             $stmt = $this->db->prepare('DELETE FROM prenotazioni WHERE codice=?');
@@ -393,6 +407,18 @@ class DatabaseHelper {
             return $e->getCode();
         }
         return 0;
+    }
+
+    public function getReservationsStatusInInterval($canteenId, $timeIn, $timeOut) {
+        $query = 'SELECT m.id, m.num_posti - SUM(p.num_persone) posti_rimanenti
+        FROM mense m LEFT JOIN prenotazioni p ON (m.id = p.id_mensa)
+        WHERE id_mensa = ?
+        AND p.data_ora BETWEEN ? AND ?
+        GROUP BY m.id;';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("iss", $canteenId, $timeIn, $timeOut);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     public function deleteMenu($menuId) {
