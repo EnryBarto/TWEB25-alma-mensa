@@ -7,6 +7,7 @@
         <li><a class="dropdown-item bg-transparent nav-link" href="manage_canteen.php?action=U&id=<?php echo $user->getId();?>">Modifica dati</a></li>
         <li><a class="dropdown-item bg-transparent nav-link" href="manage_menus.php">Gestione menu</a></li>
         <li><a class="dropdown-item bg-transparent nav-link" href="manage_dishes.php">Gestione piatti</a></li>
+        <li><a class="dropdown-item bg-transparent nav-link" href="manage_timetable.php">Gestione orari di apertura</a></li>
     </ul>
 </li>
 <li class="nav-item">
