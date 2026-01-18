@@ -5,6 +5,40 @@ enum UserLevel {
     case Customer;
 }
 
+class OpeningHour {
+    private $dayOfWeek;
+    private $openTime;
+    private $closeTime;
+
+    private static $dayMapper = [
+        'mon' => 'Lunedì',
+        'tue' => 'Martedì',
+        'wed' => 'Mercoledì',
+        'thu' => 'Giovedì',
+        'fri' => 'Venerdì',
+        'sat' => 'Sabato',
+        'sun' => 'Domenica',
+    ];
+
+    public function __construct($dayOfWeek, $openTime, $closeTime) {
+        $this->dayOfWeek = $dayOfWeek;
+        $this->openTime = $openTime;
+        $this->closeTime = $closeTime;
+    }
+
+    public function getDayOfWeek() {
+        return self::$dayMapper[$this->dayOfWeek];
+    }
+
+    public function getOpenTime() {
+        return (new DateTimeImmutable($this->openTime))->format('H:i');
+    }
+
+    public function getCloseTime() {
+        return (new DateTimeImmutable($this->closeTime))->format('H:i');
+    }
+}
+
 class Address implements JsonSerializable  {
     public $num;
     public $avenue;
@@ -45,8 +79,9 @@ class Canteen extends User implements JsonSerializable {
     private $category;
     private $avgReviews;
     private $numReviews;
+    private $openingHours;
 
-    public function __construct($id, $email, $name, $desc, $number, $avenue, $municipality, $postalCode, $tel, $lat, $long, $maxSeatings, $img, $category, $avgReviews, $numReviews) {
+    public function __construct($id, $email, $name, $desc, $number, $avenue, $municipality, $postalCode, $tel, $lat, $long, $maxSeatings, $img, $category, $avgReviews, $numReviews, $openingHours) {
         parent::__construct($email);
         $this->id = $id;
         $this->name = $name;
@@ -60,6 +95,7 @@ class Canteen extends User implements JsonSerializable {
         $this->category = $category;
         $this->avgReviews = $avgReviews;
         $this->numReviews = $numReviews;
+        $this->openingHours = $openingHours;
     }
 
     public function getId() {
@@ -112,6 +148,10 @@ class Canteen extends User implements JsonSerializable {
 
     public function getNumReviews() {
         return $this->numReviews;
+    }
+
+    public function getOpeningHours(): array {
+        return $this->openingHours;
     }
 
     public function jsonSerialize(): array {

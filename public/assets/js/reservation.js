@@ -51,7 +51,7 @@ async function getOpeningHours(id) {
         return;
     }
 
-    const url = `api_get_opening_hours.php?id=${id}&date=${date}`;
+    const url = `api_get_timetable.php?id=${id}&date=${date}`;
     try {
         const response = await fetch(url);
         if (!response.ok) {

@@ -33,20 +33,20 @@
                         <ul class="list-unstyled pt-2">
                             <?php
                             $last = "";
-                            foreach($templateParams["timetable"] as $t): ?>
-                            <?php if ($last != $t["giorno"]):
+                            foreach($canteen->getOpeningHours() as $t): ?>
+                            <?php if ($last != $t->getDayOfWeek()):
                             if ($last != "") echo "</ul></li>"; ?>
                             <li class="d-block"><strong>
-                                <?php echo $t["giorno"]; ?>:
+                                <?php echo $t->getDayOfWeek(); ?>:
                             </strong>
                             <ul>
                             <?php endif; ?>
-                            <li class="list-unstyled"><?php echo $t["ora_apertura"]." - ".$t["ora_chiusura"]; ?></li>
-                            <?php if ($last != $t["giorno"]){
-                                $last = $t["giorno"];
+                            <li class="list-unstyled"><?php echo "{$t->getOpenTime()} - {$t->getCloseTime()}"; ?></li>
+                            <?php if ($last != $t->getDayOfWeek()){
+                                $last = $t->getDayOfWeek();
                             } ?>
                             <?php endforeach; ?>
-                            <?php if(count($templateParams["timetable"]) == 0): ?>
+                            <?php if(count($canteen->getOpeningHours()) == 0): ?>
                                 <p>La mensa non ha orari disponibili</p>
                             <?php endif; ?>
                         </ul>

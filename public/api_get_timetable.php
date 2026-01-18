@@ -18,8 +18,8 @@ $timetable = [];
 
 foreach ($query as $t) {
     array_push($timetable, [
-        'opening' => (new DateTimeImmutable($_GET["date"] . " " . $t["ora_apertura"]))->format('Y-m-d H:i'),
-        'closing' => (new DateTimeImmutable($_GET["date"] . " " . $t["ora_chiusura"]))->format('Y-m-d H:i')
+        'opening' => (new DateTimeImmutable($_GET["date"] . " " . $t->getOpenTime()))->format('Y-m-d H:i'),
+        'closing' => (new DateTimeImmutable($_GET["date"] . " " . $t->getCloseTime()))->format('Y-m-d H:i')
     ]);
 }
 
