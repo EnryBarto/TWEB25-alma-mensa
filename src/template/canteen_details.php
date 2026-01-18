@@ -31,8 +31,9 @@
                     <li class="d-flex align-items-start">
                         <span class="bi bi-clock text-primary fs-3 me-3"></span>
                         <ul class="list-unstyled">
-                            <li><strong>Lun-Ven:</strong> 7:00 - 22:00</li>
-                            <li><strong>Sab-Dom:</strong> 8:00 - 23:00</li>
+                            <?php foreach ($canteen->getOpeningHours() as $oh): ?>
+                                <li><strong><?php echo $oh->getDayOfWeek(); ?>: </strong><?php echo "{$oh->getOpenTime()} - {$oh->getCloseTime()}"; ?></li>
+                            <?php endforeach; ?>
                         </ul>
                     </li>
                 </ul>

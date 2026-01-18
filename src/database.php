@@ -48,7 +48,7 @@ class DatabaseHelper {
 
         $list = array();
         foreach ($result->fetch_all(MYSQLI_ASSOC) as $c) {
-            array_push($list, new Canteen($c["id"], $c["email"], $c["nome"], $c["descrizione"], $c["ind_civico"], $c["ind_via"], $c["ind_comune"], $c["ind_cap"], $c["telefono"], $c["coo_latitudine"], $c["coo_longitudine"], $c["num_posti"], $c["immagine"], $c["categoria"], $c["media_recensioni"], $c["num_recensioni"]));
+            array_push($list, new Canteen($c["id"], $c["email"], $c["nome"], $c["descrizione"], $c["ind_civico"], $c["ind_via"], $c["ind_comune"], $c["ind_cap"], $c["telefono"], $c["coo_latitudine"], $c["coo_longitudine"], $c["num_posti"], $c["immagine"], $c["categoria"], $c["media_recensioni"], $c["num_recensioni"], $this->getCanteenHoursByCanteenId($c["id"])));
         }
         return $list;
     }
@@ -61,7 +61,7 @@ class DatabaseHelper {
 
         if ($result->num_rows > 0) {
             $c = $result->fetch_assoc();
-            return new Canteen($c["id"], $c["email"], $c["nome"], $c["descrizione"], $c["ind_civico"], $c["ind_via"], $c["ind_comune"], $c["ind_cap"], $c["telefono"], $c["coo_latitudine"], $c["coo_longitudine"], $c["num_posti"], $c["immagine"], $c["categoria"], $c["media_recensioni"], $c["num_recensioni"]);
+            return new Canteen($c["id"], $c["email"], $c["nome"], $c["descrizione"], $c["ind_civico"], $c["ind_via"], $c["ind_comune"], $c["ind_cap"], $c["telefono"], $c["coo_latitudine"], $c["coo_longitudine"], $c["num_posti"], $c["immagine"], $c["categoria"], $c["media_recensioni"], $c["num_recensioni"], $this->getCanteenHoursByCanteenId($c["id"]));
         } else {
             return null;
         }
@@ -107,9 +107,25 @@ class DatabaseHelper {
 
         if ($result->num_rows > 0) {
             $c = $result->fetch_assoc();
-            return new Canteen($c["id"], $c["email"], $c["nome"], $c["descrizione"], $c["ind_civico"], $c["ind_via"], $c["ind_comune"], $c["ind_cap"], $c["telefono"], $c["coo_latitudine"], $c["coo_longitudine"], $c["num_posti"], $c["immagine"], $c["categoria"], $c["media_recensioni"], $c["num_recensioni"]);
+            return new Canteen($c["id"], $c["email"], $c["nome"], $c["descrizione"], $c["ind_civico"], $c["ind_via"], $c["ind_comune"], $c["ind_cap"], $c["telefono"], $c["coo_latitudine"], $c["coo_longitudine"], $c["num_posti"], $c["immagine"], $c["categoria"], $c["media_recensioni"], $c["num_recensioni"], $this->getCanteenHoursByCanteenId($c["id"]));
         } else {
             return null;
+        }
+    }
+
+    public function getCanteenHoursByCanteenId($canteenId) {
+        $stmt = $this->db->prepare("SELECT * FROM orari WHERE id_mensa = ?;");
+        $stmt->bind_param("i", $canteenId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $hours = [];
+            foreach ($result->fetch_all(MYSQLI_ASSOC) as $h) {
+            array_push($hours, new OpeningHour($h["giorno"], $h["ora_apertura"], $h["ora_chiusura"]));
+        }
+        return $hours;
+        } else {
+            return [];
         }
     }
 
