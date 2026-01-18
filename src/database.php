@@ -526,5 +526,17 @@ class DatabaseHelper {
         }
         return $hours;
     }
+
+    public function insertReservation($user, $canteenId, $code, $dateTime, $guests) {
+        try {
+            $stmt = $this->db->prepare('INSERT INTO prenotazioni (data_ora, codice, email, num_persone, id_mensa) VALUES (?, ?, ?, ?, ?);');
+            $stmt->bind_param("sssii", $dateTime, $code, $user, $guests, $canteenId);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+
+    }
 }
 ?>

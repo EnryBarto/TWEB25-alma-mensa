@@ -1,11 +1,14 @@
 <?php require("components/canteen_header_lite.php") ?>
 
-        <form class="row justify-content-center" action="." method="GET">
+        <form class="row justify-content-center" action="reservation.php" method="POST">
+            <input type="hidden" name="id" value="<?php echo $templateParams["canteen"]->getId(); ?>" />
+            <input type="hidden" name="action" value="C" />
+
             <div class="col-10">
                 <label for="date" class="form-label"><span class="bi bi-calendar text-primary"></span> Seleziona data</label>
             </div>
             <div class="col-10 mb-3">
-                <input class="form-control" type="date" id="date" name="data" onchange="getOpeningHours(<?php echo $templateParams["canteen"]->getId(); ?>)" />
+                <input class="form-control" type="date" id="date" name="date" onchange="getOpeningHours(<?php echo $templateParams["canteen"]->getId(); ?>)" />
             </div>
             <div class="col-10">
                 <p class="form-label mb-0"><span class="bi bi-clock text-primary"></span> Seleziona orario</p>
@@ -20,7 +23,7 @@
                 <button type="button" class="btn btn-outline-primary rounded-circle px-3 py-2 font-monospace" onclick="changeValue(-1)">-</button>
                 <span class="mx-3 fs-5" id="num_people_text">1</span>
                 <button type="button" class="btn btn-outline-primary rounded-circle px-3 py-2 font-monospace" onclick="changeValue(1)">+</button>
-                <input type="hidden" id="num_people_input" name="ospiti" value="1"/>
+                <input type="hidden" id="num_people_input" name="guests" value="1"/>
             </div>
             <div class="col-10 d-grid mt-1">
                 <input type="submit" class="btn btn-primary" value="Conferma Prenotazione" id="submitBtn" disabled />

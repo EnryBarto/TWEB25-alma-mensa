@@ -51,8 +51,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annulla</button>
-                <a href="process_reservation.php?action=D&code=<?php echo $reservation->getCode(); ?>" role="button"
-                    class="btn btn-primary">Rimuovi</a>
+                <form action="reservation.php" method="POST">
+                    <input type="hidden" name="action" value="D" />
+                    <input type="hidden" name="id" value="<?php echo $reservation->getCode(); ?>" />
+                    <input type="submit" class="btn btn-primary" value="Rimuovi" />
+                </form>
             </div>
         </div>
     </div>
