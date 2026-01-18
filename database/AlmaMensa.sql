@@ -161,7 +161,7 @@ CREATE TABLE `prenotazioni` (
   `data_ora` datetime NOT NULL,
   `codice` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `convalidata` char(1) COLLATE utf8mb4_general_ci NOT NULL,
+  `convalidata` tinyint(1) COLLATE utf8mb4_general_ci NOT NULL DEFAULT FALSE,
   `num_persone` int NOT NULL,
   `id_mensa` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
