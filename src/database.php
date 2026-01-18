@@ -512,10 +512,11 @@ class DatabaseHelper {
         }
     }
 
-    public function getCanteenTimetable($id, $day) {
-        $query = 'SELECT ora_apertura, ora_chiusura FROM orari
+    public function getCanteenTimetable($id, $day = "%") {
+        $query = 'SELECT giorno, ora_apertura, ora_chiusura FROM orari
         WHERE id_mensa = ?
-        AND giorno = ?';
+        AND giorno LIKE ?
+        ORDER BY FIELD(giorno, \'mon\', \'tue\', \'wed\', \'thu\', \'fri\', \'sat\', \'sun\'), ora_apertura ASC';
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("is", $id, $day);
         $stmt->execute();

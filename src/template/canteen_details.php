@@ -30,9 +30,25 @@
 
                     <li class="d-flex align-items-start">
                         <span class="bi bi-clock text-primary fs-3 me-3"></span>
-                        <ul class="list-unstyled">
-                            <li><strong>Lun-Ven:</strong> 7:00 - 22:00</li>
-                            <li><strong>Sab-Dom:</strong> 8:00 - 23:00</li>
+                        <ul class="list-unstyled pt-2">
+                            <?php
+                            $last = "";
+                            foreach($templateParams["timetable"] as $t): ?>
+                            <?php if ($last != $t["giorno"]):
+                            if ($last != "") echo "</ul></li>"; ?>
+                            <li class="d-block"><strong>
+                                <?php echo $t["giorno"]; ?>:
+                            </strong>
+                            <ul>
+                            <?php endif; ?>
+                            <li class="list-unstyled"><?php echo $t["ora_apertura"]." - ".$t["ora_chiusura"]; ?></li>
+                            <?php if ($last != $t["giorno"]){
+                                $last = $t["giorno"];
+                            } ?>
+                            <?php endforeach; ?>
+                            <?php if(count($templateParams["timetable"]) == 0): ?>
+                                <p>La mensa non ha orari disponibili</p>
+                            <?php endif; ?>
                         </ul>
                     </li>
                 </ul>
