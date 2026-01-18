@@ -45,7 +45,7 @@ function generatePills(timetable) {
 async function getOpeningHours(id) {
     const date = document.querySelector("#date").value;
 
-    if (new Date(date).getDate() < new Date().getDate()) {
+    if (new Date(date).getTime() < (new Date((new Date()).toDateString())).getTime()) {
         document.querySelector("#times"). innerHTML = `<p>Data selezionata nel passato!</p>`;
         document.querySelector("#submitBtn").disabled = true;
         return;
