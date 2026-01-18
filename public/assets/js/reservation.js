@@ -44,6 +44,13 @@ function generatePills(timetable) {
 
 async function getOpeningHours(id) {
     const date = document.querySelector("#date").value;
+
+    if (new Date(date).getDate() < new Date().getDate()) {
+        document.querySelector("#times"). innerHTML = `<p>Data selezionata nel passato!</p>`;
+        document.querySelector("#submitBtn").disabled = true;
+        return;
+    }
+
     const url = `api_get_opening_hours.php?id=${id}&date=${date}`;
     try {
         const response = await fetch(url);

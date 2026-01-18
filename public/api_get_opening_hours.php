@@ -7,19 +7,20 @@ if (!isset($_GET["id"]) || !isset($_GET["date"])) {
 }
 
 try {
-    $start = new DateTimeImmutable($_GET["date"] . " 09:00");
+    $date = new DateTimeImmutable($_GET["date"]);
 } catch (Exception $e) {
     header("HTTP/1.1 400 Bad Request: Date Malformed");
     exit();
 }
 
+$query = $dbh->getCanteenTimetable($_GET["id"], strtolower(substr($date->format('l'), 0, 3)));
 $timetable = [];
 
-for ($i = 0; $i < 4; $i++) {
-    $timetable[] = [
-        'opening' => $start->modify("+$i hour")->format('Y-m-d H:i'),
-        'closing' => $start->modify("+".($i + 1)." hour")->format('Y-m-d H:i')
-    ];
+foreach ($query as $t) {
+    array_push($timetable, [
+        'opening' => (new DateTimeImmutable($_GET["date"] . " " . $t["ora_apertura"]))->format('Y-m-d H:i'),
+        'closing' => (new DateTimeImmutable($_GET["date"] . " " . $t["ora_chiusura"]))->format('Y-m-d H:i')
+    ]);
 }
 
 header("Content-Type: application/json");

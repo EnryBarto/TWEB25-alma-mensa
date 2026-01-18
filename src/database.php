@@ -511,5 +511,16 @@ class DatabaseHelper {
             return 0;
         }
     }
+
+    public function getCanteenTimetable($id, $day) {
+        $query = 'SELECT ora_apertura, ora_chiusura FROM orari
+        WHERE id_mensa = ?
+        AND giorno = ?';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $id, $day);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>

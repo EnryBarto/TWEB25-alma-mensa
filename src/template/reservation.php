@@ -1,6 +1,6 @@
 <?php require("components/canteen_header_lite.php") ?>
 
-        <form class="row justify-content-center" action="." method="POST">
+        <form class="row justify-content-center" action="." method="GET">
             <div class="col-10">
                 <label for="date" class="form-label"><span class="bi bi-calendar text-primary"></span> Seleziona data</label>
             </div>
