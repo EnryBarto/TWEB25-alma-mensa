@@ -3,6 +3,12 @@
             <div class="col-12 col-md-10 col-lg-8">
                 <div class="card shadow-sm">
                     <div class="card-body">
+                        <?php if (isset($templateParams["error"])): ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill"></i> <?php echo htmlspecialchars($templateParams["error"]); ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php endif; ?>
                         <form class="needs-validation" method="POST" action="create_menu.php" novalidate>
                             <?php if (isset($menu)): ?>
                                 <input type="hidden" name="menu_id" value="<?php echo htmlspecialchars($menu->getId()); ?>">
@@ -20,7 +26,7 @@
                                     </a>
                                 </div>
                                 <label class="form-label">Seleziona i piatti da includere nel menu</label>
-                                <!-- Dishes to load dynamically here -->
+                                <!-- Dishes load dynamically here -->
                                 <?php if (!empty($templateParams["dishes"])): ?>
                                     <?php foreach ($templateParams["dishes"] as $dish): ?>
                                         <?php $isChecked = isset($selectedDishIds) && in_array($dish->getId(), $selectedDishIds); ?>

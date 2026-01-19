@@ -19,7 +19,7 @@
                             <?php foreach($menu->getDishes() as $dish): ?>
                                 <li class="mb-2">
                                     <strong><?php echo htmlspecialchars($dish->getName()); ?></strong>
-                                    <span class="text-danger"> - <?php echo number_format($dish->getPrice(), 2, ',', ''); ?> €</span>
+                                    <span class="text-primary fw-bold"> - <?php echo number_format($dish->getPrice(), 2, ',', ''); ?> €</span>
                                     <span class="text-muted"> - <?php echo htmlspecialchars($dish->getDescription()); ?></span>
                                 </li>
                             <?php endforeach; ?>

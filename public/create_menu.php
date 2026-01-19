@@ -57,8 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Convert dish IDs to integers
     $selectedDishes = array_map('intval', $selectedDishes);
-
-    if ($menuId !== null) {
+    // Validate input
+    if (empty($nome) || empty($selectedDishes)) {
+        $templateParams["error"] = "Inserire un nome e selezionare almeno un piatto.";
+    } else if ($menuId !== null) {
         // Update existing menu
         $attivo = $menu ? $menu->isAttivo() : 1;
         $res = $dbh->updateMenu($menuId, $nome, $attivo, $selectedDishes);
@@ -67,6 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Errore durante l'aggiornamento del menù.";
             exit();
         }
+        header("Location: manage_menus.php");
+        exit();
     } else {
         // Insert new menu
         $menuId = $dbh->insertMenu($nome, $canteen->getId(), 1, $selectedDishes);
@@ -74,10 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Errore durante la creazione del menù.";
             exit();
         }
+        header("Location: manage_menus.php");
+        exit();
     }
-
-    header("Location: manage_menus.php");
-    exit();
 }
 
 require '../src/template/base.php';
