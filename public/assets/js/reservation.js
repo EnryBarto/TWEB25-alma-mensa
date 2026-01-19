@@ -109,11 +109,12 @@ async function getMaxGuests() {
             url = `api_check_guests_left.php?action=U&code=${id}&date=${date}&time=${time}`;
             break;
     }
+    console.log(url);
     let maxGuests = 0;
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error("Response status: " + response.status);
-        maxGuests = await response.statusText;
+        maxGuests = await response.text();
     }
     catch (error) { console.log(error.message); }
 
