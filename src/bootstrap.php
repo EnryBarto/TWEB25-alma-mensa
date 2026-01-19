@@ -1,5 +1,5 @@
 <?php
-define("UPLOAD_DIR", "../public/upload/");
+define("UPLOAD_DIR", "uploads/");
 
 
 require_once("database.php");
