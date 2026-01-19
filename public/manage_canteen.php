@@ -49,7 +49,7 @@ if (isset($_GET["action"])) {
 } else if (isset($_POST["action"])) {
 
     if (!isset($_POST["name"]) || !isset($_POST["desc"]) || !isset($_POST["seats"]) || !isset($_POST["avenue"]) || !isset($_POST["num"]) || !isset($_POST["postal_code"]) || !isset($_POST["municipality"]) || !isset($_POST["lat"]) || !isset($_POST["lon"])) {
-        $location = "Location: process_review.php?errorCode=-1&action=" . $_POST["action"];
+        $location = "Location: manage_review.php?errorCode=-1&action=" . $_POST["action"];
         if (isset($_POST["name"])) $location .= "&name=" . $_POST["name"];
         if (isset($_POST["desc"])) $location .= "&desc=" . $_POST["desc"];
         if (isset($_POST["seats"])) $location .= "&seats=" . $_POST["seats"];
