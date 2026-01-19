@@ -33,7 +33,13 @@
                     <?php case "U": ?>
                     l'aggiornamento
                     <?php endswitch; ?>
-                    della prenotazione. Codice errore: <?php echo htmlspecialchars($_GET["errorCode"]); ?></span>
+                    della prenotazione. Codice errore: <?php echo htmlspecialchars($_GET["errorCode"]); ?>.
+                    <?php if (isset($_GET["errorCode"]) && $_GET["errorCode"] == -2): ?>
+                    La mensa non ha abbastanza posti.
+                    <?php elseif (isset($_GET["errorCode"]) && $_GET["errorCode"] == 1062): ?>
+                    Hai già una prenotazione per questo orario in questa data in questa mensa.
+                    <?php endif; ?>
+                    </span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif; ?>
