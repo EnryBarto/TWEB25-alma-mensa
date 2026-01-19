@@ -21,7 +21,7 @@
         </div>
         <div class="row justify-content-center d-md-block">
             <div class="col-5 col-md-4 offset-md-1 d-grid gap-2 mb-md-2">
-                <a class="btn btn-outline-primary btn-sm" role="button" href="reviews.php?id=<?php echo $canteen->getId(); ?>">
+                <a class="btn btn-outline-primary btn-sm" role="button" href="canteen_reviews.php?id=<?php echo $canteen->getId(); ?>">
                     <span class="bi bi-star"></span>&nbsp;Recensioni
                 </a>
             </div>

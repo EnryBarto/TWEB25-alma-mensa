@@ -11,7 +11,7 @@ if (isset($_GET["id"])) {
 }
 
 $currentPage["title"] = "Recensioni";
-$currentPage["filename"] = "reviews.php";
+$currentPage["filename"] = "canteen_reviews.php";
 
 require '../src/template/base.php';
 ?>
