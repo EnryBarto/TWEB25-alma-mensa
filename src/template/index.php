@@ -12,13 +12,13 @@
             <div id="main-carousel" class="carousel slide">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="assets/img/no_img.jpg" class="d-block w-100" alt="...">
+                        <img src="assets/img/almamensa.png" class="d-block w-100" alt="logo almamensa">
                     </div>
                     <div class="carousel-item">
-                        <img src="assets/img/no_img.jpg" class="d-block w-100" alt="...">
+                        <img src="assets/img/campus.jpg" class="d-block w-100" alt="campus">
                     </div>
                     <div class="carousel-item">
-                        <img src="assets/img/no_img.jpg" class="d-block w-100" alt="...">
+                        <img src="assets/img/food.png" class="d-block w-100" alt="cibo">
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#main-carousel"

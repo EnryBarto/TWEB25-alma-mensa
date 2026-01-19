@@ -19,7 +19,7 @@
             <div class="col-12 col-md-8 mb-3 mb-md-0">
                 <strong class="card-text">Data e ora:</strong>
                 <p class="card-text text-body-secondary">
-                    <?php echo date_format($reservation->getDateTime(), "d M Y - H:i"); ?></p>
+                    <?php echo $reservation->getFormattedDateTime(); ?></p>
 
                 <strong class="card-text">Mensa:</strong>
                 <p class="card-text text-body-secondary"><a

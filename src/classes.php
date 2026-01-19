@@ -217,13 +217,17 @@ class Reservation {
         return $this->convalidated;
     }
 
+    public function getFormattedDateTime() {
+        return $this->getDateTime()->format("d/m/y - H:i");
+    }
+
     public function convalidate() {
         $this->convalidated = true;
     }
 
     public function isActive() {
         $now = new DateTime();
-        return $this->dateTime > $now && !$this->convalidated;
+        return $this->dateTime->getTimestamp() + 10800 > $now->getTimestamp() && !$this->convalidated;
     }
 }
 
