@@ -386,7 +386,7 @@ class DatabaseHelper {
 
     public function updateReservation($reservationCode, $newDateTime, $newNumPeople) {
         $oldRes = $this->getReservationByCode($reservationCode);
-        if (!isValidReservationForInsertion($newDateTime, $oldRes->getCanteen()->getId(), $newNumPeople, $oldRes->getNumPeople(), $this)) {
+        if (!isValidReservationForUpdate($oldRes, $newDateTime, $newNumPeople, $this)) {
             return -2;
         }
         try {
@@ -411,13 +411,17 @@ class DatabaseHelper {
     }
 
     public function getReservationsStatusInInterval($canteenId, $timeIn, $timeOut) {
-        $query = 'SELECT m.id, (m.num_posti - SUM(p.num_persone)) as posti_disponibili
-        FROM mense m LEFT JOIN prenotazioni p ON (m.id = p.id_mensa)
-        WHERE id_mensa = ?
-        AND p.data_ora BETWEEN ? AND ?
-        GROUP BY m.id;';
+        $query = 'SELECT m.id, m.num_posti - COALESCE(sp.posti_occupati, 0) AS posti_disponibili
+        FROM mense m LEFT JOIN (SELECT SUM(num_persone) AS posti_occupati, p.id_mensa
+                                FROM prenotazioni p
+                                WHERE p.id_mensa = ?
+                                AND p.data_ora BETWEEN ? AND ?
+                                GROUP BY p.id_mensa) AS sp
+        ON m.id = sp.id_mensa
+        WHERE m.id = ?
+        GROUP BY m.id, m.num_posti';
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("iss", $canteenId, $timeIn, $timeOut);
+        $stmt->bind_param("issi", $canteenId, $timeIn, $timeOut, $canteenId);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
@@ -542,7 +546,7 @@ class DatabaseHelper {
     }
 
     public function insertReservation($user, $canteenId, $code, $dateTime, $guests) {
-        if (!isValidReservationForInsertion($dateTime, $canteenId, $guests, 0, $this)) {
+        if (!isValidReservationForInsertion($dateTime, $canteenId, $guests, $this)) {
             return -2;
         }
         try {
