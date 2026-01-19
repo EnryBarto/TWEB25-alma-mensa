@@ -203,6 +203,21 @@ CREATE TRIGGER `dopo_update_recensione` AFTER UPDATE ON `recensioni` FOR EACH RO
 END
 $$
 DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE aggiorna_recensioni(IN id_m INT)
+BEGIN
+	-- Aggiornamento
+    UPDATE mense m
+    SET media_recensioni = (SELECT COALESCE(AVG(voto), 0)
+							FROM recensioni
+                            WHERE id_mensa = id_m),
+		num_recensioni = (SELECT COUNT(voto)
+							FROM recensioni
+                            WHERE id_mensa = id_m)
+	WHERE id = id_m;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
