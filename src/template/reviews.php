@@ -17,12 +17,47 @@
             <?php if(getUserLevel() == UserLevel::Customer): ?>
             <div class="col-10 col-md-3 mb-3 p-0">
                 <div class="col-12 col-md-10 offset-md-1 d-grid p-0 h-100">
-                    <a class="btn btn-primary" role="button" href="process_review.php?action=C&id=<?php echo $templateParams["canteen"]->getId(); ?>"><span class="bi bi-star"></span>&nbsp;Recensisci</a>
+                    <a class="btn btn-primary" role="button" href="manage_review.php?action=C&id=<?php echo $templateParams["canteen"]->getId(); ?>"><span class="bi bi-star"></span>&nbsp;Recensisci</a>
                 </div>
             </div>
             <?php endif; ?>
         </div>
         <div class="row justify-content-center px-3">
+            <div class="col-10 p-0">
+                <?php if (isset($_GET["success"]) && $_GET["success"] == 1): ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php switch($_GET["action"]):
+                        case "C": ?>
+                        <span class="bi bi-check-circle-fill"> Recensione creata con successo!</span>
+                        <?php break; ?>
+                        <?php case "D": ?>
+                        <span class="bi bi-check-circle-fill"> Recensione eliminata con successo!</span>
+                        <?php break; ?>
+                        <?php case "U": ?>
+                        <span class="bi bi-check-circle-fill"> Recensione aggiornata con successo!</span>
+                        <?php endswitch; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
+                <?php if (isset($_GET["errorCode"])): ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <span class="bi bi-exclamation-circle-fill"> Si è verificato un errore durante
+                        <?php switch($_GET["action"]):
+                        case "C": ?>
+                        la creazione
+                        <?php break; ?>
+                        <?php case "D": ?>
+                        la cancellazione
+                        <?php break; ?>
+                        <?php case "U": ?>
+                        l'aggiornamento
+                        <?php endswitch; ?>
+                        della recensione. Codice errore: <?php echo htmlspecialchars($_GET["errorCode"]); ?>.
+                        </span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
+            </div>
 
             <?php foreach($templateParams["reviews"] as $r): ?>
 
@@ -39,7 +74,7 @@
                     <div class="card-text border-top mb-2"></div>
                     <?php if (isUserLoggedIn() && $r->getAuthorEmail() == $user->getEmail()): ?>
                     <div class="my-2">
-                        <a class="btn btn-outline-primary btn-sm" title="Modifica recensione" href="process_review.php?action=U&id=<?php echo $r->getId(); ?>"><span class="bi bi-pen-fill"></span></a>
+                        <a class="btn btn-outline-primary btn-sm" title="Modifica recensione" href="manage_review.php?action=U&id=<?php echo $r->getId(); ?>"><span class="bi bi-pen-fill"></span></a>
                         <!--Pulsante Modal-->
                         <button type="button" title="Elimina recensione" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#remove-confirm-<?php echo $r->getId(); ?>"><span class="bi bi-trash-fill"></span></button>
 
@@ -56,7 +91,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annulla</button>
-                                        <form class="d-inline" action="process_review.php" method="POST">
+                                        <form class="d-inline" action="manage_review.php" method="POST">
                                             <input type="hidden" name="action" value="D"/>
                                             <input type="hidden" name="review_id" value="<?php echo $r->getId() ?>"/>
                                             <button class="btn btn-primary" type="submit">Elimina Definitivamente</button>

@@ -507,14 +507,8 @@ class DatabaseHelper {
             return $e->getCode();
         }
 
-
-        if ($stmt->affected_rows == 0) {
-            $this->db->rollback();
-            return -2;
-        } else {
-            $this->db->commit();
-            return 0;
-        }
+        $this->db->commit();
+        return 0;
     }
 
     public function getCanteenTimetable($id, $day = "%") {
