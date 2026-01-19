@@ -30,6 +30,10 @@ class OpeningHour {
         return self::$dayMapper[$this->dayOfWeek];
     }
 
+    public function getRawDayOfWeek() {
+        return $this->dayOfWeek;
+    }
+
     public function getOpenTime() {
         return (new DateTimeImmutable($this->openTime))->format('H:i');
     }

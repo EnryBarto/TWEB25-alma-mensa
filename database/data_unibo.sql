@@ -842,7 +842,7 @@ INSERT INTO pool_recensioni_bulk (voto, titolo, testo) VALUES
 INSERT INTO `recensioni` (`email`, `id_mensa`, `voto`, `titolo`, `descrizione`, `data_ora`)
 SELECT 
     c.email,
-    FLOOR(1 + RAND() * 20), -- Mensa Random 1-20
+    FLOOR(1 + RAND() * 21), -- Mensa Random 1-21
     t.voto,
     t.titolo,
     t.testo,
