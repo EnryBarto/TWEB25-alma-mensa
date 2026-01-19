@@ -3,6 +3,22 @@
     require("components/canteen_header.php");
 ?>
 
+        <div class="row justify-content-center justify-content-md-start">
+            <div class="col-10 col-md-4 offset-md-1">
+            <?php if (isset($_GET["success"]) && $_GET["success"] == 1): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span class="bi bi-check-circle-fill"> Modifica avvenuta con successo!</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+            <?php if (isset($_GET["errorCode"])): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span class="bi bi-exclamation-circle-fill"> Si è verificato un errore durante l'aggiornamento dei dati. Codice errore: <?php echo $_GET["errorCode"]; ?></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+            </div>
+        </div>
         <div class="row justify-content-center d-md-block">
             <div class="col-5 col-md-4 offset-md-1 d-grid gap-2 mb-md-2">
                 <a class="btn btn-outline-primary btn-sm" role="button" href="reviews.php?id=<?php echo $canteen->getId(); ?>">

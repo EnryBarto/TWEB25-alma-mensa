@@ -119,11 +119,33 @@ function printStars($value) {
     }
 }
 
-function isValidReservationForInsertion($reservation, $dbh) {
-    $timeIn = $reservation->getDateTime()->getTimestamp();
-    $timeOut = $timeIn + mktime(0, 2, 30);
-    $resStatus = $dbh->getReservationsStatusInInterval($reservation->getCanteen()->getId(), date("Y-m-d H:i:s", $timeIn), date("Y-m-d H:i:s", $timeOut));
-    return $reservation->getNumPeople() <= $resStatus["posti_disponibili"];
+function isValidReservationForInsertion($dateTime, $canteenId, $numGuests, $dbh) {
+    $timeIn = (new DateTimeImmutable($dateTime))->getTimestamp();
+    $timeOut = (new DateTime($dateTime));
+    $timeOut->modify("+30 minutes");
+    $timeOut = $timeOut->getTimestamp();
+    $resStatus = $dbh->getReservationsStatusInInterval($canteenId, date("Y-m-d H:i:s", $timeIn), date("Y-m-d H:i:s", $timeOut));
+
+    return $numGuests <= ($resStatus[0]["posti_disponibili"]);
+}
+
+function isValidReservationForUpdate($oldReservation, $newDateTime, $newNumGuests, $dbh) {
+    $timeIn = (new DateTimeImmutable($newDateTime))->getTimestamp();
+    $timeOut = (new DateTime($newDateTime));
+    $timeOut->modify("+30 minutes");
+    $timeOut = $timeOut->getTimestamp();
+    $resStatus = $dbh->getReservationsStatusInInterval($oldReservation->getCanteen()->getId(), date("Y-m-d H:i:s", $timeIn), date("Y-m-d H:i:s", $timeOut));
+
+    $new = new DateTimeImmutable($newDateTime);
+
+    // If the two reservations are for the same time, we consider only the different guests
+    if ($oldReservation->getDateTime() == $new) {
+        $oldNumGuests = $oldReservation->getNumPeople();
+    } else {
+        $oldNumGuests = 0;
+    }
+
+    return $newNumGuests - $oldNumGuests <= ($resStatus[0]["posti_disponibili"]);
 }
 
 ?>

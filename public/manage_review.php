@@ -20,8 +20,8 @@ if (isset($_GET["action"])) {
         exit();
     }
 
-    $currentPage["filename"] = "process_review.php";
-    $currentPage["scriptfile"] = "process_review.js";
+    $currentPage["filename"] = "manage_review.php";
+    $currentPage["scriptfile"] = "manage_review.js";
     $templateParams["action"] = $_GET["action"];
     if (isset($_GET["errorCode"])) $templateParams["errorCode"] = $_GET["errorCode"];
 
@@ -59,7 +59,7 @@ if (isset($_GET["action"])) {
 } else if (isset($_POST["action"])) {
 
     if ($_POST["action"] != "D" && (!isset($_POST["vote"]) || !isset($_POST["title"]) || !isset($_POST["description"]))) {
-        $location = "Location: process_review.php?errorCode=-1&action=" . $_POST["action"];
+        $location = "Location: manage_review.php?errorCode=-1&action=" . $_POST["action"];
         if (isset($_POST["vote"])) $location .= "&vote=" . $_POST["vote"];
         if (isset($_POST["title"])) $location .= "&title=" . $_POST["title"];
         if (isset($_POST["description"])) $location .= "&description=" . $_POST["description"];
@@ -73,10 +73,10 @@ if (isset($_GET["action"])) {
                 // The review must be inserted into the database
                 $exitCode = $dbh->insertReview($_POST["canteen_id"], $user->getEmail(), $_POST["title"], $_POST["description"], $_POST["vote"]);
                 if ($exitCode == 0) {
-                    header("Location: reviews.php?id=$_POST[canteen_id]");
+                    header("Location: reviews.php?id=$_POST[canteen_id]&action=C&success=1");
                     exit();
                 } else {
-                    header("Location: process_review.php?action=C&id=$_POST[canteen_id]&errorCode=$exitCode&title=$_POST[title]&desc=$_POST[description]&vote=$_POST[vote]");
+                    header("Location: manage_review.php?action=C&id=$_POST[canteen_id]&errorCode=$exitCode&title=$_POST[title]&desc=$_POST[description]&vote=$_POST[vote]");
                     exit();
                 }
             } else {
@@ -96,10 +96,10 @@ if (isset($_GET["action"])) {
                 // The review must be updated
                 $exitCode = $dbh->updateReview($_POST["review_id"], $_POST["title"], $_POST["description"], $_POST["vote"]);
                 if ($exitCode == 0) {
-                    header("Location: reviews.php?id=$_POST[canteen_id]");
+                    header("Location: reviews.php?id=$_POST[canteen_id]&action=U&success=1");
                     exit();
                 } else {
-                    header("Location: process_review.php?action=U&id=$_POST[review_id]&errorCode=$exitCode&title=$_POST[title]&desc=$_POST[description]&vote=$_POST[vote]");
+                    header("Location: manage_review.php?action=U&id=$_POST[review_id]&errorCode=$exitCode&title=$_POST[title]&desc=$_POST[description]&vote=$_POST[vote]");
                     exit();
                 }
             } else {
@@ -116,9 +116,9 @@ if (isset($_GET["action"])) {
                     header("Location: explore.php");
                     exit();
                 }
-                // The review must be updated
+                // The review must be deleted
                 $dbh->deleteReview($_POST["review_id"]);
-                header("Location: reviews.php?id=".$review->getCanteenId());
+                header("Location: reviews.php?&action=D&success=1&id=".$review->getCanteenId());
                 exit();
             } else {
                 header("Location: explore.php");

@@ -399,9 +399,10 @@ class DatabaseHelper {
         $stmt->execute();
     }
 
-    public function modifyReservation($reservationCode, $newDateTime, $newNumPeople) {
-        if (!isValidReservationForInsertion($this->getReservationByCode($reservationCode), $this)) {
-            return -1;
+    public function updateReservation($reservationCode, $newDateTime, $newNumPeople) {
+        $oldRes = $this->getReservationByCode($reservationCode);
+        if (!isValidReservationForUpdate($oldRes, $newDateTime, $newNumPeople, $this)) {
+            return -2;
         }
         try {
             $stmt = $this->db->prepare('UPDATE prenotazioni SET data_ora = ?, num_persone = ? WHERE codice = ?');
@@ -425,13 +426,17 @@ class DatabaseHelper {
     }
 
     public function getReservationsStatusInInterval($canteenId, $timeIn, $timeOut) {
-        $query = 'SELECT m.id, m.num_posti - SUM(p.num_persone) posti_rimanenti
-        FROM mense m LEFT JOIN prenotazioni p ON (m.id = p.id_mensa)
-        WHERE id_mensa = ?
-        AND p.data_ora BETWEEN ? AND ?
-        GROUP BY m.id;';
+        $query = 'SELECT m.id, m.num_posti - COALESCE(sp.posti_occupati, 0) AS posti_disponibili
+        FROM mense m LEFT JOIN (SELECT SUM(num_persone) AS posti_occupati, p.id_mensa
+                                FROM prenotazioni p
+                                WHERE p.id_mensa = ?
+                                AND p.data_ora BETWEEN ? AND ?
+                                GROUP BY p.id_mensa) AS sp
+        ON m.id = sp.id_mensa
+        WHERE m.id = ?
+        GROUP BY m.id, m.num_posti';
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("iss", $canteenId, $timeIn, $timeOut);
+        $stmt->bind_param("issi", $canteenId, $timeIn, $timeOut, $canteenId);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
@@ -517,14 +522,8 @@ class DatabaseHelper {
             return $e->getCode();
         }
 
-
-        if ($stmt->affected_rows == 0) {
-            $this->db->rollback();
-            return -2;
-        } else {
-            $this->db->commit();
-            return 0;
-        }
+        $this->db->commit();
+        return 0;
     }
 
     public function getCanteenTimetable($id, $day = "%") {
@@ -556,11 +555,25 @@ class DatabaseHelper {
     }
 
     public function insertReservation($user, $canteenId, $code, $dateTime, $guests) {
+        if (!isValidReservationForInsertion($dateTime, $canteenId, $guests, $this)) {
+            return -2;
+        }
         try {
             $stmt = $this->db->prepare('INSERT INTO prenotazioni (data_ora, codice, email, num_persone, id_mensa) VALUES (?, ?, ?, ?, ?);');
             $stmt->bind_param("sssii", $dateTime, $code, $user, $guests, $canteenId);
             $stmt->execute();
         } catch (Exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+    }
+
+    public function convalidateReservation($reservationCode) {
+        $stmt = $this->db->prepare('UPDATE prenotazioni SET convalidata = 1 WHERE codice = ?;');
+        $stmt->bind_param("s", $reservationCode);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
             return $e->getCode();
         }
         return 0;

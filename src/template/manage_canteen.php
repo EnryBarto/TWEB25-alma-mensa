@@ -7,6 +7,26 @@
         <div class="col-12 col-md-10 col-lg-8">
             <div class="card shadow-sm">
                 <div class="card-body">
+                    <?php if (isset($_GET["errorCode"])): ?>
+                    <div class="col-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <span class="bi bi-exclamation-circle-fill"> Si è verificato un errore durante
+                            <?php switch($_GET["action"]):
+                            case "C": ?>
+                            la creazione
+                            <?php break; ?>
+                            <?php case "D": ?>
+                            la cancellazione
+                            <?php break; ?>
+                            <?php case "U": ?>
+                            l'aggiornamento
+                            <?php endswitch; ?>
+                            dei dati. Codice errore: <?php echo htmlspecialchars($_GET["errorCode"]); ?>.
+                            </span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <?php endif; ?>
                     <form class="needs-validation" action="manage_canteen.php" method="POST"  enctype="multipart/form-data" novalidate>
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome <span class="text-primary">*</span></label>
