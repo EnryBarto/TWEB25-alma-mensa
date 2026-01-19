@@ -322,6 +322,21 @@ class DatabaseHelper {
         }
     }
 
+    public function getActiveMenuByCanteenId($canteenId) {
+        $stmt = $this->db->prepare("SELECT * FROM menu WHERE id_mensa = ? AND attivo = 1;");
+        $stmt->bind_param("i", $canteenId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $m = $result->fetch_assoc();
+            $dishes = $this->getDishesByMenuId($m["id"]);
+            return new Menu($m["id"], $m["nome"], $m["attivo"], $m["id_mensa"], $dishes);
+        } else {
+            return null;
+        }
+    }
+
     public function getCanteenReviews($canteenId) {
         $query = "SELECT r.*, c.* FROM `recensioni` r JOIN utenti u ON r.email = u.email JOIN clienti c ON u.email = c.email WHERE r.id_mensa = ? ORDER BY data_ora DESC;";
         $stmt = $this->db->prepare($query);

@@ -19,6 +19,14 @@
                             </div>
 
                             <div class="mb-4">
+                                <h6 class="text-uppercase text-secondary small mb-3">Stato Menu<span class="text-primary">*</span></h6>
+                                <input type="radio" class="btn-check" name="attivoBtn" id="attivo" value="1" <?php echo (isset($menu) && $menu->isAttivo()) || !isset($menu) ? 'checked' : ''; ?> autocomplete="off">
+                                <label class="btn btn-outline-success me-2" for="attivo">Attivo</label>
+                                <input type="radio" class="btn-check" name="attivoBtn" id="nonAttivo" value="0" <?php echo isset($menu) && !$menu->isAttivo() ? 'checked' : ''; ?> autocomplete="off">
+                                <label class="btn btn-outline-danger" for="nonAttivo">Non Attivo</label>
+                            </div>
+
+                            <div class="mb-4">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h6 class="text-uppercase text-secondary small mb-0">Piatti</h6>
                                     <a href="create_dish.php" class="btn btn-sm btn-outline-primary">

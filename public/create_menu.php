@@ -54,16 +54,25 @@ $templateParams["menu"] = $menu;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST["nome"] ?? "";
     $selectedDishes = $_POST["dishes"] ?? [];
+    $isAttivo = isset($_POST["attivoBtn"]) ? intval($_POST["attivoBtn"]) : null;
 
     // Convert dish IDs to integers
     $selectedDishes = array_map('intval', $selectedDishes);
     // Validate input
-    if (empty($nome) || empty($selectedDishes)) {
-        $templateParams["error"] = "Inserire un nome e selezionare almeno un piatto.";
+    if (empty($nome) || empty($selectedDishes) || $isAttivo === null) {
+        $templateParams["error"] = "Inserire un nome, selezionare almeno un piatto e scegliere lo stato del menù.";
     } else if ($menuId !== null) {
+        if ($isAttivo) {
+            $activeMenu = $dbh->getActiveMenuByCanteenId($canteen->getId());
+            if ($activeMenu !== null && $activeMenu->getId() != $menuId) {
+                $activeMenuDishIds = array_map(function ($dish) {
+                    return intval($dish->getId());
+                }, $activeMenu->getDishes());
+                $dbh->updateMenu($activeMenu->getId(), $activeMenu->getNome(), 0, $activeMenuDishIds);
+            }
+        }
         // Update existing menu
-        $attivo = $menu ? $menu->isAttivo() : 1;
-        $res = $dbh->updateMenu($menuId, $nome, $attivo, $selectedDishes);
+        $res = $dbh->updateMenu($menuId, $nome, intval($isAttivo), $selectedDishes);
 
         if (!$res) {
             echo "Errore durante l'aggiornamento del menù.";
@@ -72,8 +81,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: manage_menus.php");
         exit();
     } else {
+        if ($isAttivo) {
+            $activeMenu = $dbh->getActiveMenuByCanteenId($canteen->getId());
+            if ($activeMenu !== null && $activeMenu->getId() != $menuId) {
+                $activeMenuDishIds = array_map(function ($dish) {
+                    return intval($dish->getId());
+                }, $activeMenu->getDishes());
+                $dbh->updateMenu($activeMenu->getId(), $activeMenu->getNome(), 0, $activeMenuDishIds);
+            }
+        }
         // Insert new menu
-        $menuId = $dbh->insertMenu($nome, $canteen->getId(), 1, $selectedDishes);
+        $menuId = $dbh->insertMenu($nome, $canteen->getId(), intval($isAttivo), $selectedDishes);
         if (!$menuId) {
             echo "Errore durante la creazione del menù.";
             exit();
