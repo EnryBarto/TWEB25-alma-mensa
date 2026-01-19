@@ -11,5 +11,8 @@
     </ul>
 </li>
 <li class="nav-item">
+    <a class="nav-link" href="show_reservations_canteen.php">Mostra prenotazioni</a>
+</li>
+<li class="nav-item">
     <a class="nav-link" href="#">Rileva presenza</a>
 </li>
