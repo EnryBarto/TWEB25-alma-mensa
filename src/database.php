@@ -536,7 +536,42 @@ class DatabaseHelper {
             return $e->getCode();
         }
         return 0;
+    }
 
+    public function createOpeningHour($canteenId, $dayOfWeek, $openTime, $closeTime) {
+        $stmt = $this->db->prepare('INSERT INTO orari (giorno, ora_apertura, ora_chiusura, id_mensa) VALUES (?, ?, ?, ?);');
+        $stmt->bind_param("sssi", $dayOfWeek, $openTime, $closeTime, $canteenId);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+    }
+
+    public function updateOpeningHour($canteenId, $dayOfWeek, $oldOpenTime, $newOpenTime, $newCloseTime) {
+        $stmt = $this->db->prepare('UPDATE orari SET ora_apertura = ?, ora_chiusura = ? WHERE id_mensa = ? AND giorno = ? AND ora_apertura = ?;');
+        $stmt->bind_param("ssiss", $newOpenTime, $newCloseTime, $canteenId, $dayOfWeek, $oldOpenTime);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        if ($stmt->affected_rows == 0) {
+            return -2;
+        }
+        return 0;
+    }
+
+    public function deleteOpeningHour($canteenId, $dayOfWeek, $openTime) {
+        $stmt = $this->db->prepare('DELETE FROM orari WHERE id_mensa = ? AND giorno = ? AND ora_apertura = ?;');
+        $stmt->bind_param("iss", $canteenId, $dayOfWeek, $openTime);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        return 0;
     }
 }
 ?>
