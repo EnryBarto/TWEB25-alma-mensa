@@ -14,5 +14,5 @@
     <a class="nav-link" href="show_reservations_canteen.php">Mostra prenotazioni</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="#">Rileva presenza</a>
+    <a class="nav-link" href="scan_reservation.php">Rileva presenza</a>
 </li>

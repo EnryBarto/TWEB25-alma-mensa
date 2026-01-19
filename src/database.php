@@ -551,6 +551,17 @@ class DatabaseHelper {
         return 0;
     }
 
+    public function convalidateReservation($reservationCode) {
+        $stmt = $this->db->prepare('UPDATE prenotazioni SET convalidata = 1 WHERE codice = ?;');
+        $stmt->bind_param("s", $reservationCode);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+    }
+
     public function createOpeningHour($canteenId, $dayOfWeek, $openTime, $closeTime) {
         $stmt = $this->db->prepare('INSERT INTO orari (giorno, ora_apertura, ora_chiusura, id_mensa) VALUES (?, ?, ?, ?);');
         $stmt->bind_param("sssi", $dayOfWeek, $openTime, $closeTime, $canteenId);

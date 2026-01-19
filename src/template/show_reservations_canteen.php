@@ -1,5 +1,6 @@
 <header class="mb-4 mt-3">
     <h1 class="text-center">Visualizza Prenotazioni</h1>
+    <p class="text-center text-secondary fs-5">(sono nascoste le prenotazioni convalidate e di date passate)</p>
 </header>
 <div class="row justify-content-center">
     <div class="col-10 table-responsive">
