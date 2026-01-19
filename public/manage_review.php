@@ -73,7 +73,7 @@ if (isset($_GET["action"])) {
                 // The review must be inserted into the database
                 $exitCode = $dbh->insertReview($_POST["canteen_id"], $user->getEmail(), $_POST["title"], $_POST["description"], $_POST["vote"]);
                 if ($exitCode == 0) {
-                    header("Location: reviews.php?id=$_POST[canteen_id]&action=C&success=1");
+                    header("Location: canteen_reviews.php?id=$_POST[canteen_id]&action=C&success=1");
                     exit();
                 } else {
                     header("Location: manage_review.php?action=C&id=$_POST[canteen_id]&errorCode=$exitCode&title=$_POST[title]&desc=$_POST[description]&vote=$_POST[vote]");
@@ -96,7 +96,7 @@ if (isset($_GET["action"])) {
                 // The review must be updated
                 $exitCode = $dbh->updateReview($_POST["review_id"], $_POST["title"], $_POST["description"], $_POST["vote"]);
                 if ($exitCode == 0) {
-                    header("Location: reviews.php?id=$_POST[canteen_id]&action=U&success=1");
+                    header("Location: canteen_reviews.php?id=$_POST[canteen_id]&action=U&success=1");
                     exit();
                 } else {
                     header("Location: manage_review.php?action=U&id=$_POST[review_id]&errorCode=$exitCode&title=$_POST[title]&desc=$_POST[description]&vote=$_POST[vote]");
@@ -118,7 +118,7 @@ if (isset($_GET["action"])) {
                 }
                 // The review must be deleted
                 $dbh->deleteReview($_POST["review_id"]);
-                header("Location: reviews.php?&action=D&success=1&id=".$review->getCanteenId());
+                header("Location: canteen_reviews.php?&action=D&success=1&id=".$review->getCanteenId());
                 exit();
             } else {
                 header("Location: explore.php");
