@@ -119,11 +119,11 @@ function printStars($value) {
     }
 }
 
-function isValidReservationForInsertion($reservation, $dbh) {
-    $timeIn = $reservation->getDateTime()->getTimestamp();
+function isValidReservationForInsertion($dateTime, $canteenId, $numGuests, $oldGuests, $dbh) {
+    $timeIn = (new DateTimeImmutable($dateTime))->getTimestamp();
     $timeOut = $timeIn + mktime(0, 2, 30);
-    $resStatus = $dbh->getReservationsStatusInInterval($reservation->getCanteen()->getId(), date("Y-m-d H:i:s", $timeIn), date("Y-m-d H:i:s", $timeOut));
-    return $reservation->getNumPeople() <= $resStatus["posti_disponibili"];
+    $resStatus = $dbh->getReservationsStatusInInterval($canteenId, date("Y-m-d H:i:s", $timeIn), date("Y-m-d H:i:s", $timeOut));
+    return ($numGuests -$oldGuests) <= ($resStatus[0]["posti_disponibili"]);
 }
 
 ?>

@@ -384,9 +384,10 @@ class DatabaseHelper {
         $stmt->execute();
     }
 
-    public function modifyReservation($reservationCode, $newDateTime, $newNumPeople) {
-        if (!isValidReservationForInsertion($this->getReservationByCode($reservationCode), $this)) {
-            return -1;
+    public function updateReservation($reservationCode, $newDateTime, $newNumPeople) {
+        $oldRes = $this->getReservationByCode($reservationCode);
+        if (!isValidReservationForInsertion($newDateTime, $oldRes->getCanteen()->getId(), $newNumPeople, $oldRes->getNumPeople(), $this)) {
+            return -2;
         }
         try {
             $stmt = $this->db->prepare('UPDATE prenotazioni SET data_ora = ?, num_persone = ? WHERE codice = ?');
@@ -410,7 +411,7 @@ class DatabaseHelper {
     }
 
     public function getReservationsStatusInInterval($canteenId, $timeIn, $timeOut) {
-        $query = 'SELECT m.id, m.num_posti - SUM(p.num_persone) posti_rimanenti
+        $query = 'SELECT m.id, (m.num_posti - SUM(p.num_persone)) as posti_disponibili
         FROM mense m LEFT JOIN prenotazioni p ON (m.id = p.id_mensa)
         WHERE id_mensa = ?
         AND p.data_ora BETWEEN ? AND ?
@@ -541,6 +542,9 @@ class DatabaseHelper {
     }
 
     public function insertReservation($user, $canteenId, $code, $dateTime, $guests) {
+        if (!isValidReservationForInsertion($dateTime, $canteenId, $guests, 0, $this)) {
+            return -2;
+        }
         try {
             $stmt = $this->db->prepare('INSERT INTO prenotazioni (data_ora, codice, email, num_persone, id_mensa) VALUES (?, ?, ?, ?, ?);');
             $stmt->bind_param("sssii", $dateTime, $code, $user, $guests, $canteenId);

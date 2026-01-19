@@ -1,10 +1,11 @@
 const TIME_OFFSET = 30 // In minutes
+let changed = false;
 
 function addTime(start, offset) {
     return new Date(start.getTime() + offset * 60000);
 }
 
-function changeValue(num) {
+function changeNumGuests(num) {
     let people = parseInt(document.getElementById("num_people_text").innerText);
     people = people + parseInt(num);
     people = people >= 1 ? people : 1;
@@ -24,7 +25,15 @@ function generatePills(timetable) {
 
             let button = `
                 <div class="col-4 col-md-3">
-                    <input type="radio" class="btn-check" name="time" id="time-${hour}${minutes}" value="${hour}:${minutes}" required />
+                    <input type="radio" class="btn-check" name="time" id="time-${hour}${minutes}" value="${hour}:${minutes}" `;
+            if (!changed && document.querySelector("#action").value == "U") {
+                let old = document.querySelector("#old_time").innerHTML;
+                if (hour+":"+minutes == old) {
+                    button += "checked ";
+                    changed = true;
+                }
+            }
+            button += `required />
                     <label class="btn bg-white w-100 py-2 shadow-sm border-secondary-subtle text-secondary" for="time-${hour}${minutes}">${hour}:${minutes}</label>
                 </div>
             `;
@@ -67,3 +76,12 @@ async function getOpeningHours(id) {
         console.log(error.message);
     }
 }
+
+function updateValues() {
+    const action = document.querySelector("#action").value;
+    if (action == "U") {
+        document.querySelector("#date").dispatchEvent(new Event("change"));
+    }
+}
+
+document.querySelectorAll("body")[0].onload = updateValues;

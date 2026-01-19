@@ -19,15 +19,9 @@ switch (getUserLevel()) {
 if (isset($_GET["action"])) {
 
     if (!isset($_GET["id"])) {
-        header("Location: explore.php");
+        header("Location: manage_reservations.php");
         exit();
     }
-
-    $templateParams["action"] = $_GET["action"];
-    if (isset($_GET["errorCode"])) {
-        $templateParams["errorCode"] = $_GET["errorCode"];
-    }
-
 
     switch($_GET["action"]) {
         case "C":
@@ -39,6 +33,13 @@ if (isset($_GET["action"])) {
             break;
 
         case "U":
+            $templateParams["reservation"] = $dbh->getReservationByCode($_GET["id"]);
+            // Check permission
+            if ($templateParams["reservation"]->getUserEmail() != $user->getEmail()) {
+                header("Location: manage_reservations.php");
+                exit();
+            }
+            $templateParams["canteen"] = $templateParams["reservation"]->getCanteen();
             $currentPage["title"] = "Modifica prenotazione";
             $currentPage["filename"] = "reservation.php";
             $currentPage["scriptfile"] = "reservation.js";
@@ -54,16 +55,12 @@ if (isset($_GET["action"])) {
 else if (isset($_POST["action"])) {
 
     if (!isset($_POST["id"])) {
-        header("Location: explore.php");
+        header("Location: manage_reservations.php");
         exit();
     }
 
     if ($_POST["action"] != "D" && (!isset($_POST["date"]) || !isset($_POST["time"]) || !isset($_POST["guests"]))) {
-        $location = "Location: process_review.php?errorCode=-1&action=" . $_POST["action"];
-        if (isset($_POST["vote"])) $location .= "&vote=" . $_POST["vote"];
-        if (isset($_POST["title"])) $location .= "&title=" . $_POST["title"];
-        if (isset($_POST["description"])) $location .= "&description=" . $_POST["description"];
-        header($location);
+        header("Location: manage_reservations.php?errorCode=-1&action=" . $_POST["action"]);
         exit();
     }
 
@@ -74,11 +71,26 @@ else if (isset($_POST["action"])) {
             try {
                 $dateTime = new DateTimeImmutable($_POST["date"] . " " . $_POST["time"]);
             } catch (Exception $e) {
-                header("Location: index.php");
+                header("Location: manage_reservation.php?action=C&errorCode=-1");
                 exit();
             }
-
             $exitCode = $dbh->insertReservation($user->getEmail(), $_POST["id"], $code, $dateTime->format("Y-m-d H:i"), $_POST["guests"]);
+            break;
+
+        case "U":
+            $templateParams["reservation"] = $dbh->getReservationByCode($_POST["id"]);
+            // Check permission
+            if ($templateParams["reservation"]->getUserEmail() != $user->getEmail()) {
+                header("Location: manage_reservations.php");
+                exit();
+            }
+            try {
+                $dateTime = new DateTimeImmutable($_POST["date"] . " " . $_POST["time"]);
+            } catch (Exception $e) {
+                header("Location: manage_reservation.php?action=U&errorCode=-1");
+                exit();
+            }
+            $exitCode = $dbh->updateReservation($_POST["id"], $dateTime->format("Y-m-d H:i"), $_POST["guests"]);
             break;
 
         case "D":
