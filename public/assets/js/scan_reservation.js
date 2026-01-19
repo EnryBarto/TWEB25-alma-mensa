@@ -2,11 +2,6 @@ import('./qr-scanner.min.js').then((module) => {
     const QrScanner = module.default;
     const videoElem = document.querySelector('#qr_scan_preview');
     const scanner = new QrScanner(videoElem, result => {
-        /* scanner.stop();
-        // Wait 1 second before restarting the scanner
-        setInterval(() => {
-            scanner.start();
-        }, 1000); */
         convalidateReservation(result).then(res => {
             if (res) {
                 showMessage(res);
@@ -19,14 +14,18 @@ import('./qr-scanner.min.js').then((module) => {
     const selectCamera = document.querySelector('#camera-selection');
     // Checks for available cameras and populates the select element
     QrScanner.listCameras().then(cameras => {
+        let option = document.createElement('option');
+        option.value = 'environment';
+        option.text = 'Default';
+        selectCamera.appendChild(option);
         cameras.forEach(camera => {
-            const option = document.createElement('option');
+            option = document.createElement('option');
             option.value = camera.id;
             option.text = camera.label || `Camera ${selectCamera.length + 1}`;
             selectCamera.appendChild(option);
         });
         // Starts the scanner with the first available camera
-        scanner.setCamera(cameras[0].id);
+        scanner.setCamera('environment');
         scanner.start();
     });
     selectCamera.addEventListener('change', () => {
