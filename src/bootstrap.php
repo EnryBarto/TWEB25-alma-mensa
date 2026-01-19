@@ -3,7 +3,7 @@ define("UPLOAD_DIR", "../public/upload/");
 
 
 require_once("database.php");
-$dbh = new DatabaseHelper("localhost", "root", "", "almamensa", 3306);
+$dbh = new DatabaseHelper("localhost", "svitol", "1-eVViva_Sql", "almamensa", 3306);
 
 require_once("classes.php");
 require_once("utils.php");

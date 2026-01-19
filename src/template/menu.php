@@ -1,22 +1,31 @@
 <?php require("components/canteen_header_lite.php") ?>
-
-        <div class="row justify-content-center px-3">
-            <div class="card col-10 p-0 mb-2">
-                <div class="card-body">
-                    <div class="row align-items-center justify-content-between">
-                        <h2 class="card-title col-auto fs-6">Piatto Colazione Classica</h2>
-                        <p class="card-subtitle col-auto text-primary fw-bold">12,99€</p>
-                    </div>
-                    <p class="card-text text-secondary">Uova, bacon, pane tostato, patatine fritte</p>
+        <?php if (count($templateParams["menus"]) == 0): ?>
+            <div class="row justify-content-center px-3">
+                <div class="col-10 alert alert-info text-center" role="alert">
+                    <span class="bi bi-info-circle-fill me-2"></span>
+                    Nessun menu disponibile per questa mensa.
                 </div>
             </div>
-            <div class="card col-10 p-0 mb-2">
-                <div class="card-body">
-                    <div class="row align-items-center justify-content-between">
-                        <h2 class="card-title col-auto fs-6">Pancake</h2>
-                        <p class="card-subtitle col-auto text-primary fw-bold">9,99€</p>
+        <?php else: ?>
+        <?php foreach($templateParams["menus"] as $menu): ?>
+            <div class="row justify-content-center px-3">
+                <div class="card col-10 p-0 mb-2">
+                    <div class="card-body">
+                        <!-- Menu Name -->
+                        <h2 class="card-title fs-4 mb-3"><?php echo htmlspecialchars($menu->getNome()); ?></h2>
+                        <hr class="mb-3">
+                        <!-- Dishes List -->
+                        <ul class="list-unstyled mb-0">
+                            <?php foreach($menu->getDishes() as $dish): ?>
+                                <li class="mb-2">
+                                    <strong><?php echo htmlspecialchars($dish->getName()); ?></strong>
+                                    <span class="text-danger"> - <?php echo number_format($dish->getPrice(), 2, ',', ''); ?> €</span>
+                                    <span class="text-muted"> - <?php echo htmlspecialchars($dish->getDescription()); ?></span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
                     </div>
-                    <p class="card-text text-secondary">Pancake soffici con sciroppo d'acero e burro</p>
                 </div>
             </div>
-        </div>
+        <?php endforeach; ?>
+        <?php endif; ?>
