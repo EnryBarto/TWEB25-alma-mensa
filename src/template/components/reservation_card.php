@@ -5,8 +5,8 @@
                 <h3 class="card-title fs-5">Codice: <span class="reservation-code"><?php echo $reservation->getCode(); ?></span></h3>
             </div>
             <div class="col-4 justify-content-end text-end">
-                <a role="button" title="Modifica" class="btn btn-primary btn-sm rounded-3 <?php if (!$reservation->isActive()) echo 'disabled'; ?>" href="reservation.php?action=U&id=<?php echo $reservation->getCode(); ?>"><span class="bi bi-pencil"></span></a>
-                <button type="button" title="Elimina" class="btn btn-outline-secondary btn-sm rounded-3 <?php if (!$reservation->isActive()) echo 'disabled'; ?>" data-bs-toggle="modal" data-bs-target="#remove-confirm-<?php echo $reservation->getCode(); ?>"><span class="bi bi-trash"></span></button>
+                <a role="button" title="Modifica" class="btn btn-secondary btn-sm rounded-3 me-1 <?php if (!$reservation->isActive()) echo 'disabled'; ?>" href="reservation.php?action=U&id=<?php echo $reservation->getCode(); ?>"><span class="bi bi-pencil"></span></a>
+                <button type="button" title="Elimina" class="btn btn-primary btn-sm rounded-3 <?php if (!$reservation->isActive()) echo 'disabled'; ?>" data-bs-toggle="modal" data-bs-target="#remove-confirm-<?php echo $reservation->getCode(); ?>"><span class="bi bi-trash"></span></button>
             </div>
         </header>
 

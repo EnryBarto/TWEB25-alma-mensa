@@ -9,7 +9,7 @@
             <?php endif; ?>
                 <a class="col-11 col-md-10 p-0 text-dark h1 d-block" href="canteen_details.php?id=<?php echo $templateParams["canteen"]->getId(); ?>"><?php echo $templateParams["canteen"]->getName(); ?></a>
                 <p class="badge bg-secondary"><?php echo $canteen->getCategory() ?></p>
-                <p>
+                <p title="Valutazione Media: <?php echo $canteen->getAvgReviews();?> su <?php echo $canteen->getNumReviews(); ?> recensioni">
                 <?php
                     printStars($canteen->getAvgReviews());
                     echo $canteen->getAvgReviews();

@@ -7,7 +7,7 @@
         <?php endif; ?>
             <?php echo $r->getTitle(); ?>
         </h2>
-        <p class="card-subtitle mb-2 text-body-secondary">
+        <p title="Valutazione: <?php echo $r->getValue() ?>" class="card-subtitle mb-2 text-body-secondary">
         <?php
             printStars($r->getValue());
             echo $r->getValue();
@@ -17,9 +17,9 @@
         <div class="card-text border-top mb-2"></div>
         <?php if (isUserLoggedIn() && $r->getAuthorEmail() == $user->getEmail()): ?>
         <div class="my-2">
-            <a class="btn btn-outline-primary btn-sm" title="Modifica recensione" href="manage_review.php?action=U&id=<?php echo $r->getId(); ?>&redirect=<?php echo urlencode($templateParams["redirect"])?>"><span class="bi bi-pen-fill"></span></a>
+            <a class="btn btn-secondary btn-sm rounded-3 me-1 mt-1" title="Modifica recensione" href="manage_review.php?action=U&id=<?php echo $r->getId(); ?>&redirect=<?php echo urlencode($templateParams["redirect"])?>"><span class="bi bi-pencil"></span></a>
             <!--Pulsante Modal-->
-            <button type="button" title="Elimina recensione" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#remove-confirm-<?php echo $r->getId(); ?>"><span class="bi bi-trash-fill"></span></button>
+            <button type="button" title="Elimina recensione" class="btn btn-primary btn-sm rounded-3 mt-1" data-bs-toggle="modal" data-bs-target="#remove-confirm-<?php echo $r->getId(); ?>"><span class="bi bi-trash"></span></button>
 
             <!-- Modal -->
             <div class="modal fade" id="remove-confirm-<?php echo $r->getId(); ?>" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="removeConfirmLabel-<?php echo $r->getId(); ?>" aria-hidden="true">

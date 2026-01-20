@@ -20,11 +20,11 @@
             </ul>
         </div>
         <div class="col-12 col-md-4 d-grid">
-            <a href="mod_customer_data.php" role="button" class="btn btn-outline-primary mb-2"><span
-                    class="bi bi-pen-fill"></span> Modifica profilo</a>
-            <a href="change_password.php" role="button" class="btn btn-outline-primary mb-2"><span
+            <a href="mod_customer_data.php" role="button" class="btn btn-secondary mb-2"><span
+                    class="bi bi-pencil"></span> Modifica profilo</a>
+            <a href="change_password.php" role="button" class="btn btn-secondary mb-2"><span
                     class="bi bi-key-fill"></span> Modifica password</a>
-            <a href="delete_profile.php" role="button" class="btn btn-danger mb-2"
+            <a href="delete_profile.php" role="button" class="btn btn-primary mb-2"
                 data-bs-target="#first-delete-confirm" data-bs-toggle="modal"><span class="bi bi-trash"></span> Elimina
                 profilo</a>
         </div>

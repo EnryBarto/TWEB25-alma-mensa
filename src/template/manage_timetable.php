@@ -60,7 +60,7 @@
                 <?php endif; ?>
             </div>
             <div class="col-12 col-md-3 mb-2 text-center d-grid align-items-end">
-                <button type="submit" class="btn btn-primary"><span class="bi bi-plus"></span> Aggiungi orario</button>
+                <button type="submit" class="btn btn-primary"><span class="bi bi-plus"></span> Conferma orario</button>
             </div>
         </div>
         <input type="hidden" name="action" value="c"/>
@@ -90,7 +90,7 @@
                 <div class="col-12 col-md-3 col-xl-2 mb-2 d-grid">
                     <button type="submit" name="action" value="u" class="btn btn-primary mb-2"><span class="bi bi-floppy-fill"></span> Salva
                         modifiche</button>
-                    <button type="submit" name="action" value="d" class="btn btn-danger"><span class="bi bi-trash-fill"></span> Elimina orario</button>
+                    <button type="submit" name="action" value="d" class="btn btn-primary"><span class="bi bi-trash-fill"></span> Elimina orario</button>
                 </div>
             </div>
             <input type="hidden" name="oldTimeOpen" value="<?php echo $timetable->getOpenTime(); ?>"/>
