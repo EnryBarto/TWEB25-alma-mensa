@@ -9,6 +9,11 @@ class DatabaseHelper {
         }
     }
 
+
+    /* +-------------------------------------------------------------------+
+       |                               USER                                |
+       +-------------------------------------------------------------------+ */
+
     public function checkLogin($email, $password){
         $stmt = $this->db->prepare("SELECT * FROM utenti WHERE email = ?;");
         $stmt->bind_param("s", $email);
@@ -35,6 +40,83 @@ class DatabaseHelper {
         }
         return 0;
     }
+
+    public function updateUserPassword($email, $hashedPassword) {
+        $stmt = $this->db->prepare("UPDATE utenti SET password = ? WHERE email = ?;");
+        $stmt->bind_param("ss", $hashedPassword, $email);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+    }
+
+
+    /* +-------------------------------------------------------------------+
+       |                             CUSTOMER                              |
+       +-------------------------------------------------------------------+ */
+
+    public function getCustomerByEmail($email) {
+        $stmt = $this->db->prepare("SELECT * FROM clienti WHERE email = ?;");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $c = $result->fetch_all(MYSQLI_ASSOC)[0];
+            return new Customer($c["email"], $c["nome"], $c["cognome"]);
+        } else {
+            return null;
+        }
+    }
+
+    public function updateCustomerData($email, $name, $surname) {
+        $stmt = $this->db->prepare("UPDATE clienti SET nome = ?, cognome = ? WHERE email = ?;");
+        $stmt->bind_param("sss", $name, $surname, $email);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+    }
+
+    public function deleteCustomerByEmail($email) {
+        $this->db->begin_transaction();
+        try {
+            // Delete reviews
+            $stmt = $this->db->prepare('DELETE FROM recensioni WHERE email = ?;');
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+
+            // Delete reservations
+            $stmt = $this->db->prepare('DELETE FROM prenotazioni WHERE email = ?;');
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+
+            // Delete from clienti
+            $stmt = $this->db->prepare('DELETE FROM clienti WHERE email = ?;');
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+
+            // Delete from utenti
+            $stmt = $this->db->prepare('DELETE FROM utenti WHERE email = ?;');
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+
+            $this->db->commit();
+        } catch (mysqli_sql_exception $e) {
+            $this->db->rollback();
+            return $e->getCode();
+        }
+        return 0;
+    }
+
+
+    /* +-------------------------------------------------------------------+
+       |                             CANTEENS                              |
+       +-------------------------------------------------------------------+ */
 
     public function getCanteens($orderBy, $limit = null) {
         if (empty($orderBy)) {
@@ -67,10 +149,133 @@ class DatabaseHelper {
         }
     }
 
+    public function getCanteenByEmail($email) {
+        $stmt = $this->db->prepare("SELECT m.*, c.nome AS categoria FROM mense AS m JOIN categorie c ON m.id_categoria = c.id WHERE m.email = ?;");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $c = $result->fetch_assoc();
+            return new Canteen($c["id"], $c["email"], $c["nome"], $c["descrizione"], $c["ind_civico"], $c["ind_via"], $c["ind_comune"], $c["ind_cap"], $c["telefono"], $c["coo_latitudine"], $c["coo_longitudine"], $c["num_posti"], $c["immagine"], $c["categoria"], $c["media_recensioni"], $c["num_recensioni"], $this->getCanteenTimeTable($c["id"]));
+        } else {
+            return null;
+        }
+    }
+
+    public function updateCanteen($id, $name, $desc, $cat, $seats, $avenue, $num, $postal_code, $municipality, $lat, $lon, $telephone, $image) {
+        $this->db->begin_transaction();
+        try {
+            $stmt = $this->db->prepare('UPDATE mense SET nome=?, descrizione=?, id_categoria=?, num_posti=?, ind_via=?, ind_civico=?, ind_cap=?, ind_comune=?, coo_latitudine=?, coo_longitudine=? WHERE id=?');
+            $stmt->bind_param("ssiississsi", $name, $desc, $cat, $seats, $avenue, $num, $postal_code, $municipality, $lat, $lon, $id);
+            $stmt->execute();
+        } catch (Exception $e) {
+            $this->db->rollback();
+            return $e->getCode();
+        }
+
+        try {
+            if (empty($telephone)) {
+                $stmt = $this->db->prepare('UPDATE mense SET telefono = NULL WHERE id=?');
+                $stmt->bind_param("i", $id);
+            } else {
+                $stmt = $this->db->prepare('UPDATE mense SET telefono=? WHERE id=?');
+                $stmt->bind_param("si", $telephone, $id);
+            }
+            $stmt->execute();
+        } catch (Exception $e) {
+            $this->db->rollback();
+            return $e->getCode();
+        }
+
+        try {
+            if (empty($image)) {
+                $stmt = $this->db->prepare('UPDATE mense SET immagine = NULL WHERE id=?');
+                $stmt->bind_param("i", $id);
+            } else {
+                $stmt = $this->db->prepare('UPDATE mense SET immagine=? WHERE id=?');
+                $stmt->bind_param("si", $image, $id);
+            }
+            $stmt->execute();
+        } catch (Exception $e) {
+            $this->db->rollback();
+            return $e->getCode();
+        }
+
+        $this->db->commit();
+        return 0;
+    }
+
+
+    /* +-------------------------------------------------------------------+
+       |                         CANTEEN TIMETABLE                         |
+       +-------------------------------------------------------------------+ */
+
+    public function getCanteenTimetable($id, $day = "%") {
+        $query = 'SELECT giorno, ora_apertura, ora_chiusura FROM orari
+        WHERE id_mensa = ?
+        AND giorno LIKE ?
+        ORDER BY FIELD(giorno, \'mon\', \'tue\', \'wed\', \'thu\', \'fri\', \'sat\', \'sun\'), ora_apertura ASC';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $id, $day);
+        $stmt->execute();
+        $hours = [];
+        foreach ($stmt->get_result()->fetch_all(MYSQLI_ASSOC) as $h) {
+            array_push($hours, new OpeningHour($h["giorno"], $h["ora_apertura"], $h["ora_chiusura"]));
+        }
+        return $hours;
+    }
+
+    public function createOpeningHour($canteenId, $dayOfWeek, $openTime, $closeTime) {
+        $stmt = $this->db->prepare('INSERT INTO orari (giorno, ora_apertura, ora_chiusura, id_mensa) VALUES (?, ?, ?, ?);');
+        $stmt->bind_param("sssi", $dayOfWeek, $openTime, $closeTime, $canteenId);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+    }
+
+    public function updateOpeningHour($canteenId, $dayOfWeek, $oldOpenTime, $newOpenTime, $newCloseTime) {
+        $stmt = $this->db->prepare('UPDATE orari SET ora_apertura = ?, ora_chiusura = ? WHERE id_mensa = ? AND giorno = ? AND ora_apertura = ?;');
+        $stmt->bind_param("ssiss", $newOpenTime, $newCloseTime, $canteenId, $dayOfWeek, $oldOpenTime);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        if ($stmt->affected_rows == 0) {
+            return -2;
+        }
+        return 0;
+    }
+
+    public function deleteOpeningHour($canteenId, $dayOfWeek, $openTime) {
+        $stmt = $this->db->prepare('DELETE FROM orari WHERE id_mensa = ? AND giorno = ? AND ora_apertura = ?;');
+        $stmt->bind_param("iss", $canteenId, $dayOfWeek, $openTime);
+        try {
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            return $e->getCode();
+        }
+        return 0;
+    }
+
+
+    /* +-------------------------------------------------------------------+
+       |                            CATEGORIES                             |
+       +-------------------------------------------------------------------+ */
+
     public function getCategories() {
         $result = $this->db->query("SELECT * FROM categorie;");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+
+    /* +-------------------------------------------------------------------+
+       |                           RESERVATIONS                            |
+       +-------------------------------------------------------------------+ */
 
     public function getReservationsByCustomerEmail($email) {
         $stmt = $this->db->prepare("SELECT * FROM prenotazioni WHERE email = ? ORDER BY data_ora DESC;");
@@ -99,55 +304,10 @@ class DatabaseHelper {
         }
     }
 
-    public function getCanteenByEmail($email) {
-        $stmt = $this->db->prepare("SELECT m.*, c.nome AS categoria FROM mense AS m JOIN categorie c ON m.id_categoria = c.id WHERE m.email = ?;");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            $c = $result->fetch_assoc();
-            return new Canteen($c["id"], $c["email"], $c["nome"], $c["descrizione"], $c["ind_civico"], $c["ind_via"], $c["ind_comune"], $c["ind_cap"], $c["telefono"], $c["coo_latitudine"], $c["coo_longitudine"], $c["num_posti"], $c["immagine"], $c["categoria"], $c["media_recensioni"], $c["num_recensioni"], $this->getCanteenTimeTable($c["id"]));
-        } else {
-            return null;
-        }
-    }
-
-    public function getCustomerByEmail($email) {
-        $stmt = $this->db->prepare("SELECT * FROM clienti WHERE email = ?;");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $c = $result->fetch_all(MYSQLI_ASSOC)[0];
-            return new Customer($c["email"], $c["nome"], $c["cognome"]);
-        } else {
-            return null;
-        }
-    }
-
-    public function updateCustomerData($email, $name, $surname) {
-        $stmt = $this->db->prepare("UPDATE clienti SET nome = ?, cognome = ? WHERE email = ?;");
-        $stmt->bind_param("sss", $name, $surname, $email);
-        try {
-            $stmt->execute();
-        } catch (mysqli_sql_exception $e) {
-            return $e->getCode();
-        }
-        return 0;
-    }
-
-    public function updateUserPassword($email, $hashedPassword) {
-        $stmt = $this->db->prepare("UPDATE utenti SET password = ? WHERE email = ?;");
-        $stmt->bind_param("ss", $hashedPassword, $email);
-        try {
-            $stmt->execute();
-        } catch (mysqli_sql_exception $e) {
-            return $e->getCode();
-        }
-        return 0;
-    }
+    /* +-------------------------------------------------------------------+
+       |                              DISHES                               |
+       +-------------------------------------------------------------------+ */
 
     public function getAllDishes() {
         $stmt = $this->db->prepare("SELECT * FROM piatti ORDER BY nome ASC;");
@@ -159,35 +319,6 @@ class DatabaseHelper {
             array_push($list, new Dish($d["id"], $d["nome"], $d["descrizione"], $d["prezzo"], $d["id_mensa"]));
         }
         return $list;
-    }
-
-    public function getMenusByCanteenId($canteenId) {
-        $stmt = $this->db->prepare("SELECT * FROM menu WHERE id_mensa = ? ORDER BY attivo DESC, nome ASC;");
-        $stmt->bind_param("i", $canteenId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        $list = array();
-        foreach ($result->fetch_all(MYSQLI_ASSOC) as $m) {
-            $dishes = $this->getDishesByMenuId($m["id"]);
-            array_push($list, new Menu($m["id"], $m["nome"], $m["attivo"], $m["id_mensa"], $dishes));
-        }
-        return $list;
-    }
-
-    public function getMenuById($menuId) {
-        $stmt = $this->db->prepare("SELECT * FROM menu WHERE id = ?;");
-        $stmt->bind_param("i", $menuId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $m = $result->fetch_assoc();
-            $dishes = $this->getDishesByMenuId($m["id"]);
-            return new Menu($m["id"], $m["nome"], $m["attivo"], $m["id_mensa"], $dishes);
-        } else {
-            return null;
-        }
     }
 
     public function getDishesByMenuId($menuId) {
@@ -244,6 +375,61 @@ class DatabaseHelper {
         return $stmt->affected_rows > 0;
     }
 
+    public function deleteDish($dishId) {
+        $this->db->begin_transaction();
+        try {
+            // Delete compositions first (foreign key constraint)
+            $stmt = $this->db->prepare('DELETE FROM composizioni WHERE id_piatto = ?');
+            $stmt->bind_param("i", $dishId);
+            $stmt->execute();
+
+            // Delete the dish
+            $stmt = $this->db->prepare('DELETE FROM piatti WHERE id=?');
+            $stmt->bind_param("i", $dishId);
+            $stmt->execute();
+
+            $this->db->commit();
+            return true;
+        } catch (mysqli_sql_exception $e) {
+            $this->db->rollback();
+            return false;
+        }
+    }
+
+
+    /* +-------------------------------------------------------------------+
+       |                              MENUES                               |
+       +-------------------------------------------------------------------+ */
+
+    public function getMenusByCanteenId($canteenId) {
+        $stmt = $this->db->prepare("SELECT * FROM menu WHERE id_mensa = ? ORDER BY attivo DESC, nome ASC;");
+        $stmt->bind_param("i", $canteenId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $list = array();
+        foreach ($result->fetch_all(MYSQLI_ASSOC) as $m) {
+            $dishes = $this->getDishesByMenuId($m["id"]);
+            array_push($list, new Menu($m["id"], $m["nome"], $m["attivo"], $m["id_mensa"], $dishes));
+        }
+        return $list;
+    }
+
+    public function getMenuById($menuId) {
+        $stmt = $this->db->prepare("SELECT * FROM menu WHERE id = ?;");
+        $stmt->bind_param("i", $menuId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $m = $result->fetch_assoc();
+            $dishes = $this->getDishesByMenuId($m["id"]);
+            return new Menu($m["id"], $m["nome"], $m["attivo"], $m["id_mensa"], $dishes);
+        } else {
+            return null;
+        }
+    }
+
     public function insertMenu($nome, $id_mensa, $attivo = 0, $dishes = []) {
         $stmt = $this->db->prepare("INSERT INTO menu (nome, attivo, id_mensa) VALUES (?, ?, ?);");
         $stmt->bind_param("sii", $nome, $attivo, $id_mensa);
@@ -259,37 +445,6 @@ class DatabaseHelper {
             }
         }
         return $menuId;
-    }
-
-    public function deleteCustomerByEmail($email) {
-        $this->db->begin_transaction();
-        try {
-            // Delete reviews
-            $stmt = $this->db->prepare('DELETE FROM recensioni WHERE email = ?;');
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-
-            // Delete reservations
-            $stmt = $this->db->prepare('DELETE FROM prenotazioni WHERE email = ?;');
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-
-            // Delete from clienti
-            $stmt = $this->db->prepare('DELETE FROM clienti WHERE email = ?;');
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-
-            // Delete from utenti
-            $stmt = $this->db->prepare('DELETE FROM utenti WHERE email = ?;');
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-
-            $this->db->commit();
-        } catch (mysqli_sql_exception $e) {
-            $this->db->rollback();
-            return $e->getCode();
-        }
-        return 0;
     }
 
     public function updateMenu($menuId, $nome, $attivo = 0, $dishes = []) {
@@ -336,6 +491,32 @@ class DatabaseHelper {
             return null;
         }
     }
+
+    public function deleteMenu($menuId) {
+        $this->db->begin_transaction();
+        try {
+            // Delete compositions first (foreign key constraint)
+            $stmt = $this->db->prepare('DELETE FROM composizioni WHERE id_menu = ?');
+            $stmt->bind_param("i", $menuId);
+            $stmt->execute();
+
+            // Delete the menu
+            $stmt = $this->db->prepare('DELETE FROM menu WHERE id = ?');
+            $stmt->bind_param("i", $menuId);
+            $stmt->execute();
+
+            $this->db->commit();
+            return true;
+        } catch (mysqli_sql_exception $e) {
+            $this->db->rollback();
+            return false;
+        }
+    }
+
+
+    /* +-------------------------------------------------------------------+
+       |                             REVIEWS                               |
+       +-------------------------------------------------------------------+ */
 
     public function getCanteenReviews($canteenId) {
         $query = "SELECT r.*, c.* FROM `recensioni` r JOIN utenti u ON r.email = u.email JOIN clienti c ON u.email = c.email WHERE r.id_mensa = ? ORDER BY data_ora DESC;";
@@ -413,6 +594,11 @@ class DatabaseHelper {
         $stmt->execute();
     }
 
+
+    /* +-------------------------------------------------------------------+
+       |                          RESERVATIONS                             |
+       +-------------------------------------------------------------------+ */
+
     public function updateReservation($reservationCode, $newDateTime, $newNumPeople) {
         $oldRes = $this->getReservationByCode($reservationCode);
         if (!isValidReservationForUpdate($oldRes, $newDateTime, $newNumPeople, $this)) {
@@ -455,106 +641,6 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function deleteMenu($menuId) {
-        $this->db->begin_transaction();
-        try {
-            // Delete compositions first (foreign key constraint)
-            $stmt = $this->db->prepare('DELETE FROM composizioni WHERE id_menu = ?');
-            $stmt->bind_param("i", $menuId);
-            $stmt->execute();
-
-            // Delete the menu
-            $stmt = $this->db->prepare('DELETE FROM menu WHERE id = ?');
-            $stmt->bind_param("i", $menuId);
-            $stmt->execute();
-
-            $this->db->commit();
-            return true;
-        } catch (mysqli_sql_exception $e) {
-            $this->db->rollback();
-            return false;
-        }
-    }
-
-    public function deleteDish($dishId) {
-        $this->db->begin_transaction();
-        try {
-            // Delete compositions first (foreign key constraint)
-            $stmt = $this->db->prepare('DELETE FROM composizioni WHERE id_piatto = ?');
-            $stmt->bind_param("i", $dishId);
-            $stmt->execute();
-
-            // Delete the dish
-            $stmt = $this->db->prepare('DELETE FROM piatti WHERE id=?');
-            $stmt->bind_param("i", $dishId);
-            $stmt->execute();
-
-            $this->db->commit();
-            return true;
-        } catch (mysqli_sql_exception $e) {
-            $this->db->rollback();
-            return false;
-        }
-    }
-
-    public function updateCanteen($id, $name, $desc, $cat, $seats, $avenue, $num, $postal_code, $municipality, $lat, $lon, $telephone, $image) {
-        $this->db->begin_transaction();
-        try {
-            $stmt = $this->db->prepare('UPDATE mense SET nome=?, descrizione=?, id_categoria=?, num_posti=?, ind_via=?, ind_civico=?, ind_cap=?, ind_comune=?, coo_latitudine=?, coo_longitudine=? WHERE id=?');
-            $stmt->bind_param("ssiississsi", $name, $desc, $cat, $seats, $avenue, $num, $postal_code, $municipality, $lat, $lon, $id);
-            $stmt->execute();
-        } catch (Exception $e) {
-            $this->db->rollback();
-            return $e->getCode();
-        }
-
-        try {
-            if (empty($telephone)) {
-                $stmt = $this->db->prepare('UPDATE mense SET telefono = NULL WHERE id=?');
-                $stmt->bind_param("i", $id);
-            } else {
-                $stmt = $this->db->prepare('UPDATE mense SET telefono=? WHERE id=?');
-                $stmt->bind_param("si", $telephone, $id);
-            }
-            $stmt->execute();
-        } catch (Exception $e) {
-            $this->db->rollback();
-            return $e->getCode();
-        }
-
-        try {
-            if (empty($image)) {
-                $stmt = $this->db->prepare('UPDATE mense SET immagine = NULL WHERE id=?');
-                $stmt->bind_param("i", $id);
-            } else {
-                $stmt = $this->db->prepare('UPDATE mense SET immagine=? WHERE id=?');
-                $stmt->bind_param("si", $image, $id);
-            }
-            $stmt->execute();
-        } catch (Exception $e) {
-            $this->db->rollback();
-            return $e->getCode();
-        }
-
-        $this->db->commit();
-        return 0;
-    }
-
-    public function getCanteenTimetable($id, $day = "%") {
-        $query = 'SELECT giorno, ora_apertura, ora_chiusura FROM orari
-        WHERE id_mensa = ?
-        AND giorno LIKE ?
-        ORDER BY FIELD(giorno, \'mon\', \'tue\', \'wed\', \'thu\', \'fri\', \'sat\', \'sun\'), ora_apertura ASC';
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("is", $id, $day);
-        $stmt->execute();
-        $hours = [];
-        foreach ($stmt->get_result()->fetch_all(MYSQLI_ASSOC) as $h) {
-            array_push($hours, new OpeningHour($h["giorno"], $h["ora_apertura"], $h["ora_chiusura"]));
-        }
-        return $hours;
-    }
-
     public function getReservationsByCanteenId($canteenId, $orderBy = "data_ora ASC") {
         $stmt = $this->db->prepare("SELECT * FROM prenotazioni WHERE id_mensa = ? ORDER BY $orderBy;");
         $stmt->bind_param("i", $canteenId);
@@ -593,40 +679,5 @@ class DatabaseHelper {
         return 0;
     }
 
-    public function createOpeningHour($canteenId, $dayOfWeek, $openTime, $closeTime) {
-        $stmt = $this->db->prepare('INSERT INTO orari (giorno, ora_apertura, ora_chiusura, id_mensa) VALUES (?, ?, ?, ?);');
-        $stmt->bind_param("sssi", $dayOfWeek, $openTime, $closeTime, $canteenId);
-        try {
-            $stmt->execute();
-        } catch (mysqli_sql_exception $e) {
-            return $e->getCode();
-        }
-        return 0;
-    }
-
-    public function updateOpeningHour($canteenId, $dayOfWeek, $oldOpenTime, $newOpenTime, $newCloseTime) {
-        $stmt = $this->db->prepare('UPDATE orari SET ora_apertura = ?, ora_chiusura = ? WHERE id_mensa = ? AND giorno = ? AND ora_apertura = ?;');
-        $stmt->bind_param("ssiss", $newOpenTime, $newCloseTime, $canteenId, $dayOfWeek, $oldOpenTime);
-        try {
-            $stmt->execute();
-        } catch (mysqli_sql_exception $e) {
-            return $e->getCode();
-        }
-        if ($stmt->affected_rows == 0) {
-            return -2;
-        }
-        return 0;
-    }
-
-    public function deleteOpeningHour($canteenId, $dayOfWeek, $openTime) {
-        $stmt = $this->db->prepare('DELETE FROM orari WHERE id_mensa = ? AND giorno = ? AND ora_apertura = ?;');
-        $stmt->bind_param("iss", $canteenId, $dayOfWeek, $openTime);
-        try {
-            $stmt->execute();
-        } catch (mysqli_sql_exception $e) {
-            return $e->getCode();
-        }
-        return 0;
-    }
 }
 ?>

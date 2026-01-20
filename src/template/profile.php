@@ -30,8 +30,7 @@
         </div>
     </div>
     <!-- Double modal for confirm profile deletion -->
-    <div class="modal fade" id="first-delete-confirm" aria-hidden="true" aria-labelledby="first-delete-confirm-label"
-        tabindex="-1">
+    <div class="modal fade" id="first-delete-confirm" aria-hidden="true" aria-labelledby="first-delete-confirm-label" role="dialog" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -57,8 +56,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="last-delete-confirm" aria-hidden="true" aria-labelledby="last-delete-confirm-label"
-        tabindex="-1">
+    <div class="modal fade" id="last-delete-confirm" aria-hidden="true" aria-labelledby="last-delete-confirm-label" role="dialog" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
