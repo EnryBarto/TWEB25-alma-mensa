@@ -10,7 +10,7 @@
     <div class="row justify-content-center">
         <div class="col-11 col-md-8">
             <div id="main-carousel" class="carousel slide">
-                <div class="carousel-indicators">
+                <div class="carousel-indicators mb-1">
                     <button type="button" data-bs-target="#main-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#main-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#main-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
