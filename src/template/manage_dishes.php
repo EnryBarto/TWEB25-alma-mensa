@@ -1,5 +1,5 @@
 <header class="text-center container mt-3 mb-4">
-    <h1>Tutti i Piatti</h1>
+    <h3>Tutti i Piatti</h3>
 </header>
 <!-- Add dish button -->
 <div class="d-flex justify-content-center mb-3">
@@ -15,19 +15,19 @@
                         <div class="card-body">
                             <header class="row mb-3">
                                 <div class="col-8 justify-content-left">
-                                    <h5 class="card-title"><?php echo htmlspecialchars($dish->getName()); ?></h5>
+                                    <h4 class="card-title"><?php echo htmlspecialchars($dish->getName()); ?></h4>
                                 </div>
                             </header>
                             <section>
                                 <div class="row justify-content-start mb-3">
                                     <div class="col-12">
-                                        <h6 class="card-text">Descrizione: </h6>
+                                        <h5 class="card-text">Descrizione: </h5>
                                         <p class="card-text text-body-secondary"><?php echo htmlspecialchars($dish->getDescription()); ?></p>
                                     </div>
                                 </div>
                                 <div class="row justify-content-start">
                                     <div class="col-12">
-                                        <h6 class="card-text">Prezzo: </h6>
+                                        <h5 class="card-text">Prezzo: </h5>
                                         <p class="card-text text-body-secondary fw-bold">€<?php echo htmlspecialchars(number_format($dish->getPrice(), 2)); ?></p>
                                     </div>
                                 </div>
