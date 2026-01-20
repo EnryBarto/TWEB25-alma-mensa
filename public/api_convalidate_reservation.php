@@ -10,13 +10,18 @@ if (isUserLoggedIn() && getUserLevel() === UserLevel::CanteenAdmin) {
         if ($reservation) {
             if ($reservation->getCanteen()->getId() === $user->getId()) {
                 if (!$reservation->isConvalidated()) {
-                    $exitCode = $dbh->convalidateReservation($reservation->getCode());
-                    if ($exitCode == 0) {
-                        $text = "Prenotazione con codice $reservationCode convalidata con successo! {$reservation->getUserEmail()}: [{$reservation->getFormattedDateTime()}] - {$reservation->getNumPeople()} persone.";
-                    } else {
-                        $type = "danger";
-                        $text = "Errore durante la convalida della prenotazione $reservationCode. Codice di errore: $exitCode.";
-                    }
+                    if (date("Y-m-d") == $reservation->getDateTime()->format("Y-m-d")) {
+                        $exitCode = $dbh->convalidateReservation($reservation->getCode());
+                            if ($exitCode == 0) {
+                                $text = "Prenotazione con codice $reservationCode convalidata con successo! {$reservation->getUserEmail()}: [{$reservation->getFormattedDateTime()}] - {$reservation->getNumPeople()} persone.";
+                            } else {
+                                $type = "danger";
+                                $text = "Errore durante la convalida della prenotazione $reservationCode. Codice di errore: $exitCode.";
+                            }
+                        } else {
+                            $type = "warning";
+                            $text = "La prenotazione con codice $reservationCode non può essere convalidata perché la data non corrisponde a quella di oggi.";
+                        }
                 } else {
                     $type = "warning";
                     $text = "La prenotazione con codice $reservationCode è già stata convalidata in precedenza.";

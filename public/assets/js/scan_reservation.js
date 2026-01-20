@@ -72,8 +72,23 @@ function showMessage(msg) {
 }
 
 function getAlert(type, msg) {
+    let title = "";
+    switch(type) {
+        case 'success':
+            title = "Perfetto!";
+            icon = "bi-check-circle";
+            break;
+        case 'danger':
+            title = "Errore!";
+            icon = "bi-x-circle";
+            break;
+        case 'warning':
+            title = "Attenzione!";
+            icon = "bi-exclamation-triangle";
+            break;
+    }
     return `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                ${msg}
+                <span class="bi ${icon}"></span> <strong>${title}</strong> ${msg}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>`;
 }

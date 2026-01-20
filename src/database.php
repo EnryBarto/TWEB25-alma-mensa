@@ -555,8 +555,8 @@ class DatabaseHelper {
         return $hours;
     }
 
-    public function getReservationsByCanteenId($canteenId) {
-        $stmt = $this->db->prepare("SELECT * FROM prenotazioni WHERE id_mensa = ? ORDER BY data_ora ASC;");
+    public function getReservationsByCanteenId($canteenId, $orderBy = "data_ora ASC") {
+        $stmt = $this->db->prepare("SELECT * FROM prenotazioni WHERE id_mensa = ? ORDER BY $orderBy;");
         $stmt->bind_param("i", $canteenId);
         $stmt->execute();
         $result = $stmt->get_result();
