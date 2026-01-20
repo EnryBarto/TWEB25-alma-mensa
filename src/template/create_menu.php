@@ -11,18 +11,18 @@
                         <?php endif; ?>
                         <form class="needs-validation" method="POST" action="create_menu.php" novalidate>
                             <?php if (isset($menu)): ?>
-                                <input type="hidden" name="menu_id" value="<?php echo htmlspecialchars($menu->getId()); ?>">
+                                <input type="hidden" name="menu_id" value="<?php echo htmlspecialchars($menu->getId()); ?>" />
                             <?php endif; ?>
                             <div class="mb-4">
                                 <h6 class="text-uppercase text-secondary small mb-3">Nome Menu<span class="text-primary">*</span></h6>
-                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Es: Menu freddo" value="<?php echo isset($menu) ? htmlspecialchars($menu->getNome()) : ''; ?>" required>
+                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Es: Menu freddo" value="<?php echo isset($menu) ? htmlspecialchars($menu->getNome()) : ''; ?>" required />
                             </div>
 
                             <div class="mb-4">
                                 <h6 class="text-uppercase text-secondary small mb-3">Stato Menu<span class="text-primary">*</span></h6>
-                                <input type="radio" class="btn-check" name="attivoBtn" id="attivo" value="1" <?php echo (isset($menu) && $menu->isAttivo()) || !isset($menu) ? 'checked' : ''; ?> autocomplete="off">
+                                <input type="radio" class="btn-check" name="attivoBtn" id="attivo" value="1" <?php echo (isset($menu) && $menu->isAttivo()) || !isset($menu) ? 'checked' : ''; ?> autocomplete="off" />
                                 <label class="btn btn-outline-success me-2" for="attivo">Attivo</label>
-                                <input type="radio" class="btn-check" name="attivoBtn" id="nonAttivo" value="0" <?php echo isset($menu) && !$menu->isAttivo() ? 'checked' : ''; ?> autocomplete="off">
+                                <input type="radio" class="btn-check" name="attivoBtn" id="nonAttivo" value="0" <?php echo isset($menu) && !$menu->isAttivo() ? 'checked' : ''; ?> autocomplete="off" />
                                 <label class="btn btn-outline-danger" for="nonAttivo">Non Attivo</label>
                             </div>
 
@@ -39,7 +39,7 @@
                                     <?php foreach ($templateParams["dishes"] as $dish): ?>
                                         <?php $isChecked = isset($selectedDishIds) && in_array($dish->getId(), $selectedDishIds); ?>
                                         <label class="border rounded p-3 mb-3 d-block checkbox-label" style="cursor: pointer;">
-                                            <input type="checkbox" class="form-check-input" name="dishes[]" value="<?php echo $dish->getId(); ?>" <?php echo $isChecked ? 'checked' : ''; ?>>
+                                            <input type="checkbox" class="form-check-input" name="dishes[]" value="<?php echo $dish->getId(); ?>" <?php echo $isChecked ? 'checked' : ''; ?> />
                                             <span class="ms-2">
                                                 <strong><?php echo htmlspecialchars($dish->getName()); ?></strong>
                                                 <br>

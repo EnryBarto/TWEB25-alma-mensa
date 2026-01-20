@@ -4,17 +4,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" />
     <title>AlmaMensa - <?php echo $currentPage["title"]; ?></title>
     <!-- Bootstrap CSS -->
-    <link href="assets/css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="assets/css/custom.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
     <!-- Map CSS -->
     <?php if (isset($currentPage["externalcssfile"])): ?>
-        <link rel="stylesheet" href="<?php echo $currentPage["externalcssfile"]; ?>">
+        <link rel="stylesheet" href="<?php echo $currentPage["externalcssfile"]; ?>" />
     <?php endif; ?>
     <?php if (isset($currentPage["cssfile"])) : ?>
-    <link rel="stylesheet" href="assets/css/<?php echo $currentPage["cssfile"]; ?>" >
+    <link rel="stylesheet" href="assets/css/<?php echo $currentPage["cssfile"]; ?>" />
     <?php endif; ?>
 </head>
 

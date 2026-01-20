@@ -52,7 +52,7 @@
                         </select>
                     </div>
                     <div class="d-grid gap-2 col-12 col-md-2 align-self-end">
-                        <input type="submit" value="Applica" class="btn btn-primary mt-3">
+                        <input type="submit" value="Applica" class="btn btn-primary mt-3" />
                     </div>
                 </div>
             </form>

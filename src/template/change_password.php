@@ -15,7 +15,7 @@
                 <input type="password" name="oldPsw" id="old-password-input"
                     class="form-control <?php if (isset($msg["error_old_psw"]))
                         echo "is-invalid"; ?>"
-                    placeholder="Inserisci vecchia password" aria-label="Password attuale" required>
+                    placeholder="Inserisci vecchia password" aria-label="Password attuale" required />
                 <?php if (isset($msg["error_old_psw"])): ?>
                     <div class="invalid-feedback">
                         <?php echo $msg["error_old_psw"]; ?>
@@ -27,14 +27,14 @@
                 <input type="password" name="psw" id="password-input"
                     class="form-control <?php if (isset($msg["error_mismatch_psw"]))
                         echo "is-invalid"; ?>"
-                    placeholder="Inserisci nuova password" aria-label="Nuova password" required>
+                    placeholder="Inserisci nuova password" aria-label="Nuova password" required />
             </div>
             <div class="mb-3">
                 <label for="confirm-password-input" class="form-label">Conferma nuova password</label>
                 <input type="password" name="confirmPsw" id="confirm-password-input"
                     class="form-control <?php if (isset($msg["error_mismatch_psw"]))
                         echo "is-invalid"; ?>"
-                    placeholder="Inserisci nuova password" aria-label="Conferma nuova password" required>
+                    placeholder="Inserisci nuova password" aria-label="Conferma nuova password" required />
                 <?php if (isset($msg["error_mismatch_psw"])): ?>
                     <div class="invalid-feedback">
                         <?php echo $msg["error_mismatch_psw"]; ?>
@@ -42,7 +42,7 @@
                 <?php endif; ?>
             </div>
             <div class="d-grid mb-3">
-                <input type="submit" name="submit" class="btn btn-primary" value="Modifica password">
+                <input type="submit" name="submit" class="btn btn-primary" value="Modifica password" />
             </div>
             <?php if (isset($templateParams["success_modify"]) && $templateParams["success_modify"]): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">

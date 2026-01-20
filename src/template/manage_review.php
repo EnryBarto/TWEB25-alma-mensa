@@ -65,7 +65,7 @@ require("components/canteen_header.php");
         <label for="description" class="form-label">Descrizione</label>
     </div>
     <div class="col-11 col-md-10 mb-3">
-        <textarea class="form-control <?php if (isset($_GET["errorCode"])) echo "is-invalid" ; ?>" id="description" name="description" rows="4" placeholder="Descrivi la tua esperienza in dettaglio..." required><?php echo $templateParams["reviewDescription"]; ?></textarea>
+        <textarea maxlength="1024" class="form-control <?php if (isset($_GET["errorCode"])) echo "is-invalid" ; ?>" id="description" name="description" rows="4" placeholder="Descrivi la tua esperienza in dettaglio..." required><?php echo $templateParams["reviewDescription"]; ?></textarea>
     </div>
     <div class="col-11 col-md-10 d-grid mt-1">
         <input type="submit" class="btn btn-primary" value="Conferma Recensione" />

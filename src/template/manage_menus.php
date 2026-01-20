@@ -55,7 +55,7 @@
                                                 <span class="bi bi-eye me-2"></span>Modifica
                                             </a>
                                             <form method="POST" action="manage_menus.php" style="display: inline;" onsubmit="return confirm('Sei sicuro di voler eliminare questo menù?');">
-                                                <input type="hidden" name="delete_menu_id" value="<?php echo htmlspecialchars($menu->getId()); ?>">
+                                                <input type="hidden" name="delete_menu_id" value="<?php echo htmlspecialchars($menu->getId()); ?>" />
                                                 <button type="submit" class="btn btn-danger btn-sm rounded-3">
                                                     <span class="bi bi-trash me-2"></span>Elimina
                                                 </button>

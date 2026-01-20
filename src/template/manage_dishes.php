@@ -39,7 +39,7 @@
                                                 <span class="bi bi-pencil me-2"></span>Modifica
                                             </a>
                                             <form method="POST" action="manage_dishes.php" style="display: inline;" onsubmit="return confirm('Sei sicuro di voler eliminare questo piatto?');">
-                                                <input type="hidden" name="delete_dish_id" value="<?php echo htmlspecialchars($dish->getId()); ?>">
+                                                <input type="hidden" name="delete_dish_id" value="<?php echo htmlspecialchars($dish->getId()); ?>" />
                                                 <button type="submit" class="btn btn-danger btn-sm rounded-3">
                                                     <span class="bi bi-trash me-2"></span>Elimina
                                                 </button>

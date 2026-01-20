@@ -13,15 +13,15 @@
             <div class="mb-3">
                 <label for="name-input" class="form-label">Nome</label>
                 <input type="text" name="name" id="name-input" class="form-control" value="<?php echo $user->getName(); ?>" placeholder="Inserisci nome"
-                    required>
+                    required />
             </div>
             <div class="mb-3">
                 <label for="surname-input" class="form-label">Cognome</label>
                 <input type="text" name="surname" id="surname-input" class="form-control" value="<?php echo $user->getSurname(); ?>"
-                    placeholder="Inserisci cognome" required>
+                    placeholder="Inserisci cognome" required />
             </div>
             <div class="d-grid mb-3">
-                <input type="submit" name="submit" class="btn btn-primary" value="Modifica dati">
+                <input type="submit" name="submit" class="btn btn-primary" value="Modifica dati" />
             </div>
             <?php if (isset($templateParams["success_modify"]) && $templateParams["success_modify"]): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">

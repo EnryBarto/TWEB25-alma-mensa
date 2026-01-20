@@ -7,11 +7,11 @@
                     </header>
                     <div class="mb-3">
                         <label for="email-input" class="form-label">Email</label>
-                        <input type="email" name="email" id="email-input" class="form-control <?php if(isset($msg["error"])) echo "is-invalid"; ?>" placeholder="Inserisci email" required>
+                        <input type="email" name="email" id="email-input" class="form-control <?php if(isset($msg["error"])) echo "is-invalid"; ?>" placeholder="Inserisci email" required />
                     </div>
                     <div class="mb-3">
                         <label for="password-input" class="form-label">Password</label>
-                        <input type="password" name="password" id="password-input" class="form-control <?php if(isset($msg["error"])) echo "is-invalid"; ?>" placeholder="Inserisci password" aria-label="Password input" required>
+                        <input type="password" name="password" id="password-input" class="form-control <?php if(isset($msg["error"])) echo "is-invalid"; ?>" placeholder="Inserisci password" aria-label="Password input" required />
                         <?php if(isset($msg["error"])): ?>
                             <div class="invalid-feedback">
                                 <?php echo $msg["error"]; ?>
@@ -19,7 +19,7 @@
                         <?php endif; ?>
                     </div>
                     <div class="d-grid mb-3">
-                        <input type="submit" name="submit" class="btn btn-primary" value="Accedi">
+                        <input type="submit" name="submit" class="btn btn-primary" value="Accedi" />
                     </div>
                     <div class="mb-3 text-center">
                         <p class="text-body-secondary">Non hai un account? <a href="signup.php">Registrati</a></p>

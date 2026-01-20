@@ -67,7 +67,7 @@ CREATE TABLE `mense` (
   `id` int NOT NULL,
   `email` varchar(100) NOT NULL,
   `nome` varchar(50) NOT NULL,
-  `descrizione` varchar(255) NOT NULL,
+  `descrizione` varchar(1024) NOT NULL,
   `ind_civico` varchar(10) NOT NULL,
   `ind_via` varchar(100) NOT NULL,
   `ind_comune` varchar(50) NOT NULL,
@@ -146,8 +146,8 @@ CREATE TABLE `prenotazioni` (
 CREATE TABLE `recensioni` (
   `id` int NOT NULL,
   `voto` decimal(2,1) NOT NULL,
-  `titolo` varchar(25) NOT NULL,
-  `descrizione` varchar(255) NOT NULL,
+  `titolo` varchar(255) NOT NULL,
+  `descrizione` varchar(1024) NOT NULL,
   `data_ora` datetime NOT NULL,
   `id_mensa` int NOT NULL,
   `email` varchar(100) NOT NULL

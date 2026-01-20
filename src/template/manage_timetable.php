@@ -50,11 +50,11 @@
             </div>
             <div class="col-12 col-md-3 mb-2">
                 <label class="form-label" for="timeOpen">Orario di apertura</label>
-                <input type="time" class="form-control <?php if (isset($_GET["hour_error_creation"])) echo "is-invalid"; ?>" name="timeOpen" id="timeOpen" required>
+                <input type="time" class="form-control <?php if (isset($_GET["hour_error_creation"])) echo "is-invalid"; ?>" name="timeOpen" id="timeOpen" required />
             </div>
             <div class="col-12 col-md-3 mb-2">
                 <label class="form-label" for="timeClose">Orario di chiusura</label>
-                <input type="time" class="form-control <?php if (isset($_GET["hour_error_creation"])) echo "is-invalid"; ?>" name="timeClose" id="timeClose" required>
+                <input type="time" class="form-control <?php if (isset($_GET["hour_error_creation"])) echo "is-invalid"; ?>" name="timeClose" id="timeClose" required />
                 <?php if (isset($_GET["hour_error_creation"])): ?>
                     <p class="invalid-feedback">L'orario di chiusura deve essere successivo a quello di apertura.</p>
                 <?php endif; ?>

@@ -35,7 +35,7 @@
 
                         <div class="mb-3">
                             <label for="descrizione" class="form-label">Descrizione <span class="text-primary">*</span></label>
-                            <textarea class="form-control" id="descrizione" name="desc" rows="4" required><?php echo $templateParams["desc"]; ?></textarea>
+                            <textarea maxlength="1024" class="form-control" id="descrizione" name="desc" rows="4" required><?php echo $templateParams["desc"]; ?></textarea>
                         </div>
 
                         <div class="mb-4">
@@ -64,21 +64,21 @@
                             <legend class="text-uppercase text-secondary small fw-bold mb-1">Indirizzo <span class="text-primary">*</span></legend>
                             <div class="mb-3">
                                 <label for="via" class="form-label">Via</label>
-                                <input type="text" class="form-control" id="via" name="avenue" placeholder="Via" value="<?php echo $templateParams["avenue"]; ?>" required>
+                                <input type="text" class="form-control" id="via" name="avenue" placeholder="Via" value="<?php echo $templateParams["avenue"]; ?>" required />
                             </div>
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label for="civico" class="form-label">Civico</label>
-                                    <input type="text" class="form-control" id="civico" name="num" placeholder="Numero civico" value="<?php echo $templateParams["num"]; ?>" required>
+                                    <input type="text" class="form-control" id="civico" name="num" placeholder="Numero civico" value="<?php echo $templateParams["num"]; ?>" required />
                                 </div>
                                 <div class="col-md-6">
                                     <label for="cap" class="form-label">CAP</label>
-                                    <input type="text" class="form-control" id="cap" name="postal_code" placeholder="CAP" value="<?php echo $templateParams["postal_code"]; ?>" required>
+                                    <input type="text" class="form-control" id="cap" name="postal_code" placeholder="CAP" value="<?php echo $templateParams["postal_code"]; ?>" required />
                                 </div>
                             </div>
                             <div class="mt-3">
                                 <label for="comune" class="form-label">Comune</label>
-                                <input type="text" class="form-control" id="comune" name="municipality" placeholder="Comune" value="<?php echo $templateParams["municipality"]; ?>" required>
+                                <input type="text" class="form-control" id="comune" name="municipality" placeholder="Comune" value="<?php echo $templateParams["municipality"]; ?>" required />
                             </div>
                         </fieldset>
 
@@ -87,11 +87,11 @@
                             <div class="row g-3">
                                 <div class="col-md-6 mt-0">
                                     <label for="latitude" class="form-label">Latitudine</label>
-                                    <input type="text" class="form-control" id="latitude" name="lat" placeholder="Es: 44.4949" value="<?php echo $templateParams["lat"] ?>" required>
+                                    <input type="text" class="form-control" id="latitude" name="lat" placeholder="Es: 44.4949" value="<?php echo $templateParams["lat"] ?>" required />
                                 </div>
                                 <div class="col-md-6 mt-md-0">
                                     <label for="longitude" class="form-label">Longitudine</label>
-                                    <input type="text" class="form-control" id="longitude" name="lon" placeholder="Es: 11.3426" value="<?php echo $templateParams["lon"]; ?>" required>
+                                    <input type="text" class="form-control" id="longitude" name="lon" placeholder="Es: 11.3426" value="<?php echo $templateParams["lon"]; ?>" required />
                                 </div>
                             </div>
                         </fieldset>
@@ -107,7 +107,7 @@
                             </div>
                             <figure class="col-12 col-md-6">
                                 <figcaption class="mb-1">Immagine corrente:</figcaption>
-                                <img src="<?php echo UPLOAD_DIR . $user->getImg(); ?>" class="img-fluid mb-3 d-block w-100" alt="Immagine di sfondo attuale">
+                                <img src="<?php echo UPLOAD_DIR . $user->getImg(); ?>" class="img-fluid mb-3 d-block w-100" alt="Immagine di sfondo attuale" />
                             </figure>
                             <label for="image" class="form-label">Sostituisci immagine della mensa</label>
                             <?php else: ?>
