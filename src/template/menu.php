@@ -9,7 +9,7 @@
         <?php else: ?>
         <?php foreach($templateParams["menu"]->getDishes() as $dish): ?>
             <div class="row justify-content-center px-3">
-                <div class="card col-10 p-0 mb-2">
+                <div class="card col-11 col-md-10 p-0 mb-2">
                     <div class="card-body">
                         <!-- Dishes List -->
                         <h2 class="card-title fs-4 mb-3">
