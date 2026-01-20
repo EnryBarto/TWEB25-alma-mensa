@@ -3,11 +3,11 @@
         </header>
         <!-- Add menu button -->
         <div class="d-flex justify-content-center mb-3">
-            <a href="create_menu.php" class="btn btn-primary col-9">Aggiungi Menù</a>
+            <a href="create_menu.php" class="btn btn-primary col-10 col-md-9">Aggiungi Menù</a>
         </div>
         <div class="container mb-5">
             <div class="row justify-content-center">
-                <div class="col-10">
+                <div class="col-11 col-md-10 p-md-0">
                     <!-- Menus -->
                     <?php if (!empty($templateParams["menus"])): ?>
                         <?php foreach ($templateParams["menus"] as $menu): ?>

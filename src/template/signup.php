@@ -1,6 +1,6 @@
         <form action="#" method="post" class="container mt-3">
             <div class="row justify-content-center">
-                <div class="col-10 col-md-8 col-lg-6 col-xl-4 border rounded shadow p-3">
+                <div class="col-11 col-md-8 col-lg-6 col-xl-4 border rounded shadow p-3">
                     <header class="mb-4 mt-4">
                         <h1>Crea account</h1>
                         <p class="text-body-secondary">Unisciti ad AlmaMensa oggi</p>

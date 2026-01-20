@@ -1,4 +1,4 @@
-<article class="card col-10 mb-2">
+<article class="card col-11 col-md-10 mb-2">
     <div class="card-body">
         <h2 class="card-title fs-5">
         <?php if(isset($templateParams["canteens"]["{$r->getCanteenId()}"])):

@@ -1,6 +1,6 @@
         <header class="row justify-content-center mt-4">
-            <p class="col-10 text-dark h1">Le recensioni di <?php echo $user->getName(); ?></p>
-            <p class="col-10 text-primary fs-4 fw-bold">Visualizza le recensioni che hai assegnato</p>
+            <p class="col-11 col-md-10 text-dark h1">Le recensioni di <?php echo $user->getName(); ?></p>
+            <p class="col-11 col-md-10 text-primary fs-4 fw-bold">Visualizza le recensioni che hai assegnato</p>
         </header>
         <div class="row justify-content-center px-3">
             <div class="col-10 p-0">

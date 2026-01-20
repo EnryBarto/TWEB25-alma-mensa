@@ -8,7 +8,7 @@
 </header>
 <div class="container mb-5">
     <div class="row justify-content-center">
-        <div class="col-10 col-md-8">
+        <div class="col-11 col-md-8">
             <div id="main-carousel" class="carousel slide">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="row justify-content-center mb-4">
-        <div class="col-10 col-md-8 text-center">
+        <div class="col-11 col-md-8 text-center">
             <p class="mt-3">
                 Benvenuto su AlmaMensa, la piattaforma dedicata agli studenti universitari per scoprire, recensire e
                 prenotare posti nelle mense universitarie. La nostra missione è migliorare l'esperienza culinaria degli
@@ -56,7 +56,7 @@
                     <p class="text-body-secondary">Non ci sono dati in questa sezione</p>
                 <?php else:
                     foreach ($templateParams["topCanteens"] as $c): ?>
-                        <div class="col-10 col-md-5 col-xl-3 mb-3">
+                        <div class="col-11 col-md-5 col-xl-3 mb-3">
                             <?php include 'components/card.php'; ?>
                         </div>
                     <?php endforeach;
@@ -69,7 +69,7 @@
             <p class="text-secondary">Scopri le mense più vicine a te</p>
         </header>
         <div class="row justify-content-center">
-            <div class="col-10 col-md-8 text-center">
+            <div class="col-11 col-md-8 text-center">
                 <p>Con la nostra mappa interattiva puoi visualizzare tutte le mense universitarie nella tua zona. Seleziona una categoria per filtrare le mense per tipo, clicca su un marcatore per ottenere informazioni dettagliate e scoprire le recensioni degli studenti. La mappa ti aiuta a trovare rapidamente la mensa più vicina e adatta alle tue esigenze.</p>
                 <a href="map.php" class="btn btn-primary" role="button">Visualizza Mappa</a>
             </div>

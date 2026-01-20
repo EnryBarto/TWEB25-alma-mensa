@@ -4,7 +4,7 @@
 </header>
 <div class="container text-center justify-content-center">
     <div class="row justify-content-center border-bottom border-dark p-1">
-        <div class="col-12">
+        <div class="col-12 p-0">
             <ul class="nav nav-pills justify-content-center mx-1 mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link border border-2 rounded-pill active" id="pills-all-tab"
@@ -27,7 +27,7 @@
 </div>
 <div class="container mt-3">
     <div class="row justify-content-center mb-3">
-        <div class="col-10">
+        <div class="col-11">
             <form action="#" method="get">
                 <div class="row justify-content-center">
                     <div class="col-12">
@@ -68,7 +68,7 @@
                     <p class="text-body-secondary">Non ci sono dati in questa sezione</p>
                 <?php endif;
                 foreach ($templateParams["all"] as $c): ?>
-                    <div class="col-10 col-md-6 col-lg-4 col-xl-3 mb-3">
+                    <div class="col-11 col-md-6 col-lg-4 col-xl-3 mb-3">
                         <?php include 'components/card.php'; ?>
                     </div>
                 <?php endforeach; ?>
@@ -85,7 +85,7 @@
                             <p class="text-body-secondary">Non ci sono dati in questa sezione</p>
                         <?php else:
                             foreach ($templateParams[$category] as $c): ?>
-                                <div class="col-10 col-md-5 col-xl-3 mb-3">
+                                <div class="col-11 col-md-5 col-xl-3 mb-3">
                                     <?php include 'components/card.php'; ?>
                                 </div>
                             <?php endforeach;

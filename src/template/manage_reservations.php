@@ -4,7 +4,7 @@
 <div class="container mb-5">
     <div class="row justify-content-center">
         <h2 class="text-center">Le tue prenotazioni attive</h2>
-        <div class="col-10">
+        <div class="col-11 col-md-10">
             <?php if (isset($_GET["success"]) && $_GET["success"] == 1): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <?php switch($_GET["action"]):
@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-10">
+        <div class="col-11 col-md-10">
             <div class="d-grid gap-2">
                 <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
                     data-bs-target="#past-reservations" aria-expanded="false" aria-controls="past-reservations">
