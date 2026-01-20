@@ -9,7 +9,14 @@ if (!isUserLoggedIn() && getUserLevel() !== UserLevel::CanteenAdmin) {
 $currentPage["title"] = "Visualizza Prenotazioni";
 $currentPage["filename"] = "show_reservations_canteen.php";
 $templateParams["canteen"] = $user;
-$templateParams["reservations"] = $dbh->getReservationsByCanteenId($user->getId());
+$templateParams["activeReservations"] = array_filter($dbh->getReservationsByCanteenId($user->getId()),
+     function($reservation) {
+        return $reservation->isActive();
+    });
+$templateParams["otherReservations"] = array_filter($dbh->getReservationsByCanteenId($user->getId(), "data_ora DESC"),
+ function ($reservation) {
+        return !$reservation->isActive();
+    });
 
 
 require '../src/template/base.php';
