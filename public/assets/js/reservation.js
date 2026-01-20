@@ -12,12 +12,8 @@ function generatePills(timetable) {
         let openingTime = new Date(timetable[i]["opening"]);
         let closingTime = new Date(timetable[i]["closing"]);
 
-        // L'orario può considerare la chiusura dopo la mezzanotte
-        if (closingTime < openingTime) {
-            closingTime.setDate(closingTime.getDate() + 1);
-        }
-
         for (let j = openingTime; j <= addTime(closingTime, -TIME_OFFSET); j = addTime(j, TIME_OFFSET)) {
+            if (j < Date.now()) continue;
             let hour = new Intl.DateTimeFormat('it', { hour: '2-digit' }).format(j);
             let minutes = new Intl.DateTimeFormat('it', { minute: '2-digit' }).format(j).padStart(2, '0');
 
