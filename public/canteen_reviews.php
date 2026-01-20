@@ -12,6 +12,7 @@ if (isset($_GET["id"])) {
 
 $currentPage["title"] = "Recensioni";
 $currentPage["filename"] = "canteen_reviews.php";
+$templateParams["redirect"] = "canteen_reviews.php?id=" . $_GET["id"];
 
 require '../src/template/base.php';
 ?>

@@ -28,6 +28,9 @@ require("components/canteen_header.php");
 
 <form class="row justify-content-center" action="manage_review.php" method="POST">
     <input type="hidden" id="canteen_id" name="canteen_id" value="<?php echo $canteen->getId(); ?>" />
+    <?php if (isset($templateParams["redirect"])): ?>
+    <input type="hidden" id="redirect" name="redirect" value="<?php echo urlencode($templateParams["redirect"]); ?>" />
+    <?php endif; ?>
     <div class="col-10">
         <label class="form-label">Valutazione</label>
     </div>

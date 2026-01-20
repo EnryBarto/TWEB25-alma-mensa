@@ -351,6 +351,20 @@ class DatabaseHelper {
         return $list;
     }
 
+    public function getUserReviews($email) {
+        $query = "SELECT r.*, c.* FROM `recensioni` r JOIN utenti u ON r.email = u.email JOIN clienti c ON u.email = c.email WHERE u.email = ? ORDER BY data_ora DESC;";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $list = array();
+        foreach ($result->fetch_all(MYSQLI_ASSOC) as $r) {
+            array_push($list, new Review($r["id"], $r["voto"], $r["titolo"], $r["descrizione"], $r["data_ora"], $r["id_mensa"], $r["email"], $r["cognome"], $r["nome"]));
+        }
+        return $list;
+    }
+
     public function getCanteenReviewById($reviewId) {
         $query = "SELECT r.*, c.* FROM `recensioni` r JOIN utenti u ON r.email = u.email JOIN clienti c ON u.email = c.email WHERE r.id = ?;";
         $stmt = $this->db->prepare($query);
