@@ -27,10 +27,10 @@
                         </div>
                     </div>
                     <?php endif; ?>
-                    <form class="needs-validation" action="manage_canteen.php" method="POST"  enctype="multipart/form-data" novalidate>
+                    <form class="needs-validation" action="manage_canteen.php" method="POST" enctype="multipart/form-data" novalidate>
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome <span class="text-primary">*</span></label>
-                            <input type="text" class="form-control" id="nome" name="name" placeholder="Nome della mensa" value="<?php echo $templateParams["name"]; ?>" required>
+                            <input type="text" class="form-control" id="nome" name="name" placeholder="Nome della mensa" value="<?php echo $templateParams["name"]; ?>" required />
                         </div>
 
                         <div class="mb-3">
@@ -40,13 +40,25 @@
 
                         <div class="mb-4">
                             <label for="posti" class="form-label">Capienza massima posti <span class="text-primary">*</span></label>
-                            <input type="number" class="form-control" id="posti" min="0" step="1" name="seats" placeholder="Es: 120" value="<?php echo $templateParams["seats"]; ?>" required>
+                            <input type="number" class="form-control" id="posti" min="0" step="1" name="seats" placeholder="Es: 120" value="<?php echo $templateParams["seats"]; ?>" required />
                         </div>
 
                         <div class="mb-4">
                             <label for="telefono" class="form-label">Telefono</label>
-                            <input type="text" class="form-control" id="telefono" name="telephone" placeholder="+39 333 123 4556" value="<?php echo $templateParams["telephone"]; ?>">
+                            <input type="text" class="form-control" id="telefono" name="telephone" placeholder="+39 333 123 4556" value="<?php echo $templateParams["telephone"]; ?>" />
                         </div>
+
+                        <fieldset class="mb-4">
+                            <legend class="text-uppercase text-secondary small fw-bold mb-1">Categoria <span class="text-primary">*</span></legend>
+                            <?php foreach ($templateParams["categories"] as $c): ?>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="cat" value="<?php echo $c["id"]; ?>" id="cat-<?php echo $c["id"]; ?>" <?php if($templateParams["cat"] == $c["nome"]) echo "checked"; ?> required />
+                                <label class="form-check-label" for="cat-<?php echo $c["id"]; ?>">
+                                    <?php echo $c["nome"]?>
+                                </label>
+                            </div>
+                            <?php endforeach; ?>
+                        </fieldset>
 
                         <fieldset class="mb-4">
                             <legend class="text-uppercase text-secondary small fw-bold mb-1">Indirizzo <span class="text-primary">*</span></legend>

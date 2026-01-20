@@ -14,7 +14,7 @@ if (isset($_GET["sort"])) {
 }
 
 $allCanteens = $dbh->getCanteens($orderBy);
-$templateParams["categories"] = $dbh->getCategories();
+$templateParams["categories"] = array_column($dbh->getCategories(), "nome");
 $templateParams["all"] = $allCanteens;
 
 $templateParams += divideCanteensInCategories($allCanteens);

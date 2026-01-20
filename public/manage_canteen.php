@@ -7,6 +7,12 @@ if (!isUserLoggedIn()) {
     exit();
 }
 
+$categories = $dbh->getCategories();
+
+foreach ($categories as $c) {
+    $templateParams["categories"]["{$c["id"]}"] = $c;
+}
+
 if (isset($_GET["action"])) {
 
     if (!isset($_GET["id"])) {
@@ -30,6 +36,7 @@ if (isset($_GET["action"])) {
                 }
                 $templateParams["name"] = isset($_GET["name"]) ? $_GET["name"] : $user->getName();
                 $templateParams["desc"] = isset($_GET["desc"]) ? $_GET["desc"] : $user->getDescription();
+                $templateParams["cat"] = isset($_GET["cat"]) ? $templateParams["categories"]["{$_GET["cat"]}"]["nome"] : $user->getCategory();
                 $templateParams["seats"] = isset($_GET["seats"]) ? $_GET["seats"] : $user->getMaxSeatings();
                 $templateParams["avenue"] = isset($_GET["avenue"]) ? $_GET["avenue"] : $user->getAddress()->avenue;
                 $templateParams["num"] = isset($_GET["num"]) ? $_GET["num"] : $user->getAddress()->num;
@@ -48,10 +55,11 @@ if (isset($_GET["action"])) {
 
 } else if (isset($_POST["action"])) {
 
-    if (!isset($_POST["name"]) || !isset($_POST["desc"]) || !isset($_POST["seats"]) || !isset($_POST["avenue"]) || !isset($_POST["num"]) || !isset($_POST["postal_code"]) || !isset($_POST["municipality"]) || !isset($_POST["lat"]) || !isset($_POST["lon"])) {
-        $location = "Location: manage_review.php?errorCode=-1&action=" . $_POST["action"];
+    if (!isset($_POST["name"]) || !isset($_POST["desc"]) || !isset($_POST["cat"]) || !isset($_POST["seats"]) || !isset($_POST["avenue"]) || !isset($_POST["num"]) || !isset($_POST["postal_code"]) || !isset($_POST["municipality"]) || !isset($_POST["lat"]) || !isset($_POST["lon"])) {
+        $location = "Location: manage_canteen.php?errorCode=-1&action=" . $_POST["action"];
         if (isset($_POST["name"])) $location .= "&name=" . $_POST["name"];
         if (isset($_POST["desc"])) $location .= "&desc=" . $_POST["desc"];
+        if (isset($_POST["cat"])) $location .= "&cat=" . $_POST["cat"];
         if (isset($_POST["seats"])) $location .= "&seats=" . $_POST["seats"];
         if (isset($_POST["avenue"])) $location .= "&avenue=" . $_POST["avenue"];
         if (isset($_POST["num"])) $location .= "&num=" . $_POST["num"];
@@ -77,7 +85,7 @@ if (isset($_GET["action"])) {
                 if(isset($_FILES["image"]) && strlen($_FILES["image"]["name"])>0){
                     list($result, $msg) = uploadImage(UPLOAD_DIR, $_FILES["image"], str_replace(" ", "_", strtolower($user->getName())));
                     if($result == 0){
-                        header("Location: manage_canteen.php?action=U&id=$_POST[id]&errorCode=$msg&name=$_POST[name]&desc=$_POST[desc]&seats=$_POST[seats]&avenue=$_POST[avenue]&num=$_POST[num]&postal_code=$_POST[postal_code]&municipality=$_POST[municipality]&lat=$_POST[lat]&lon=$_POST[lon]&telephone=".str_replace("+", "%2B", $_POST["telephone"]));
+                        header("Location: manage_canteen.php?action=U&id=$_POST[id]&errorCode=$msg&name=$_POST[name]&desc=$_POST[desc]&cat=$_POST[cat]&seats=$_POST[seats]&avenue=$_POST[avenue]&num=$_POST[num]&postal_code=$_POST[postal_code]&municipality=$_POST[municipality]&lat=$_POST[lat]&lon=$_POST[lon]&telephone=".str_replace("+", "%2B", $_POST["telephone"]));
                         exit();
                     }
                     $image = $msg;
@@ -89,14 +97,14 @@ if (isset($_GET["action"])) {
                     $image = $user->getImg();
                 }
 
-                $exitCode = $dbh->updateCanteen($_POST["id"], $_POST["name"], $_POST["desc"], $_POST["seats"], $_POST["avenue"], $_POST["num"], $_POST["postal_code"], $_POST["municipality"], $_POST["lat"], $_POST["lon"], $_POST["telephone"], $image);
+                $exitCode = $dbh->updateCanteen($_POST["id"], $_POST["name"], $_POST["desc"], $_POST["cat"], $_POST["seats"], $_POST["avenue"], $_POST["num"], $_POST["postal_code"], $_POST["municipality"], $_POST["lat"], $_POST["lon"], $_POST["telephone"], $image);
                 if ($exitCode == 0) {
                     $user = $dbh->getCanteenByEmail($user->getEmail());
                     registerLoggedUser($user);
                     header("Location: canteen_details.php?id=$_POST[id]&success=1");
                     exit();
                 } else {
-                    header("Location: manage_canteen.php?action=U&id=$_POST[id]&errorCode=$exitCode&name=$_POST[name]&desc=$_POST[desc]&seats=$_POST[seats]&avenue=$_POST[avenue]&num=$_POST[num]&postal_code=$_POST[postal_code]&municipality=$_POST[municipality]&lat=$_POST[lat]&lon=$_POST[lon]&telephone=".str_replace("+", "%2B", $_POST["telephone"]));
+                    header("Location: manage_canteen.php?action=U&id=$_POST[id]&errorCode=$exitCode&name=$_POST[name]&desc=$_POST[desc]&cat=$_POST[cat]&seats=$_POST[seats]&avenue=$_POST[avenue]&num=$_POST[num]&postal_code=$_POST[postal_code]&municipality=$_POST[municipality]&lat=$_POST[lat]&lon=$_POST[lon]&telephone=".str_replace("+", "%2B", $_POST["telephone"]));
                     exit();
                 }
             } else {
