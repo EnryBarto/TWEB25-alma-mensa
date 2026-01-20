@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `almamensa`
 --
-CREATE DATABASE IF NOT EXISTS `almamensa` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE DATABASE IF NOT EXISTS `almamensa` DEFAULT CHARACTER SET utf8mb4;
 USE `almamensa`;
 
 -- --------------------------------------------------------
@@ -31,17 +31,8 @@ USE `almamensa`;
 
 CREATE TABLE `categorie` (
   `id` int NOT NULL,
-  `nome` varchar(25) COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dump dei dati per la tabella `categorie`
---
-
-INSERT INTO `categorie` (`id`, `nome`) VALUES
-(1, 'Bar'),
-(2, 'Mensa'),
-(3, 'Ristorante');
+  `nome` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -50,10 +41,10 @@ INSERT INTO `categorie` (`id`, `nome`) VALUES
 --
 
 CREATE TABLE `clienti` (
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `nome` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `cognome` varchar(25) COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `email` varchar(100) NOT NULL,
+  `nome` varchar(25) NOT NULL,
+  `cognome` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -64,20 +55,7 @@ CREATE TABLE `clienti` (
 CREATE TABLE `composizioni` (
   `id_menu` int NOT NULL,
   `id_piatto` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Trigger `composizioni`
---
-DELIMITER $$
-CREATE TRIGGER `check_composition_mensa` BEFORE INSERT ON `composizioni` FOR EACH ROW BEGIN
-  IF (SELECT p.id_mensa FROM piatti p WHERE p.id = NEW.id_piatto) !=
-     (SELECT m.id_mensa FROM menu m WHERE m.id = NEW.id_menu) THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Il piatto e il menu devono appartenere alla stessa mensa';
-  END IF;
-END
-$$
-DELIMITER ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -87,29 +65,22 @@ DELIMITER ;
 
 CREATE TABLE `mense` (
   `id` int NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `nome` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `descrizione` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `ind_civico` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
-  `ind_via` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `ind_comune` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `descrizione` varchar(255) NOT NULL,
+  `ind_civico` varchar(10) NOT NULL,
+  `ind_via` varchar(100) NOT NULL,
+  `ind_comune` varchar(50) NOT NULL,
   `ind_cap` int NOT NULL,
-  `telefono` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `coo_latitudine` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
-  `coo_longitudine` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `coo_latitudine` varchar(15) NOT NULL,
+  `coo_longitudine` varchar(15) NOT NULL,
   `num_posti` int NOT NULL,
-  `immagine` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `immagine` varchar(255) DEFAULT NULL,
   `id_categoria` int NOT NULL,
   `media_recensioni` decimal(3,2) NOT NULL,
   `num_recensioni` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dump dei dati per la tabella `mense`
---
-
-INSERT INTO `mense` (`id`, `email`, `nome`, `descrizione`, `ind_civico`, `ind_via`, `ind_comune`, `ind_cap`, `telefono`, `coo_latitudine`, `coo_longitudine`, `num_posti`, `immagine`, `id_categoria`) VALUES
-(1, 'volume@unibo.it', 'Volume', '[Spazio] [Ascolto] [Alimento]', '50', 'Via Cesare Pavese', 'Cesena', 47521, '+39 320 3562325', '44.1478691', '12.2355525', 50, 'Volume.jpg', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -119,10 +90,10 @@ INSERT INTO `mense` (`id`, `email`, `nome`, `descrizione`, `ind_civico`, `ind_vi
 
 CREATE TABLE `menu` (
   `id` int NOT NULL,
-  `nome` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `attivo` char(1) COLLATE utf8mb4_general_ci NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `attivo` char(1) NOT NULL,
   `id_mensa` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -135,7 +106,7 @@ CREATE TABLE `orari` (
   `giorno` varchar(10) NOT NULL,
   `ora_apertura` TIME NOT NULL,
   `ora_chiusura` TIME NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -145,11 +116,11 @@ CREATE TABLE `orari` (
 
 CREATE TABLE `piatti` (
   `id` int NOT NULL,
-  `nome` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `descrizione` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `nome` varchar(25) NOT NULL,
+  `descrizione` varchar(255) NOT NULL,
   `prezzo` decimal(5,2) NOT NULL,
   `id_mensa` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -159,12 +130,12 @@ CREATE TABLE `piatti` (
 
 CREATE TABLE `prenotazioni` (
   `data_ora` datetime NOT NULL,
-  `codice` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `convalidata` tinyint(1) COLLATE utf8mb4_general_ci NOT NULL DEFAULT FALSE,
+  `codice` varchar(255) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `convalidata` tinyint(1) NOT NULL DEFAULT FALSE,
   `num_persone` int NOT NULL,
   `id_mensa` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -175,49 +146,12 @@ CREATE TABLE `prenotazioni` (
 CREATE TABLE `recensioni` (
   `id` int NOT NULL,
   `voto` decimal(2,1) NOT NULL,
-  `titolo` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `descrizione` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `titolo` varchar(25) NOT NULL,
+  `descrizione` varchar(255) NOT NULL,
   `data_ora` datetime NOT NULL,
   `id_mensa` int NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Trigger `recensioni`
---
-DELIMITER $$
-CREATE TRIGGER `dopo_delete_recensione` AFTER DELETE ON `recensioni` FOR EACH ROW BEGIN
-    CALL aggiorna_recensioni(OLD.id_mensa);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `dopo_insert_recensione` AFTER INSERT ON `recensioni` FOR EACH ROW BEGIN
-    CALL aggiorna_recensioni(NEW.id_mensa);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `dopo_update_recensione` AFTER UPDATE ON `recensioni` FOR EACH ROW BEGIN
-    CALL aggiorna_recensioni(NEW.id_mensa);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE PROCEDURE aggiorna_recensioni(IN id_m INT)
-BEGIN
-	-- Aggiornamento
-    UPDATE mense m
-    SET media_recensioni = (SELECT COALESCE(AVG(voto), 0)
-							FROM recensioni
-                            WHERE id_mensa = id_m),
-		num_recensioni = (SELECT COUNT(voto)
-							FROM recensioni
-                            WHERE id_mensa = id_m)
-	WHERE id = id_m;
-END
-$$
-DELIMITER ;
+  `email` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -226,18 +160,11 @@ DELIMITER ;
 --
 
 CREATE TABLE `utenti` (
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `mensa` tinyint(1) NOT NULL,
   `cliente` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dump dei dati per la tabella `utenti`
---
-
-INSERT INTO `utenti` (`email`, `password`, `mensa`, `cliente`) VALUES
-('volume@unibo.it', '$2y$10$G7ytJpMJt3lFRHsyjpy4nOTFhAmb8RkDh3SvVVoHUkdMiTaTmO8yy', 1, 0);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indici per le tabelle scaricate
@@ -412,6 +339,74 @@ ALTER TABLE `prenotazioni`
 ALTER TABLE `recensioni`
   ADD CONSTRAINT `FKScrittura_FK` FOREIGN KEY (`email`) REFERENCES `clienti` (`email`),
   ADD CONSTRAINT `FKVotazione_FK` FOREIGN KEY (`id_mensa`) REFERENCES `mense` (`id`);
+  
+--
+-- Stored Procedure `recensioni`
+--
+
+DELIMITER $$
+CREATE PROCEDURE aggiorna_recensioni(IN id_m INT)
+BEGIN
+	-- Aggiornamento
+    UPDATE mense m
+    SET media_recensioni = (SELECT COALESCE(AVG(voto), 0)
+							FROM recensioni
+                            WHERE id_mensa = id_m),
+		num_recensioni = (SELECT COUNT(voto)
+							FROM recensioni
+                            WHERE id_mensa = id_m)
+	WHERE id = id_m;
+END
+$$
+DELIMITER ;
+
+--
+-- Trigger `recensioni`
+--
+
+DELIMITER $$
+CREATE TRIGGER `dopo_delete_recensione` AFTER DELETE ON `recensioni` FOR EACH ROW BEGIN
+    CALL aggiorna_recensioni(OLD.id_mensa);
+END
+$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER `dopo_insert_recensione` AFTER INSERT ON `recensioni` FOR EACH ROW BEGIN
+    CALL aggiorna_recensioni(NEW.id_mensa);
+END
+$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER `dopo_update_recensione` AFTER UPDATE ON `recensioni` FOR EACH ROW BEGIN
+    CALL aggiorna_recensioni(NEW.id_mensa);
+END
+$$
+DELIMITER ;
+
+--
+-- Trigger `composizioni`
+--
+DELIMITER $$
+CREATE TRIGGER `check_composition_mensa` BEFORE INSERT ON `composizioni` FOR EACH ROW BEGIN
+  IF (SELECT p.id_mensa FROM piatti p WHERE p.id = NEW.id_piatto) !=
+     (SELECT m.id_mensa FROM menu m WHERE m.id = NEW.id_menu) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Il piatto e il menu devono appartenere alla stessa mensa';
+  END IF;
+END
+$$
+DELIMITER ;
+
+--
+-- Dump dei dati per la tabella `categorie`
+--
+
+INSERT INTO `categorie` (`id`, `nome`) VALUES
+(1, 'Bar'),
+(2, 'Mensa'),
+(3, 'Ristorante');
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

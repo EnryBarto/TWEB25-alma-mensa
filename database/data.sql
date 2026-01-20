@@ -1,3 +1,5 @@
+USE almamensa;
+
 -- DISABILITA CONTROLLI PER INSERIMENTO VELOCE
 SET FOREIGN_KEY_CHECKS = 0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -26,6 +28,7 @@ INSERT INTO `clienti` (`email`, `nome`, `cognome`) VALUES
 
 -- B. Inserimento Utenti Gestori (1 per ogni locale reale)
 INSERT INTO `utenti` (`email`, `password`, `mensa`, `cliente`) VALUES
+('volume@unibo.it', '$2y$10$G7ytJpMJt3lFRHsyjpy4nOTFhAmb8RkDh3SvVVoHUkdMiTaTmO8yy', 1, 0),
 ('info@piccolobar.it', '$2y$10$3Qz0XnIIJEEcxRU2ferNM.w9IRxH2jcGlYa4bXMq1kfW/yjfEecM6', 1, 0),
 ('barwilson@cesena.it', '$2y$10$3Qz0XnIIJEEcxRU2ferNM.w9IRxH2jcGlYa4bXMq1kfW/yjfEecM6', 1, 0),
 ('nerosublime@bar.it', '$2y$10$3Qz0XnIIJEEcxRU2ferNM.w9IRxH2jcGlYa4bXMq1kfW/yjfEecM6', 1, 0),
@@ -53,6 +56,7 @@ INSERT INTO `utenti` (`email`, `password`, `mensa`, `cliente`) VALUES
 -- --------------------------------------------------------
 
 INSERT INTO `mense` (`id`, `email`, `nome`, `descrizione`, `ind_civico`, `ind_via`, `ind_comune`, `ind_cap`, `telefono`, `coo_latitudine`, `coo_longitudine`, `num_posti`, `immagine`, `id_categoria`, `media_recensioni`, `num_recensioni`) VALUES
+(1, 'volume@unibo.it', 'Volume', '[Spazio] [Ascolto] [Alimento]', '50', 'Via Cesare Pavese', 'Cesena', 47521, '+39 320 3562325', '44.1478691', '12.2355525', 50, 'volume.jpg', 1, 0, 0),
 (21, 'info@piccolobar.it', 'Piccolo Bar', 'Bar storico in piazza, ideale per aperitivi.', '43', 'Piazza del Popolo', 'Cesena', 47521, '+39054724597', '44.13718', '12.24245', 30, NULL, 1, 4.3, 3),
 (2, 'barwilson@cesena.it', 'Bar Wilson', 'Caffetteria accogliente vicino al centro.', '16', 'Via Martiri della Libertà', 'Cesena', 47521, '+393287092572', '44.13984', '12.24055', 25, NULL, 1, 4.7, 2),
 (3, 'nerosublime@bar.it', 'Bar Nero Sublime', 'Locale elegante per cocktail e serate.', '18', 'Corte Dandini', 'Cesena', 47521, '+39054721756', '44.13698', '12.24482', 40, NULL, 1, 4.4, 3),
@@ -89,8 +93,8 @@ INSERT INTO `orari` (`id_mensa`, `giorno`, `ora_apertura`, `ora_chiusura`) VALUE
 (8, 'mon', '07:00', '20:00'), (8, 'tue', '07:00', '20:00'), (8, 'wed', '07:00', '20:00'), (8, 'thu', '07:00', '20:00'), (8, 'fri', '07:00', '20:00'), (8, 'sat', '07:00', '20:00'),
 
 -- LOCALI SERALI (ID 3, 4) - Aperti la sera, chiusi Lunedì
-(3, 'tue', '18:00', '02:00'), (3, 'wed', '18:00', '02:00'), (3, 'thu', '18:00', '02:00'), (3, 'fri', '18:00', '03:00'), (3, 'sat', '18:00', '03:00'), (3, 'sun', '18:00', '01:00'),
-(4, 'tue', '19:00', '02:00'), (4, 'wed', '19:00', '02:00'), (4, 'thu', '19:00', '02:00'), (4, 'fri', '19:00', '03:00'), (4, 'sat', '19:00', '03:00'), (4, 'sun', '18:00', '01:00'),
+(3, 'tue', '18:00', '23:59'), (3, 'wed', '00:00', '02:00'), (3, 'wed', '18:00', '23:59'), (3, 'thu', '00:00', '02:00'), (3, 'thu', '18:00', '23:59'), (3, 'fri', '00:00', '02:00'), (3, 'fri', '18:00', '23:59'), (3, 'sat', '00:00', '03:00'), (3, 'sat', '18:00', '23:59'), (3, 'sun', '00:00', '03:00'), (3, 'sun', '18:00', '23:59'), (3, 'mon', '00:00', '01:00'),
+(4, 'tue', '19:00', '23:59'), (4, 'wed', '00:00', '02:00'), (4, 'wed', '19:00', '23:59'), (4, 'thu', '00:00', '02:00'), (4, 'thu', '19:00', '23:59'), (4, 'fri', '00:00', '02:00'), (4, 'fri', '19:00', '23:59'), (4, 'sat', '00:00', '03:00'), (4, 'sat', '19:00', '23:59'), (4, 'sun', '00:00', '03:00'), (4, 'sun', '18:00', '23:59'), (4, 'mon', '00:00', '01:00'),
 
 -- LUNCH BAR / TAVOLA CALDA (ID 5)
 (5, 'mon', '07:00', '18:00'), (5, 'tue', '07:00', '18:00'), (5, 'wed', '07:00', '18:00'), (5, 'thu', '07:00', '18:00'), (5, 'fri', '07:00', '18:00'), (5, 'sat', '07:00', '15:00'),
@@ -105,8 +109,8 @@ INSERT INTO `orari` (`id_mensa`, `giorno`, `ora_apertura`, `ora_chiusura`) VALUE
 (12, 'tue', '12:00', '15:00'), (12, 'tue', '19:00', '23:30'),
 (12, 'wed', '12:00', '15:00'), (12, 'wed', '19:00', '23:30'),
 (12, 'thu', '12:00', '15:00'), (12, 'thu', '19:00', '23:30'),
-(12, 'fri', '12:00', '15:00'), (12, 'fri', '19:00', '24:00'),
-(12, 'sat', '12:00', '15:00'), (12, 'sat', '19:00', '24:00'),
+(12, 'fri', '12:00', '15:00'), (12, 'fri', '19:00', '23:59'),
+(12, 'sat', '12:00', '15:00'), (12, 'sat', '19:00', '23:59'),
 (12, 'sun', '12:00', '15:00'), (12, 'sun', '19:00', '23:00'),
 
 (13, 'tue', '12:30', '14:30'), (13, 'tue', '19:30', '23:00'),
@@ -120,8 +124,8 @@ INSERT INTO `orari` (`id_mensa`, `giorno`, `ora_apertura`, `ora_chiusura`) VALUE
 (14, 'fri', '19:00', '23:59'), (14, 'sat', '19:00', '23:59'), (14, 'sun', '12:00', '15:00'), (14, 'sun', '19:00', '23:00'),
 
 (15, 'mon', '19:00', '23:00'), (15, 'tue', '19:00', '23:00'), (15, 'wed', '19:00', '23:00'), -- Aperto mon
-(15, 'thu', '19:00', '23:00'), (15, 'fri', '19:00', '24:00'),
-(15, 'sat', '12:00', '15:00'), (15, 'sat', '19:00', '24:00'),
+(15, 'thu', '19:00', '23:00'), (15, 'fri', '19:00', '23:59'),
+(15, 'sat', '12:00', '15:00'), (15, 'sat', '19:00', '23:59'),
 (15, 'sun', '12:00', '15:00'), (15, 'sun', '19:00', '23:00'),
 
 (16, 'tue', '18:30', '23:30'), (16, 'wed', '18:30', '23:30'), -- Solo Pizzeria Sere
@@ -129,8 +133,8 @@ INSERT INTO `orari` (`id_mensa`, `giorno`, `ora_apertura`, `ora_chiusura`) VALUE
 (16, 'sat', '18:30', '23:30'), (16, 'sun', '18:30', '23:30'),
 
 (17, 'tue', '19:30', '23:30'), (17, 'wed', '19:30', '23:30'),
-(17, 'thu', '19:30', '23:30'), (17, 'fri', '19:30', '00:30'),
-(17, 'sat', '12:30', '15:00'), (17, 'sat', '19:30', '00:30'),
+(17, 'thu', '19:30', '23:30'), (17, 'fri', '19:30', '23:59'), (17, 'sat', '00:00', '00:30'),
+(17, 'sat', '12:30', '15:00'), (17, 'sat', '19:30', '23:59'), (17, 'sun', '00:00', '00:30'),
 (17, 'sun', '12:30', '15:00'), (17, 'sun', '19:30', '23:30'),
 
 (18, 'tue', '18:30', '23:00'), (18, 'wed', '18:30', '23:00'),
@@ -262,7 +266,7 @@ INSERT INTO `prenotazioni` (`data_ora`, `codice`, `email`, `convalidata`, `num_p
 ('2026-02-08 18:30:00', 'PREN-26-013', 'marco.verdi@email.it', '1', 3, 1),  -- Piccolo Bar
 ('2026-02-14 20:00:00', 'PREN-26-014', 'giulia.neri@email.it', '1', 2, 13), -- S. Valentino al Sangio
 ('2026-02-15 13:00:00', 'PREN-26-015', 'andrea.gialli@email.it', '1', 4, 12), -- Scottadito
-('2026-02-18 21:00:00', 'PREN-26-016', 'luca.rossi@email.it', '0', 2, 4),  -- La Cantera
+('2026-02-18 21:00:00', 'PREN-26-016', 'luca.rossi@email.it', '1', 2, 4),  -- La Cantera
 ('2026-02-20 19:30:00', 'PREN-26-017', 'sofia.bianchi@email.it', '1', 5, 15), -- Welldone
 ('2026-02-22 12:30:00', 'PREN-26-018', 'marco.verdi@email.it', '1', 2, 5),  -- Garden
 ('2026-02-25 20:00:00', 'PREN-26-019', 'giulia.neri@email.it', '1', 2, 14), -- Cohiba
