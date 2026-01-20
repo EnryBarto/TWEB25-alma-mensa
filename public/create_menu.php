@@ -63,13 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $templateParams["error"] = "Inserire un nome, selezionare almeno un piatto e scegliere lo stato del menù.";
     } else if ($menuId !== null) {
         if ($isAttivo) {
-            $activeMenu = $dbh->getActiveMenuByCanteenId($canteen->getId());
-            if ($activeMenu !== null && $activeMenu->getId() != $menuId) {
-                $activeMenuDishIds = array_map(function ($dish) {
-                    return intval($dish->getId());
-                }, $activeMenu->getDishes());
-                $dbh->updateMenu($activeMenu->getId(), $activeMenu->getNome(), 0, $activeMenuDishIds);
-            }
+            checkActiveMenuConflict($canteen, $menuId, $dish, $dbh);
         }
         // Update existing menu
         $res = $dbh->updateMenu($menuId, $nome, intval($isAttivo), $selectedDishes);
@@ -82,13 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
         if ($isAttivo) {
-            $activeMenu = $dbh->getActiveMenuByCanteenId($canteen->getId());
-            if ($activeMenu !== null && $activeMenu->getId() != $menuId) {
-                $activeMenuDishIds = array_map(function ($dish) {
-                    return intval($dish->getId());
-                }, $activeMenu->getDishes());
-                $dbh->updateMenu($activeMenu->getId(), $activeMenu->getNome(), 0, $activeMenuDishIds);
-            }
+            checkActiveMenuConflict($canteen, $menuId, $dish, $dbh);
         }
         // Insert new menu
         $menuId = $dbh->insertMenu($nome, $canteen->getId(), intval($isAttivo), $selectedDishes);
@@ -98,6 +86,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         header("Location: manage_menus.php");
         exit();
+    }
+}
+
+// There can be only one active menu per canteen,
+// so we deactivate the active one if it is different
+function checkActiveMenuConflict($canteen, $menuId, $dish, $dbh) {
+    $activeMenu = $dbh->getActiveMenuByCanteenId($canteen->getId());
+    if ($activeMenu !== null && $activeMenu->getId() != $menuId) {
+        $activeMenuDishIds = array_map(function ($dish) {
+            return intval($dish->getId());
+        }, $activeMenu->getDishes());
+        $dbh->updateMenu($activeMenu->getId(), $activeMenu->getNome(), 0, $activeMenuDishIds);
     }
 }
 

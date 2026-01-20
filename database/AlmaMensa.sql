@@ -339,7 +339,7 @@ ALTER TABLE `prenotazioni`
 ALTER TABLE `recensioni`
   ADD CONSTRAINT `FKScrittura_FK` FOREIGN KEY (`email`) REFERENCES `clienti` (`email`),
   ADD CONSTRAINT `FKVotazione_FK` FOREIGN KEY (`id_mensa`) REFERENCES `mense` (`id`);
-  
+
 --
 -- Stored Procedure `recensioni`
 --
