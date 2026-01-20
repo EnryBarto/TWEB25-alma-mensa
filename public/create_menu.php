@@ -3,6 +3,7 @@ require_once '../src/bootstrap.php';
 
 $currentPage["title"] = "Create Menu";
 $currentPage["filename"] = "create_menu.php";
+$templateParams["subtitle"] = "Crea un nuovo menu";
 
 // Check if user is logged in and is a canteen account.
 if (!isUserLoggedIn() || getUserLevel() != UserLevel::CanteenAdmin) {

@@ -20,7 +20,7 @@
                                 <div class="col-4 justify-content-end text-end">
                                     <?php $isActive = $menu->isAttivo(); ?>
                                     <span class="badge <?php echo $isActive ? 'bg-success' : 'bg-secondary'; ?>">
-                                        <?php echo $isActive ? 'Disponibile' : 'Non disponibile'; ?>
+                                        <?php echo $isActive ? 'Attivo' : 'Non visualizzato'; ?>
                                     </span>
                                 </div>
                             </header>

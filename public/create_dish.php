@@ -1,14 +1,16 @@
 <?php
 require_once '../src/bootstrap.php';
 
-$currentPage["title"] = "Create Dish";
-$currentPage["filename"] = "create_dish.php";
-
 // Check if user is logged in and is a canteen account.
 if (!isUserLoggedIn() || getUserLevel() != UserLevel::CanteenAdmin) {
     header("Location: index.php");
     exit();
 }
+
+$currentPage["title"] = "Create Dish";
+$currentPage["filename"] = "create_dish.php";
+$templateParams["subtitle"] = "Aggiungi un nuovo piatto";
+$templateParams["canteen"] = $user;
 
 $canteen = $dbh->getCanteenByEmail($user->getEmail());
 if ($canteen === null) {
