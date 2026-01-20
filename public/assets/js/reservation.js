@@ -12,7 +12,7 @@ function generatePills(timetable) {
         let openingTime = new Date(timetable[i]["opening"]);
         let closingTime = new Date(timetable[i]["closing"]);
 
-        for (let j = openingTime; j <= addTime(closingTime, -TIME_OFFSET); j = addTime(j, TIME_OFFSET)) {
+        for (let j = openingTime; j <= addTime(closingTime, -TIME_OFFSET + 1); j = addTime(j, TIME_OFFSET)) {
             if (j < Date.now()) continue;
             let hour = new Intl.DateTimeFormat('it', { hour: '2-digit' }).format(j);
             let minutes = new Intl.DateTimeFormat('it', { minute: '2-digit' }).format(j).padStart(2, '0');

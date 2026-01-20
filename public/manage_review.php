@@ -24,7 +24,7 @@ if (isset($_GET["action"])) {
     $currentPage["scriptfile"] = "manage_review.js";
     $templateParams["action"] = $_GET["action"];
     if (isset($_GET["errorCode"])) $templateParams["errorCode"] = $_GET["errorCode"];
-    if (isset($_GET["redirect"])) $templateParams["redirect"] = urldecode($_GET["redirect"]);
+    if (isset($_GET["redirect"])) $templateParams["redirect"] = $_GET["redirect"];
 
     switch($_GET["action"]) {
         case "C":

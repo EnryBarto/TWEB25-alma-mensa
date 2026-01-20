@@ -67,7 +67,7 @@ if (isset($_GET["action"])) {
         if (isset($_POST["municipality"])) $location .= "&municipality=" . $_POST["municipality"];
         if (isset($_POST["lat"])) $location .= "&lat=" . $_POST["lat"];
         if (isset($_POST["lon"])) $location .= "&lon=" . $_POST["lon"];
-        if (isset($_POST["telephone"])) $location .= "&telephone=" . str_replace("+", "%2B", $_POST["telephone"]);
+        if (isset($_POST["telephone"])) $location .= "&telephone=" . urlencode($_POST["telephone"]);
         header($location);
         exit();
     }
@@ -85,7 +85,7 @@ if (isset($_GET["action"])) {
                 if(isset($_FILES["image"]) && strlen($_FILES["image"]["name"])>0){
                     list($result, $msg) = uploadImage(UPLOAD_DIR, $_FILES["image"], str_replace(" ", "_", strtolower($user->getName())));
                     if($result == 0){
-                        header("Location: manage_canteen.php?action=U&id=$_POST[id]&errorCode=$msg&name=$_POST[name]&desc=$_POST[desc]&cat=$_POST[cat]&seats=$_POST[seats]&avenue=$_POST[avenue]&num=$_POST[num]&postal_code=$_POST[postal_code]&municipality=$_POST[municipality]&lat=$_POST[lat]&lon=$_POST[lon]&telephone=".str_replace("+", "%2B", $_POST["telephone"]));
+                        header("Location: manage_canteen.php?action=U&id=$_POST[id]&errorCode=$msg&name=$_POST[name]&desc=$_POST[desc]&cat=$_POST[cat]&seats=$_POST[seats]&avenue=$_POST[avenue]&num=$_POST[num]&postal_code=$_POST[postal_code]&municipality=$_POST[municipality]&lat=$_POST[lat]&lon=$_POST[lon]&telephone=".urlencode($_POST["telephone"]));
                         exit();
                     }
                     $image = $msg;
@@ -104,7 +104,7 @@ if (isset($_GET["action"])) {
                     header("Location: canteen_details.php?id=$_POST[id]&success=1");
                     exit();
                 } else {
-                    header("Location: manage_canteen.php?action=U&id=$_POST[id]&errorCode=$exitCode&name=$_POST[name]&desc=$_POST[desc]&cat=$_POST[cat]&seats=$_POST[seats]&avenue=$_POST[avenue]&num=$_POST[num]&postal_code=$_POST[postal_code]&municipality=$_POST[municipality]&lat=$_POST[lat]&lon=$_POST[lon]&telephone=".str_replace("+", "%2B", $_POST["telephone"]));
+                    header("Location: manage_canteen.php?action=U&id=$_POST[id]&errorCode=$exitCode&name=$_POST[name]&desc=$_POST[desc]&cat=$_POST[cat]&seats=$_POST[seats]&avenue=$_POST[avenue]&num=$_POST[num]&postal_code=$_POST[postal_code]&municipality=$_POST[municipality]&lat=$_POST[lat]&lon=$_POST[lon]&telephone=".urlencode($_POST["telephone"]));
                     exit();
                 }
             } else {
