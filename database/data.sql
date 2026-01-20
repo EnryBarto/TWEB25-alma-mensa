@@ -170,23 +170,85 @@ INSERT INTO `piatti` (`nome`, `descrizione`, `prezzo`, `id_mensa`) VALUES
 ('Insalata Cesar', 'Pollo, lattuga, crostini, salsa cesar', 9.00, 5),
 ('Grigliata Mista', 'Selezione di carni alla brace', 18.00, 12),
 ('Tiramisù', 'Fatto in casa con mascarpone fresco', 5.00, 19),
-('Spaghetti Carbonara', 'Pasta con guanciale, uova e pecorino', 9.50, 9);
+('Spaghetti Carbonara', 'Pasta con guanciale, uova e pecorino', 9.50, 9),
+('Panino Piadina', 'Piadina romagnola con prosciutto crudo', 5.50, 1),
+('Sfogliatella', 'Dolce tipico napoletano', 2.50, 2),
+('Cocktail Aperol', 'Aperol Spritz rinfrescante', 6.00, 3),
+('Mojito', 'Rum bianco, menta, limone, soda', 7.00, 4),
+('Ragu di Faraona', 'Ragù pregiato su pasta fresca', 14.00, 5),
+('Biscotti di Prato', 'Biscotti toscani croccanti', 3.00, 6),
+('Brioche al Cioccolato', 'Brioches con crema di cacao', 2.00, 7),
+('Tramezzino', 'Tramezzino classico dal pane morbido', 4.50, 8),
+('Polpettone alla Casalinga', 'Polpettone cotto al forno', 11.00, 9),
+('Tagliatelle ai Funghi', 'Pasta fresca con funghi porcini', 11.50, 10),
+('Branzino al Forno', 'Branzino intero al forno con limone', 16.00, 11),
+('Burger con Bacon', 'Doppio burger con bacon croccante', 12.50, 12),
+('Tortellini alla Crema', 'Tortellini mantovani con salsa di panna', 10.50, 13),
+('Filetto di Manzo', 'Filetto alla griglia con salsa di funghi', 22.00, 14),
+('Chicken Burger', 'Pollo grigliato, lattuga, pomodoro', 9.50, 15),
+('Calzone', 'Calzone ripieno di ricotta e spinaci', 9.00, 16),
+('Ossobuco alla Milanese', 'Ossobuco in umido con riso pilaf', 20.00, 17),
+('Focaccia con Rosmarino', 'Focaccia ligure con olio e rosmarino', 5.00, 18),
+('Pappa al Pomodoro', 'Zuppa toscana di pane e pomodoro', 8.00, 19),
+('Strozzapreti al Cinghiale', 'Pasta fresca con ragù di cinghiale', 12.00, 20),
+('Cocktail Classico', 'Cocktail a base di gin', 8.00, 3),
+('Panna Cotta', 'Dolce al cucchiaio con frutti di bosco', 6.00, 3),
+('Panino Semplice', 'Panino classico con salumi', 4.50, 4),
+('Olive Tapenade', 'Mix di olive e erbe aromatiche', 5.00, 4),
+('Croissant al Burro', 'Croissant sfogliato', 2.30, 6),
+('Torta al Cioccolato', 'Torta fondente fatta in casa', 4.00, 6),
+('Caffè Lungo', 'Caffè con acqua', 1.50, 7),
+('Biscotto Secco', 'Biscotto da inzuppo', 1.50, 7),
+('Panino Prosciutto', 'Panino con prosciutto crudo', 5.00, 8),
+('Granita', 'Granita di caffè', 2.50, 8),
+('Minestrone', 'Zuppa di verdure e pasta', 7.50, 10),
+('Melanzane alla Parmigiana', 'Melanzane gratinate', 8.50, 10),
+('Risotto in Bianco', 'Risotto cremoso', 11.00, 17),
+('Tiramisu Gourmet', 'Tiramisù con mascarpone di qualità', 6.50, 17),
+('Pizza ai Funghi', 'Pizza con mix di funghi', 9.00, 18),
+('Panna Cotta', 'Dolce cremoso', 5.50, 18),
+('Crostini Toscani', 'Crostini con fegatini', 6.50, 19),
+('Pappardelle al Ragù', 'Pappardelle con ragù', 11.00, 20),
+('Cornetto Vuoto', 'Cornetto classico', 1.50, 21),
+('Risotto ai Funghi Porcini', 'Risotto cremoso con funghi porcini', 10.00, 11),
+('Cotoletta alla Milanese', 'Cotoletta croccante', 13.00, 11),
+('Verdure Grigliate', 'Mix di verdure grigliate', 7.00, 11),
+('Panettone', 'Panettone fatto in casa', 3.50, 21),
+('Caffè Corretto', 'Caffè con grappa', 2.00, 21);
 
 -- Menu (1 per locale)
 INSERT INTO `menu` (`nome`, `attivo`, `id_mensa`) VALUES
-('Aperitivo Piazza', '1', 1), ('Colazione Wilson', '1', 2), ('Cocktail Night', '1', 3), ('Serata Cantera', '1', 4), ('Pranzo Garden', '1', 5), ('Bakery Menu', '1', 6), ('Colazione Mondo', '1', 7), ('Pausa Caffè', '1', 8), ('Pranzo Lavoro', '1', 9), ('Menu Completo', '1', 10), ('Menu Giorno', '1', 11), ('Burger & Grill', '1', 12), ('Romagna Mia', '1', 13), ('Gourmet', '1', 14), ('Social Burger', '1', 15), ('Pizza Stadio', '1', 16), ('Roovido Experience', '1', 17), ('Pizza Verace', '1', 18), ('Tradizione', '1', 19), ('Menu Osteria', '1', 20);
+('Aperitivo Piazza', '1', 1), ('Colazione Wilson', '1', 2), ('Cocktail Night', '1', 3),
+('Serata Cantera', '1', 4), ('Pranzo Garden', '1', 5), ('Bakery Menu', '1', 6),
+('Colazione Mondo', '1', 7), ('Pausa Caffè', '1', 8), ('Pranzo Lavoro', '1', 9),
+('Menu Completo', '1', 10), ('Menu Mensa Aziendale', '1', 11), ('Burger & Grill', '1', 12),
+('Romagna Mia', '1', 13), ('Gourmet', '1', 14), ('Social Burger', '1', 15),
+('Pizza Stadio', '1', 16), ('Roovido Experience', '1', 17), ('Pizza Verace', '1', 18),
+('Tradizione', '1', 19), ('Menu Osteria', '1', 20), ('Aperitivo Classico', '1', 21);
 
--- Associazioni Piatti (Random verosimile)
+-- Composizione dei menu con piatti - CORRETTA PER MENSA
 INSERT INTO `composizioni` (`id_menu`, `id_piatto`) VALUES
-(1, 2), (1, 5),     -- Piccolo Bar
-(2, 6),             -- Wilson
-(5, 7), (5, 8),     -- Garden
-(9, 11),             -- Cibus
-(12, 9),            -- Scottadito
-(13, 1),            -- Sangiomense
-(15, 3),            -- Welldone
-(16, 4),            -- Da Neo
-(19, 10);           -- Cene
+(1, 2), (1, 5), (1, 12),            -- Menu 1 (Mensa 1): Tagliere, Caffè, Panino
+(2, 6), (2, 13),                    -- Menu 2 (Mensa 2): Cappuccino, Sfogliatella
+(3, 14), (3, 32), (3, 33),          -- Menu 3 (Mensa 3): Aperol, Cocktail Classico, Panna Cotta
+(4, 15), (4, 34), (4, 35),          -- Menu 4 (Mensa 4): Mojito, Panino Semplice, Olive Tapenade
+(5, 7), (5, 8), (5, 16),            -- Menu 5 (Mensa 5): Lasagna, Insalata, Ragù
+(6, 17), (6, 36), (6, 37),          -- Menu 6 (Mensa 6): Biscotti, Croissant, Torta
+(7, 18), (7, 38), (7, 39),          -- Menu 7 (Mensa 7): Brioche, Caffè Lungo, Biscotto
+(8, 19), (8, 40), (8, 41),          -- Menu 8 (Mensa 8): Tramezzino, Panino Prosciutto, Granita
+(9, 11), (9, 20),                   -- Menu 9 (Mensa 9): Spaghetti, Polpettone
+(10, 21), (10, 42), (10, 43),       -- Menu 10 (Mensa 10): Tagliatelle, Minestrone, Melanzane
+(11, 51), (11, 52), (11, 53),       -- Menu 11 (Mensa 11): Risotto, Cotoletta, Verdure
+(12, 9), (12, 23),                  -- Menu 12 (Mensa 12): Grigliata, Burger Bacon
+(13, 1), (13, 24),                  -- Menu 13 (Mensa 13): Cappelletti, Tortellini
+(14, 25),                           -- Menu 14 (Mensa 14): Filetto di Manzo
+(15, 3), (15, 26),                  -- Menu 15 (Mensa 15): Hamburger, Chicken Burger
+(16, 4), (16, 27),                  -- Menu 16 (Mensa 16): Pizza Margherita, Calzone
+(17, 28), (17, 44), (17, 45),       -- Menu 17 (Mensa 17): Ossobuco, Risotto in Bianco, Tiramisu Gourmet
+(18, 29), (18, 46), (18, 47),       -- Menu 18 (Mensa 18): Focaccia, Pizza ai Funghi, Panna Cotta
+(19, 10), (19, 30), (19, 48),       -- Menu 19 (Mensa 19): Tiramisù, Pappa, Crostini Toscani
+(20, 31), (20, 49),                 -- Menu 20 (Mensa 20): Strozzapreti, Pappardelle al Ragù
+(21, 50), (21, 54), (21, 55);       -- Menu 21 (Mensa 21): Cornetto, Panettone, Caffè Corretto
 
 -- --------------------------------------------------------
 -- 4. POPOLAMENTO RECENSIONI (50 Totali)
