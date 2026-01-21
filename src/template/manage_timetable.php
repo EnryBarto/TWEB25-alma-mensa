@@ -75,13 +75,13 @@
         <form class="border shadow-sm rounded mb-3" action="manage_timetable.php" method="post">
             <div class="row justify-content-center p-3">
                 <div class="col-12 col-md-4 col-xl-5 mb-2">
-                    <label class="form-label" for="timeOpen">Orario di apertura</label>
-                    <input type="time" class="form-control<?php if (isset($_GET["hour_error_update"]) && $_GET["oldTimeOpen"] == $timetable->getOpenTime() && $_GET["dayOfWeek"] == $timetable->getRawDayOfWeek()) echo " is-invalid"; ?>" name="timeOpen" id="timeOpen"
+                    <label class="form-label" for="timeOpen<?php echo $timetable->getRawDayOfWeek().$timetable->getOpenTime(); ?>">Orario di apertura</label>
+                    <input type="time" class="form-control<?php if (isset($_GET["hour_error_update"]) && $_GET["oldTimeOpen"] == $timetable->getOpenTime() && $_GET["dayOfWeek"] == $timetable->getRawDayOfWeek()) echo " is-invalid"; ?>" name="timeOpen" id="timeOpen<?php echo $timetable->getRawDayOfWeek().$timetable->getOpenTime(); ?>"
                         value="<?php echo $timetable->getOpenTime(); ?>" required />
                 </div>
                 <div class="col-12 col-md-4 col-xl-5 mb-2">
-                    <label class="form-label" for="timeClose">Orario di chiusura</label>
-                    <input type="time" class="form-control<?php if (isset($_GET["hour_error_update"]) && $_GET["oldTimeOpen"] == $timetable->getOpenTime() && $_GET["dayOfWeek"] == $timetable->getRawDayOfWeek()) echo " is-invalid"; ?>" name="timeClose" id="timeClose"
+                    <label class="form-label" for="timeClose<?php echo $timetable->getRawDayOfWeek().$timetable->getOpenTime(); ?>">Orario di chiusura</label>
+                    <input type="time" class="form-control<?php if (isset($_GET["hour_error_update"]) && $_GET["oldTimeOpen"] == $timetable->getOpenTime() && $_GET["dayOfWeek"] == $timetable->getRawDayOfWeek()) echo " is-invalid"; ?>" name="timeClose" id="timeClose<?php echo $timetable->getRawDayOfWeek().$timetable->getOpenTime(); ?>"
                         value="<?php echo $timetable->getCloseTime(); ?>" required />
                     <?php if (isset($_GET["hour_error_update"]) && $_GET["oldTimeOpen"] == $timetable->getOpenTime() && $_GET["dayOfWeek"] == $timetable->getRawDayOfWeek()): ?>
                         <p class="invalid-feedback">L'orario di chiusura deve essere successivo a quello di apertura.</p>

@@ -25,4 +25,5 @@
         <label for="camera-selection" class="form-label">Seleziona fotocamera:</label>
         <select name="camera" id="camera-selection" class="form-select">
         </select>
+    </div>
 </div>

@@ -16,23 +16,25 @@
                     <form class="needs-validation" method="POST" action="create_menu.php" novalidate>
                         <?php if (isset($menu)): ?>
                             <input type="hidden" name="menu_id" value="<?php echo htmlspecialchars($menu->getId()); ?>" />
+                            <label class="form-label">Modifica il menu esistente</label>
                         <?php endif; ?>
                         <div class="mb-4">
                             <h6 class="text-uppercase text-secondary small mb-3">Nome Menu<span class="text-primary">*</span></h6>
-                            <input type="text" class="form-control" id="nome" name="nome" title="Nome del menu" placeholder="Es: Menu freddo" value="<?php echo isset($menu) ? htmlspecialchars($menu->getNome()) : ''; ?>" required />
+                            <input type="text" class="form-control" id="nome" name="nome" text="nome del menu" title="Nome del menu" placeholder="Es: Menu freddo" value="<?php echo isset($menu) ? htmlspecialchars($menu->getNome()) : ''; ?>" required />
+                            <label class="form-label">Inserisci un nome per il menu</label>
                         </div>
-
+ 
                         <div class="mb-4">
                             <fieldset>
                             <legend>Stato Menu</legend>
                                 <h6 class="text-uppercase text-secondary small mb-3">Stato Menu<span class="text-primary">*</span></h6>
-                                <input type="radio" class="btn-check" name="attivoBtn" title="Attivo" id="attivo" value="1" <?php echo (isset($menu) && $menu->isAttivo()) || !isset($menu) ? 'checked' : ''; ?> autocomplete="off" />
+                                <input type="radio" class="btn-check" name="attivoBtn" text="attivo" title="Attivo" id="attivo" value="1" <?php echo (isset($menu) && $menu->isAttivo()) || !isset($menu) ? 'checked' : ''; ?> autocomplete="off" />
                                 <label class="btn btn-outline-success me-2" for="attivo">Attivo</label>
-                                <input type="radio" class="btn-check" name="attivoBtn" title="Non Attivo" id="nonAttivo" value="0" <?php echo isset($menu) && !$menu->isAttivo() ? 'checked' : ''; ?> autocomplete="off" />
+                                <input type="radio" class="btn-check" name="attivoBtn" text="non attivo" title="Non Attivo" id="nonAttivo" value="0" <?php echo isset($menu) && !$menu->isAttivo() ? 'checked' : ''; ?> autocomplete="off" />
                                 <label class="btn btn-outline-danger" for="nonAttivo">Non Attivo</label>
                             </fieldset>
                         </div>
-
+ 
                         <div class="mb-4">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h6 class="text-uppercase text-secondary small mb-0">Piatti</h6>
@@ -46,7 +48,7 @@
                                 <?php foreach ($templateParams["dishes"] as $dish): ?>
                                     <?php $isChecked = isset($selectedDishIds) && in_array($dish->getId(), $selectedDishIds); ?>
                                     <label class="border rounded p-3 mb-3 d-block checkbox-label" style="cursor: pointer;">
-                                        <input type="checkbox" class="form-check-input" name="dishes[]" title="checkbox piatto" value="<?php echo $dish->getId(); ?>" <?php echo $isChecked ? 'checked' : ''; ?> />
+                                        <input type="checkbox" class="form-check-input" name="dishes[]" text="checkbox piatto" title="checkbox piatto" value="<?php echo $dish->getId(); ?>" <?php echo $isChecked ? 'checked' : ''; ?> />
                                         <span class="ms-2">
                                             <strong><?php echo htmlspecialchars($dish->getName()); ?></strong>
                                             <br>
@@ -62,7 +64,7 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-
+ 
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <a href="manage_menus.php" class="btn btn-outline-secondary">Annulla</a>
                             <button type="submit" class="btn btn-primary"><?php echo isset($menu) ? 'Aggiorna' : 'Salva'; ?></button>
