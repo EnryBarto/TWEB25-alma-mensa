@@ -20,7 +20,7 @@
                         <?php endif; ?>
                         <div class="mb-4">
                             <label for="nome" class="text-uppercase text-secondary small mb-3">Nome Menu<span class="text-primary">*</span></label>
-                            <input type="text" class="form-control" id="nome" name="nome" text="nome del menu" title="Nome del menu" placeholder="Es: Menu freddo" value="<?php echo isset($menu) ? htmlspecialchars($menu->getNome()) : ''; ?>" required />
+                            <input type="text" class="form-control" id="nome" name="nome" title="Nome del menu" placeholder="Es: Menu freddo" value="<?php echo isset($menu) ? htmlspecialchars($menu->getNome()) : ''; ?>" required />
                             <label class="form-label">Inserisci un nome per il menu</label>
                         </div>
 
@@ -28,10 +28,10 @@
                             <fieldset>
                             <legend>Stato Menu</legend>
                                 <h6 class="text-uppercase text-secondary small mb-3">Stato Menu<span class="text-primary">*</span></h6>
+                                <input type="radio" class="btn-check" name="attivoBtn" title="Attivo" id="attivo" value="1" <?php echo (isset($menu) && $menu->isAttivo()) || !isset($menu) ? 'checked' : ''; ?> />
                                 <label class="btn btn-outline-success me-2" for="attivo">Attivo</label>
-                                <input type="radio" class="btn-check" name="attivoBtn" text="attivo" title="Attivo" id="attivo" value="1" <?php echo (isset($menu) && $menu->isAttivo()) || !isset($menu) ? 'checked' : ''; ?> autocomplete="off" />
+                                <input type="radio" class="btn-check" name="attivoBtn" title="Non Attivo" id="nonAttivo" value="0" <?php echo isset($menu) && !$menu->isAttivo() ? 'checked' : ''; ?> />
                                 <label class="btn btn-outline-danger" for="nonAttivo">Non Attivo</label>
-                                <input type="radio" class="btn-check" name="attivoBtn" text="non attivo" title="Non Attivo" id="nonAttivo" value="0" <?php echo isset($menu) && !$menu->isAttivo() ? 'checked' : ''; ?> autocomplete="off" />
                             </fieldset>
                         </div>
 
@@ -51,7 +51,7 @@
                                         $dishId = 'dish-' . $dish->getId();
                                     ?>
                                     <label for="<?php echo $dishId; ?>" class="border rounded p-3 mb-3 d-block checkbox-label" style="cursor: pointer;">
-                                        <input type="checkbox" class="form-check-input" id="<?php echo $dishId; ?>" name="dishes[]" text="checkbox piatto" title="checkbox piatto" value="<?php echo $dish->getId(); ?>" <?php echo $isChecked ? 'checked' : ''; ?> />
+                                        <input type="checkbox" class="form-check-input" id="<?php echo $dishId; ?>" name="dishes[]" title="checkbox piatto" value="<?php echo $dish->getId(); ?>" <?php echo $isChecked ? 'checked' : ''; ?> />
                                         <span class="ms-2">
                                             <strong><?php echo htmlspecialchars($dish->getName()); ?></strong>
                                             <br>
