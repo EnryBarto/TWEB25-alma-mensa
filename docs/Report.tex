@@ -12,6 +12,23 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage{enumitem}
+\usepackage{titlesec} % aggiunto per controllare gli spazi tra titoli
+
+% Riduce gli spazi verticali generali
+\setlength{\parskip}{0pt}
+
+% Nuova formattazione compatta del chapter per avvicinare le sezioni
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}
+  {\chaptertitlename\ \thechapter}{10pt}{\Huge}
+% {left}{before-sep}{after-sep} -> after-sep negativo per ridurre gap tra chapter e section
+\titlespacing*{\chapter}{0pt}{-30pt}{6pt}
+
+
+% Liste compatte: rimuove spazio tra item e spazio prima/dopo la lista
+\setlist[itemize]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt, leftmargin=*}
+\setlist[enumerate]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt}
+
 \usepackage{amsmath}
 \usepackage{geometry}
 \usepackage{pdfpages}
@@ -132,22 +149,25 @@ Questa tipologia di utente sarà in grado di visualizzare i \textbf{posti rimane
 Ogni mensa avrà delle credenziali, generate da un amministratore al momento della registrazione al sistema, che ne permeteranno l'accesso alla piattaforma.
 \\
 Tramite la propria area una mensa potrà pubblicare i \textbf{menu giornalieri}, visualizzare le \textbf{prenotazioni} e registrare le \textbf{presenze} dei clienti.
-\chapter{Design}
+\chapter{Fase di progettazione}
 \section{Obiettivi}
-Il design del sito è stato progettato in modo tale da garantire una buona user experience anche per persone non appartenenti all'ambito dell'informatica e tenendo in conto delle regole di accessibilità imposte dalle WCAG. E' stato adottato uno stile minimale, basato sulla presentazione di informazioni essenziali, che poi possono essere approfondite dall'utente in pagine dedicate. La progettazione è mobile first e user centered. Il look and feel è quello di una qualsiasi applicazione sviluppata con bootstrap. Il colore principale è quello utilizzato nelle pagine istituzionali di Unibo, in modo tale da trasmettere agli utenti target famigliarità con il brand Università di Bologna.
+La progettazione di AlmaMensa è stata guidata dai principi dello User Centered Design, concentrandoci nell'offrire anche a utenti non affini all'informatica una buona user experience. Le scelte di design sono focalizzate su:
+\begin{itemize}
+\item \textbf{Accessibilità}: il design mira a soddisfare i requisiti di livello AA imposti dalle WCAG, curando sia la scelta del font e del contrasto tra i colori, sia la navigazione tramite screenreaders.
+\item \textbf{Estetica}: è stato adottato un approccio minimale, basato sulla presentazione di informazioni essenziali tramite cards, che poi possono essere approfondite dall'utente in pagine dedicate. Il look\&feel è quello di una qualsiasi applicazione sviluppata col framework Bootstrap. Per riprendere l'identità visiva del'Alma Mater e trasmettere famigliarità agli utenti target (studenti del campus di Cesena), è stato adottato come colore principale quello delle pagine istituzionali dell'Università di Bologna.
+\item \textbf{Mobile-first}: l'interfaccia è stata progettata partendo dai dispositivi mobile e scalata su desktop tramite Bootstrap, ottenendo come risultato un sito web responsive e fruibile su tutte le tipologie di dispositivi in maniera accettabile.
+\end{itemize}
 \section{Sviluppo}
 Lo sviluppo dell'applicativo è stato svolto seguendo questi passaggi:
-\begin{itemize}
-    \item 1. E' stato cercato un ambito, chiedendo a colleghi universitari, nel quale poter sviluppare l'applicazione.
-    \item 2. Trovato l'ambito delle mense (problema comune per gli studenti del Campus) è stato fatto un focus group per discutere delle funzionalità che avrebbe dovuto avere l'applicativo.
-    \item 3. Sono stati prodotti i mockup, partendo dalla progettazione delle pagine mobile, per poi passare a quelle desktop.
-    \item 4. Sono state presentate al focus group che ha valutato i mockup.
-    \item 5. A seguito delle valutazioni del focus group sono state effettuate delle modifiche e si è iterato i punti 3-5 finchè non si è ottenuto un design soddisfacente.
-    \item 6. Si è proceduto con lo sviluppo dell'applicazione. Nel caso in cui venivano trovate funzionalità mancanti, si è iterato sui punti 3-6.
-\end{itemize}
-\section{Il focus group}
-Il focus group è formato dai seguenti componenti:
-...
-...
-...
+\begin{enumerate}
+    \item Ricerca dell'ambito su cui sviluppare l'applicazione, chiedendo a diversi colleghi universitari potenziali servizi utili alla vita universitaria
+    \item Creazione di un focus group (formato anche da persone non competenti in informatica) per la discussione delle funzionalità di un servizio di mensa, rilevato come potenziale necessità degli studenti nel campus di Cesena.
+    \item Produzione dei mockup, adottando un approccio mobile-first.
+    \item Presentazione e conseguente valutazione dei mockup dal focus group.
+    \item Rifinitura dei mockup a seguito della valutazione.
+    \item Iterazione dei passaggi 3-5, finchè non è ottenuto un design soddisfacente.
+    \item Sviluppo dell'applicazione, ritorno al punto 3 nel caso di incongruenze non trovate precedentemente.
+\end{enumerate}
+\section{Progettazione dell'architettura di massima}
+Per la gestione della maggior parte delle pagine è stato adottato un approccio template-based lato server (PHP). Per poter gestire alcune funzionalità particolari, come la mappa interattiva, la prenotazione e la rilevazione delle presenze tramite QR code, sono stati creati degli script dedicati che comunicano con le API del server tramite richieste AJAX, consentendo l'aggiornamento dinamico dei contenuti.
 \end{document}
