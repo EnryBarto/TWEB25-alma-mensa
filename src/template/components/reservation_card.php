@@ -1,4 +1,4 @@
-<div class="card shadow rounded-2 mb-3 <?php if (!$reservation->isActive()) echo 'bg-light'; ?>">
+<article class="card shadow rounded-2 mb-3 <?php if (!$reservation->isActive()) echo 'bg-light'; ?>">
     <div class="card-body">
         <header class="row mb-3">
             <div class="col-8 justify-content-left">
@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-</div>
+</article>
 <!-- Modal -->
 <div class="modal fade" id="remove-confirm-<?php echo $reservation->getCode(); ?>" data-bs-keyboard="false" tabindex="-1" aria-labelledby="removeConfirmLabel-<?php echo $reservation->getCode(); ?>" aria-hidden="true" role="dialog">
     <div class="modal-dialog">

@@ -10,7 +10,7 @@
         <?php foreach($templateParams["menu"]->getDishes() as $dish): ?>
             <div class="row justify-content-center px-3">
                 <div class="card col-11 col-md-10 p-0 mb-2">
-                    <div class="card-body">
+                    <article class="card-body">
                         <!-- Dishes List -->
                         <h2 class="card-title fs-4 mb-3">
                             <?php echo htmlspecialchars($dish->getName()); ?>
@@ -21,7 +21,7 @@
                         <span class="text-muted">
                             - <?php echo htmlspecialchars($dish->getDescription()); ?>
                         </span>
-                    </div>
+                    </article>
                 </div>
             </div>
         <?php endforeach; ?>
