@@ -1,15 +1,15 @@
+<?php require("components/header.php") ?>
 <form action="mod_customer_data.php" method="post" class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-10 col-md-8 col-lg-6 col-xl-4 border rounded shadow p-3">
-            <header class="mb-4 mt-4">
-                <h1>Modifica profilo</h1>
-                <?php if (isset($msg["errore"])): ?>
-                    <div class="is-invalid"></div>
-                    <div class="mb-3 invalid-feedback">
-                        <span class="bi bi-exclamation-circle-fill"></span> <?php echo $msg["errore"]; ?>
-                    </div>
-                <?php endif; ?>
-            </header>
+            <?php if (isset($msg["errore"])): ?>
+            <div class="mb-4 mt-4">
+                <div class="is-invalid"></div>
+                <div class="mb-3 invalid-feedback">
+                    <span class="bi bi-exclamation-circle-fill"></span> <?php echo $msg["errore"]; ?>
+                </div>
+            </div>
+            <?php endif; ?>
             <div class="mb-3">
                 <label for="name-input" class="form-label">Nome</label>
                 <input type="text" name="name" id="name-input" class="form-control" value="<?php echo $user->getName(); ?>" placeholder="Inserisci nome"

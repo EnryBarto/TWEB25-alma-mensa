@@ -1,6 +1,4 @@
-<header class="mb-4 mt-3">
-    <h1 class="text-center">Visualizza Prenotazioni</h1>
-</header>
+<?php require("components/header.php"); ?>
 <div class="row justify-content-center mb-5">
     <h2 class="text-center">Prenotazioni Attive</h2>
     <div class="col-10 table-responsive">

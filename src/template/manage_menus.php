@@ -1,6 +1,4 @@
-<header class="text-center container mt-3 mb-4">
-    <h1>Tutti i Menù</h1>
-</header>
+<?php require("components/header.php"); ?>
 <!-- Add menu button -->
 <div class="d-flex justify-content-center mb-3">
     <a href="create_menu.php" class="btn btn-primary col-10 col-md-9">Aggiungi Menù</a>

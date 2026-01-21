@@ -1,6 +1,4 @@
-<header class="text-center container mt-3 mb-4">
-    <h3>Tutti i Piatti</h3>
-</header>
+<?php require("components/header.php"); ?>
 <!-- Add dish button -->
 <div class="d-flex justify-content-center mb-3">
     <a href="create_dish.php" class="btn btn-primary col-10 col-md-9">Aggiungi Piatto</a>

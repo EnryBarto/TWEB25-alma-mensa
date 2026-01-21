@@ -7,6 +7,8 @@ if (isUserLoggedIn() && getUserLevel() == UserLevel::Customer)
     $currentPage["filename"] = "manage_reservations.php";
     $currentPage["cssfile"] = "manage_reservations.css";
     $currentPage["scriptfile"] = "manage_reservations.js";
+    $templateParams["h1"] = "Gestisci prenotazioni";
+    $templateParams["subtitle"] = "Visualizza e gestisci tutte le tue prenotazioni";
     $currentPage["externalscriptfile"] = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
 
     $templateParams["reservations"] = $dbh->getReservationsByCustomerEmail($user->getEmail());

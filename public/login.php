@@ -8,6 +8,8 @@ if (isUserLoggedIn()) {
 
 $currentPage["title"] = "Login";
 $currentPage["filename"] = "login.php";
+$templateParams["h1"] = "Accedi";
+$templateParams["subtitle"] = "Benvenuto in AlmaMensa";
 
 if (isset($_POST["email"]) && isset($_POST["password"])) {
     $email = $_POST["email"];

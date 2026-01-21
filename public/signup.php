@@ -8,6 +8,8 @@ if (isUserLoggedIn()) {
 
 $currentPage["title"] = "Registrati";
 $currentPage["filename"] = "signup.php";
+$templateParams["h1"] = "Crea Account";
+$templateParams["subtitle"] = "Unisciti ad AlmaMensa oggi";
 
 if (isset($_POST["name"]) && isset($_POST["surname"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm-password"])) {
     $name = $_POST["name"];

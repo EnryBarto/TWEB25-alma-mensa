@@ -1,6 +1,4 @@
-<header class="mb-4 mt-3 text-center">
-    <h1>Rileva presenza</h1>
-</header>
+<?php require("components/header.php"); ?>
 <div class="row justify-content-center mt-5 mb-5">
     <h2 class="text-center">Convalida manuale</h2>
     <div class="col-11 col-md-8">

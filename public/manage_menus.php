@@ -1,8 +1,10 @@
 <?php
 require_once '../src/bootstrap.php';
 
-$currentPage["title"] = "Manage Menus";
+$currentPage["title"] = "Gestione Menù";
 $currentPage["filename"] = "manage_menus.php";
+$templateParams["h1"] = "Tutti i Menù";
+$templateParams["subtitle"] = "Gestisci i menù della tua mensa";
 
 // Check if user is logged in and is a canteen account.
 if (isUserLoggedIn() && getUserLevel() == UserLevel::CanteenAdmin) {

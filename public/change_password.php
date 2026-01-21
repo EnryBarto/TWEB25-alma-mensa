@@ -8,6 +8,8 @@ if (!isUserLoggedIn()) {
 
 $currentPage["title"] = "Modifica password";
 $currentPage["filename"] = "change_password.php";
+$templateParams["h1"] = "Modifica Password";
+$templateParams["subtitle"] = "Cambia la password del tuo profilo";
 
 if (isset($_POST["oldPsw"]) && isset($_POST["psw"]) && isset($_POST["confirmPsw"])) {
     $oldPsw = $_POST["oldPsw"];

@@ -1,6 +1,4 @@
-<header class="text-center container mt-3 mb-4">
-    <h1>Gestisci prenotazioni</h1>
-</header>
+<?php require("components/header.php"); ?>
 <div class="container mb-5">
     <div class="row justify-content-center">
         <h2 class="text-center">Le tue prenotazioni attive</h2>

@@ -8,6 +8,8 @@ if (!isUserLoggedIn() && getUserLevel() !== UserLevel::CanteenAdmin) {
 
 $currentPage["title"] = "Visualizza Prenotazioni";
 $currentPage["filename"] = "show_reservations_canteen.php";
+$templateParams["h1"] = "Visualizza Prenotazioni";
+$templateParams["subtitle"] = "Visualizza tutte le prenotazioni";
 $templateParams["canteen"] = $user;
 $templateParams["activeReservations"] = array_filter($dbh->getReservationsByCanteenId($user->getId()),
      function($reservation) {

@@ -3,7 +3,8 @@ require_once '../src/bootstrap.php';
 
 $currentPage["title"] = "Esplora";
 $currentPage["filename"] = "explore.php";
-
+$templateParams["h1"] = "Le nostre mense";
+$templateParams["subtitle"] = "Trova la mensa che preferisci";
 
 $orderBy = "media_recensioni DESC";
 if (isset($_GET["sort"])) {

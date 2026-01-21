@@ -9,6 +9,8 @@ if (!isUserLoggedIn() || getUserLevel() != UserLevel::Customer)
 
 $currentPage["title"] = "Modifica profilo";
 $currentPage["filename"] = "mod_customer_data.php";
+$templateParams["h1"] = "Modifica profilo";
+$templateParams["subtitle"] = "Modifica i tuoi dati";
 
 if (isset($_POST["name"]) && isset($_POST["surname"]))
 {

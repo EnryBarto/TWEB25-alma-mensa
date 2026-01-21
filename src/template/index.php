@@ -1,11 +1,4 @@
-<header class="text-center my-4">
-    <?php if (isUserLoggedIn()): ?>
-        <h1>Benvenuto in AlmaMensa, <?php echo $user->getName() ; ?></h1>
-    <?php else: ?>
-        <h1>AlmaMensa</h1>
-    <?php endif; ?>
-    <p class="text-secondary">Da universitari per universitari</p>
-</header>
+<?php require("components/header.php"); ?>
 <div class="container mb-5">
     <div class="row justify-content-center">
         <div class="col-11 col-md-8">
@@ -51,10 +44,10 @@
             <a href="explore.php" class="btn btn-primary" role="button">Esplora</a>
         </div>
     </div>
-    <section class="border-top">
+    <section class="border-top mb-4">
         <header class="text-center my-4">
-            <h2>I più votati</h2>
-            <p class="text-secondary">Scopri le mense universitarie più votate dagli studenti</p>
+            <h2>Le più apprezzate</h2>
+            <p class="text-secondary">Scopri le mense universitarie preferite dagli studenti</p>
         </header>
         <div class="row justify-content-center">
             <?php if (count($templateParams["topCanteens"]) == 0): ?>
@@ -68,7 +61,7 @@
                 endif; ?>
         </div>
     </section>
-    <section class="border-top">
+    <section class="border-top mb-4">
         <header class="text-center my-4">
             <h2>Scopri la mappa</h2>
             <p class="text-secondary">Scopri le mense più vicine a te</p>
@@ -78,6 +71,23 @@
                 <p>Con la nostra mappa interattiva puoi visualizzare tutte le mense universitarie nella tua zona. Seleziona una categoria per filtrare le mense per tipo, clicca su un marcatore per ottenere informazioni dettagliate e scoprire le recensioni degli studenti. La mappa ti aiuta a trovare rapidamente la mensa più vicina e adatta alle tue esigenze.</p>
                 <a href="map.php" class="btn btn-primary" role="button">Visualizza Mappa</a>
             </div>
+        </div>
+    </section>
+    <section class="border-top">
+        <header class="text-center mt-4">
+            <h2>Contatti</h2>
+            <p class="text-secondary">Hai riscontrato qualche problema o vuoi proporre dei miglioramenti? Contattaci!</p>
+        </header>
+        <div class="row justify-content-center">
+            <div class="text-center p-2 row">
+        <div class="col-12">
+            <ul class="row list-unstyled">
+                <li class="col-12 mt-2 col-md-4">Enrico Bartocetti:<br/><a class="" href="mailto:enrico.bartocetti@studio.unibo.it">enrico.bartocetti@studio.unibo.it</a></li>
+                <li class="col-12 mt-2 col-md-4">Nicholas Benedetti:<br/><a class="" href="mailto:nicholas.benedetti@studio.unibo.it">nicholas.benedetti@studio.unibo.it</a></li>
+                <li class="col-12 mt-2 col-md-4">Nicolas Tazzieri:<br/><a class="" href="mailto:nicolas.tazzieri@studio.unibo.it">nicolas.tazzieri@studio.unibo.it</a></li>
+            </ul>
+        </div>
+        </div>
         </div>
     </section>
 </div>

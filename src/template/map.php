@@ -1,7 +1,4 @@
-<header class="mt-3 text-center container">
-    <h1>Esplora la mappa</h1>
-    <p class="text-body-secondary">Trova la mensa nelle tue vicinanze</p>
-</header>
+<?php require("components/header.php"); ?>
 <div class="container text-center justify-content-center">
     <div class="row justify-content-center border-bottom border-dark p-1">
         <div class="col-12 p-0">
