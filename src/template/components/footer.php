@@ -2,7 +2,7 @@
     <div class="text-center p-3">
         <h1 class="fs-3">AlmaMensa</h1>
     </div>
-    <div class="text-center p-2 row">
+    <div class="text-center p-2 row" style="font-size: 0.9em">
         <p class="col-12">Progetto per il corso di Tecnologie WEB A.A.2025/26 realizzato da:</p>
         <div class="col-12">
             <ul class="row list-unstyled">
