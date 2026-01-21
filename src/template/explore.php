@@ -2,23 +2,25 @@
 <div class="container text-center justify-content-center">
     <div class="row justify-content-center border-bottom border-dark p-1">
         <div class="col-12 p-0">
-            <ul class="nav nav-pills justify-content-center mx-1 mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link border border-2 rounded-pill active" id="pills-all-tab"
-                        data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab"
-                        aria-controls="pills-all" aria-selected="true">Tutti</button>
-                </li>
-                <?php if (isset($templateParams["categories"])):
-                    foreach ($templateParams["categories"] as $category):;?>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link border border-2 rounded-pill mx-1" id="pills-<?php echo strtolower($category); ?>-tab" data-bs-toggle="pill"
-                                data-bs-target="#pills-<?php echo strtolower($category); ?>" type="button" role="tab"
-                                aria-controls="pills-<?php echo strtolower($category); ?>"
-                                aria-selected="false"><?php echo $category; ?></button>
-                        </li>
-                    <?php endforeach;
-                endif; ?>
-            </ul>
+            <nav aria-label="Filtri categorie">
+                <ul class="nav nav-pills justify-content-center mx-1 mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link border border-2 rounded-pill active" id="pills-all-tab"
+                            data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab"
+                            aria-controls="pills-all" aria-selected="true">Tutti</button>
+                    </li>
+                    <?php if (isset($templateParams["categories"])):
+                        foreach ($templateParams["categories"] as $category):;?>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link border border-2 rounded-pill mx-1" id="pills-<?php echo strtolower($category); ?>-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-<?php echo strtolower($category); ?>" type="button" role="tab"
+                                        aria-controls="pills-<?php echo strtolower($category); ?>"
+                                        aria-selected="false"><?php echo $category; ?></button>
+                                </li>
+                                <?php endforeach;
+                    endif; ?>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

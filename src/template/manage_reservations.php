@@ -1,6 +1,6 @@
 <?php require("components/header.php"); ?>
 <div class="container mb-5">
-    <div class="row justify-content-center">
+    <section class="row justify-content-center">
         <h2 class="text-center">Le tue prenotazioni attive</h2>
         <div class="col-11 col-md-10">
             <?php if (isset($_GET["success"]) && $_GET["success"] == 1): ?>
@@ -47,8 +47,8 @@
                 }
             } ?>
         </div>
-    </div>
-    <div class="row justify-content-center">
+    </section>
+    <section class="row justify-content-center">
         <div class="col-11 col-md-10">
             <div class="d-grid gap-2">
                 <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
@@ -65,5 +65,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </div>

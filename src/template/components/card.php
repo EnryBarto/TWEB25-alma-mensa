@@ -1,4 +1,4 @@
-<div class="card border rounded-4 shadow h-100">
+<article class="card border rounded-4 shadow h-100">
     <img src="<?php echo empty($c->getImg()) ? "assets/img/no_img.jpg" : UPLOAD_DIR . $c->getImg(); ?>"
         class="card-img-top rounded-top-4" alt="" />
     <div class="card-body">
@@ -13,4 +13,4 @@
         </p>
         <a href="canteen_details.php?id=<?php echo $c->getId() ?>" class="btn btn-primary mt-auto">Dettaglio</a>
     </div>
-</div>
+</article>
