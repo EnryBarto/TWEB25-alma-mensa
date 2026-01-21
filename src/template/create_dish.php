@@ -12,18 +12,18 @@
                             <input type="hidden" name="dish_id" value="<?php echo htmlspecialchars($dish->getId()); ?>" />
                         <?php endif; ?>
                         <div class="mb-4">
-                            <h6 class="text-uppercase text-secondary small mb-3">Nome Piatto<span class="text-primary">*</span></h6>
-                            <input type="text" class="form-control" id="nome" name="nome" title="nome" placeholder="Es: Pasta al pomodoro" value="<?php echo isset($dish) ? htmlspecialchars($dish->getName()) : ''; ?>" required />
+                            <label for="nome" class="text-uppercase text-secondary small mb-3">Nome Piatto<span class="text-primary">*</span></label>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Es: Pasta al pomodoro" value="<?php echo isset($dish) ? htmlspecialchars($dish->getName()) : ''; ?>" required />
                         </div>
 
                         <div class="mb-4">
-                            <h6 class="text-uppercase text-secondary small mb-3">Descrizione<span class="text-primary">*</span></h6>
-                            <input type="text" class="form-control" id="descrizione" name="descrizione" title="descrizione" placeholder="descrivi il piatto e i suoi ingredienti" value="<?php echo isset($dish) ? htmlspecialchars($dish->getDescription()) : ''; ?>" required />
+                            <label for="descrizione" class="text-uppercase text-secondary small mb-3">Descrizione<span class="text-primary">*</span></label>
+                            <input type="text" class="form-control" id="descrizione" name="descrizione" placeholder="descrivi il piatto e i suoi ingredienti" value="<?php echo isset($dish) ? htmlspecialchars($dish->getDescription()) : ''; ?>" required />
                         </div>
 
                         <div class="mb-4">
-                            <h6 class="text-uppercase text-secondary small mb-3">Prezzo (€)<span class="text-primary">*</span></h6>
-                            <input type="number" step="0.01" min="0" class="form-control" id="prezzo" name="prezzo" title="prezzo"  placeholder="Es: 12.50" value="<?php echo isset($dish) ? htmlspecialchars($dish->getPrice()) : ''; ?>" required />
+                            <label for="prezzo" class="text-uppercase text-secondary small mb-3">Prezzo (€)<span class="text-primary">*</span></label>
+                            <input type="number" step="0.01" min="0" class="form-control" id="prezzo" name="prezzo" placeholder="Es: 12.50" value="<?php echo isset($dish) ? htmlspecialchars($dish->getPrice()) : ''; ?>" required />
                         </div>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <a href="manage_dishes.php" class="btn btn-outline-secondary">Annulla</a>

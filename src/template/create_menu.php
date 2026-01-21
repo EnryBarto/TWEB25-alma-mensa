@@ -19,7 +19,7 @@
                             <label class="form-label">Modifica il menu esistente</label>
                         <?php endif; ?>
                         <div class="mb-4">
-                            <h6 class="text-uppercase text-secondary small mb-3">Nome Menu<span class="text-primary">*</span></h6>
+                            <label for="nome" class="text-uppercase text-secondary small mb-3">Nome Menu<span class="text-primary">*</span></label>
                             <input type="text" class="form-control" id="nome" name="nome" text="nome del menu" title="Nome del menu" placeholder="Es: Menu freddo" value="<?php echo isset($menu) ? htmlspecialchars($menu->getNome()) : ''; ?>" required />
                             <label class="form-label">Inserisci un nome per il menu</label>
                         </div>
@@ -46,9 +46,12 @@
                             <!-- Dishes load dynamically here -->
                             <?php if (!empty($templateParams["dishes"])): ?>
                                 <?php foreach ($templateParams["dishes"] as $dish): ?>
-                                    <?php $isChecked = isset($selectedDishIds) && in_array($dish->getId(), $selectedDishIds); ?>
-                                    <label class="border rounded p-3 mb-3 d-block checkbox-label" style="cursor: pointer;">
-                                        <input type="checkbox" class="form-check-input" name="dishes[]" text="checkbox piatto" title="checkbox piatto" value="<?php echo $dish->getId(); ?>" <?php echo $isChecked ? 'checked' : ''; ?> />
+                                    <?php
+                                        $isChecked = isset($selectedDishIds) && in_array($dish->getId(), $selectedDishIds);
+                                        $dishId = 'dish-' . $dish->getId();
+                                    ?>
+                                    <label for="<?php echo $dishId; ?>" class="border rounded p-3 mb-3 d-block checkbox-label" style="cursor: pointer;">
+                                        <input type="checkbox" class="form-check-input" id="<?php echo $dishId; ?>" name="dishes[]" text="checkbox piatto" title="checkbox piatto" value="<?php echo $dish->getId(); ?>" <?php echo $isChecked ? 'checked' : ''; ?> />
                                         <span class="ms-2">
                                             <strong><?php echo htmlspecialchars($dish->getName()); ?></strong>
                                             <br>
