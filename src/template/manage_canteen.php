@@ -123,7 +123,7 @@
                         <input type="hidden" name="action" value="U" />
 
                         <div class="d-flex gap-2 justify-content-end">
-                            <a role="button" class="btn btn-outline-secondary" alt="Chiudi modifica" href="canteen_details.php?id=<?php echo $user->getId(); ?>"><span class="bi bi-arrow-left"></span> Annulla</a>
+                            <a role="button" class="btn btn-outline-secondary" title="Chiudi modifica" href="canteen_details.php?id=<?php echo $user->getId(); ?>"><span class="bi bi-arrow-left"></span> Annulla</a>
                             <button type="reset" id="resBtn" class="btn btn-outline-primary"><span class="bi bi-x"></span> Reset</button>
                             <button type="submit" class="btn btn-primary"><span class="bi bi-floppy-fill"></span> Salva</button>
                         </div>
