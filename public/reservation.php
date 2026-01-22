@@ -39,6 +39,11 @@ if (isset($_GET["action"])) {
                 header("Location: manage_reservations.php");
                 exit();
             }
+            // Check if it's not more active
+            if (!$templateParams["reservation"]->isActive()) {
+                header("Location: manage_reservations.php?action=U&errorCode=-3");
+                exit();
+            }
             $templateParams["canteen"] = $templateParams["reservation"]->getCanteen();
             $currentPage["title"] = "Modifica prenotazione";
             $currentPage["filename"] = "reservation.php";
@@ -84,6 +89,11 @@ else if (isset($_POST["action"])) {
                 header("Location: manage_reservations.php");
                 exit();
             }
+            // Check if it's not more active
+            if (!$templateParams["reservation"]->isActive()) {
+                header("Location: manage_reservations.php?action=U&errorCode=-3");
+                exit();
+            }
             try {
                 $dateTime = new DateTimeImmutable($_POST["date"] . " " . $_POST["time"]);
             } catch (Exception $e) {
@@ -96,6 +106,11 @@ else if (isset($_POST["action"])) {
         case "D":
             if ($dbh->getReservationByCode($_POST["id"])->getUserEmail() != $user->getEmail()) {
                 header("Location: explore.php");
+                exit();
+            }
+            // Check if it's not more active
+            if (!$dbh->getReservationByCode($_POST["id"])->isActive()) {
+                header("Location: manage_reservations.php?action=D&errorCode=-3");
                 exit();
             }
             $exitCode = $dbh->deleteReservation($_POST["id"]);

@@ -36,6 +36,8 @@
                     La mensa non ha abbastanza posti.
                     <?php elseif (isset($_GET["errorCode"]) && $_GET["errorCode"] == 1062): ?>
                     Hai già una prenotazione per questo orario in questa data in questa mensa.
+                    <?php elseif (isset($_GET["errorCode"]) && $_GET["errorCode"] == -3): ?>
+                    Non è possibile eseguire azioni sulla prenotazione dato che non è più attiva.
                     <?php endif; ?>
                     </span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

@@ -5,7 +5,7 @@
                 <h3 class="card-title fs-5">Codice: <span class="reservation-code"><?php echo $reservation->getCode(); ?></span></h3>
             </div>
             <div class="col-4 justify-content-end text-end">
-                <a role="button" title="Modifica" class="btn btn-secondary btn-sm rounded-3 me-1 <?php if (!$reservation->isActive()) echo 'disabled'; ?>" href="reservation.php?action=U&id=<?php echo $reservation->getCode(); ?>"><span class="bi bi-pencil"></span></a>
+                <a role="button" title="Modifica" class="btn btn-secondary btn-sm rounded-3 me-1 <?php if (!$reservation->isActive()) echo 'disabled'; ?>" href="<?php if ($reservation->isActive()) echo "reservation.php?action=U&id={$reservation->getCode()}"; ?>"><span class="bi bi-pencil"></span></a>
                 <button type="button" title="Elimina" class="btn btn-primary btn-sm rounded-3 <?php if (!$reservation->isActive()) echo 'disabled'; ?>" data-bs-toggle="modal" data-bs-target="#remove-confirm-<?php echo $reservation->getCode(); ?>"><span class="bi bi-trash"></span></button>
             </div>
         </header>
@@ -35,6 +35,7 @@
                 <h2 class="modal-title fs-5" id="removeConfirmLabel-<?php echo $reservation->getCode(); ?>">Conferma rimozione</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <?php if ($reservation->isActive()): ?>
             <div class="modal-body">
                 <p>Sei sicuro di voler eliminare la prenotazione per <strong><?php echo $reservation->getCanteen()->getName() ?></strong> del giorno <strong><?php echo $reservation->getDateTime()->format("d/m/Y") ?></strong> alle ore <strong><?php echo $reservation->getDateTime()->format("H:i")?></strong> (codice <strong><?php echo $reservation->getCode(); ?></strong>)?</p>
             </div>
@@ -46,6 +47,11 @@
                     <input type="submit" class="btn btn-primary" value="Rimuovi" />
                 </form>
             </div>
+            <?php else: ?>
+            <div class="modal-body">
+                <p><strong>ATTENZIONE!</strong> Non è permesso eliminare una prenotazione non più attiva.</p>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
