@@ -50,7 +50,11 @@ btnConvalidate.addEventListener('click', () => {
     }
 });
 
-
+/**
+ * Function that calls the API to convalidate a reservation
+ * @param {string} code reservation code
+ * @returns result of the convalidation
+ */
 async function convalidateReservation(code) {
     const url = `api_convalidate_reservation.php?code=${code}`;
     try {
@@ -66,11 +70,21 @@ async function convalidateReservation(code) {
     }
 }
 
+/**
+ * Function that shows a message on the page
+ * @param {{type: string, text: string}} msg message to show (got from the API)
+ */
 function showMessage(msg) {
     const msgDiv = document.querySelector('#msg');
     msgDiv.appendChild(document.createElement('div')).innerHTML = getAlert(msg.type, msg.text);
 }
 
+/**
+ * Function that returns an alert HTML element
+ * @param {string} type type of the alert
+ * @param {string} msg message to show
+ * @returns HTML string of the alert
+ */
 function getAlert(type, msg) {
     let title = "";
     switch(type) {
