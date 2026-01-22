@@ -82,9 +82,9 @@
             <div class="text-center p-2 row">
         <div class="col-12">
             <ul class="row list-unstyled">
-                <li class="col-12 mt-2 col-md-4">Enrico Bartocetti:<br/><a class="" href="mailto:enrico.bartocetti@studio.unibo.it">enrico.bartocetti@studio.unibo.it</a></li>
-                <li class="col-12 mt-2 col-md-4">Nicholas Benedetti:<br/><a class="" href="mailto:nicholas.benedetti@studio.unibo.it">nicholas.benedetti@studio.unibo.it</a></li>
-                <li class="col-12 mt-2 col-md-4">Nicolas Tazzieri:<br/><a class="" href="mailto:nicolas.tazzieri@studio.unibo.it">nicolas.tazzieri@studio.unibo.it</a></li>
+                <li class="col-12 mt-2 col-lg-4">Enrico Bartocetti:<br/><a class="" href="mailto:enrico.bartocetti@studio.unibo.it">enrico.bartocetti@studio.unibo.it</a></li>
+                <li class="col-12 mt-2 col-lg-4">Nicholas Benedetti:<br/><a class="" href="mailto:nicholas.benedetti@studio.unibo.it">nicholas.benedetti@studio.unibo.it</a></li>
+                <li class="col-12 mt-2 col-lg-4">Nicolas Tazzieri:<br/><a class="" href="mailto:nicolas.tazzieri@studio.unibo.it">nicolas.tazzieri@studio.unibo.it</a></li>
             </ul>
         </div>
         </div>
