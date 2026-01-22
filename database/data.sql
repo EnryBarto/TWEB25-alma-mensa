@@ -56,27 +56,27 @@ INSERT INTO `utenti` (`email`, `password`, `mensa`, `cliente`) VALUES
 -- --------------------------------------------------------
 
 INSERT INTO `mense` (`id`, `email`, `nome`, `descrizione`, `ind_civico`, `ind_via`, `ind_comune`, `ind_cap`, `telefono`, `coo_latitudine`, `coo_longitudine`, `num_posti`, `immagine`, `id_categoria`, `media_recensioni`, `num_recensioni`) VALUES
-(1, 'volume@unibo.it', 'Volume', '[Spazio] [Ascolto] [Alimento]', '50', 'Via Cesare Pavese', 'Cesena', 47521, '+39 320 3562325', '44.1478691', '12.2355525', 50, 'volume.jpg', 1, 0, 0),
-(21, 'info@piccolobar.it', 'Piccolo Bar', 'Bar storico in piazza, ideale per aperitivi.', '43', 'Piazza del Popolo', 'Cesena', 47521, '+39054724597', '44.13718', '12.24245', 30, NULL, 1, 4.3, 3),
-(2, 'barwilson@cesena.it', 'Bar Wilson', 'Caffetteria accogliente vicino al centro.', '16', 'Via Martiri della Libertà', 'Cesena', 47521, '+393287092572', '44.13984', '12.24055', 25, NULL, 1, 4.7, 2),
-(3, 'nerosublime@bar.it', 'Bar Nero Sublime', 'Locale elegante per cocktail e serate.', '18', 'Corte Dandini', 'Cesena', 47521, '+39054721756', '44.13698', '12.24482', 40, NULL, 1, 4.4, 3),
-(4, 'lacantera@cesena.it', 'La Cantera', 'Punto di ritrovo serale molto frequentato.', '5', 'Piazza Mario Guidazzi', 'Cesena', 47521, '+3905471865945', '44.13608', '12.24860', 50, NULL, 1, 4.3, 2),
-(5, 'garden@barcucina.it', 'Garden Bar & Cucina', 'Ampio spazio con cucina, ideale per pranzi.', '124', 'Via G. Matteotti', 'Cesena', 47522, '+393358007853', '44.14014', '12.23330', 60, NULL, 1, 4.9, 3),
-(6, 'info@casamadie.it', 'CASAMADIE', 'Prodotti da forno e piatti creativi.', '1', 'Via Fra Michelino', 'Cesena', 47521, '+390547481742', '44.13760', '12.24126', 20, NULL, 1, 4.4, 2),
-(7, 'almondo@caffetteria.it', 'Al Mondo Caffetteria', 'Ottime colazioni e personale gentile.', '17', 'Via Veneto', 'Cesena', 47521, '+390547300442', '44.13946', '12.25792', 25, NULL, 1, 4.5, 2),
-(8, 'caffetteria@corso.it', 'Caffetteria del Corso', 'Bar classico sul corso principale.', '18', 'Corso Gastone Sozzi', 'Cesena', 47521, '+393467304473', '44.13802', '12.24539', 15, NULL, 1, 4.2, 2),
-(9, 'cibus@selfservice.it', 'Ristorante Self-Service Cibus', 'Mensa self-service veloce ed economica.', '63', 'Via Quinto Bucci', 'Cesena', 47521, '+390547632305', '44.15873', '12.24370', 100, NULL, 2, 4.4, 4),
-(10, 'tavolamica@camst.it', 'Tavolamica | Cesena', 'Ristorazione aziendale e per tutti.', '332', 'Via dell\'Arrigoni', 'Cesena', 47522, '+393389398601', '44.16512', '12.21909', 150, NULL, 2, 4.0, 3),
-(11, 'mensa@cirfood.it', 'Mensa Aziendale CIRFOOD', 'Mensa con pizzeria e piatti caldi.', '1', 'Piazzale Mario Giommi', 'Cesena', 47521, NULL, '44.13296', '12.26049', 120, NULL, 2, 0.0, 0), -- Mensa senza recensioni
-(12, 'scottadito@ristorante.it', 'Scottadito', 'Ristorante con pizza, hamburger e griglia.', '335', 'V.le Mario Angeloni', 'Cesena', 47521, '+39054728061', '44.14413', '12.24603', 80, NULL, 3, 4.3, 3),
-(13, 'sangio@ristorante.it', 'Ristorante al Sangiò', 'Cucina tipica romagnola nel centro storico.', '16', 'Piazza Giovanni Amendola', 'Cesena', 47521, '+390547061489', '44.13673', '12.24347', 50, NULL, 3, 4.5, 3),
-(14, 'cohiba@ristorante.it', 'Ristorante Cohiba', 'Ristorante moderno con piatti curati.', '21', 'Via Cesare Battisti', 'Cesena', 47521, '+39054726371', '44.13829', '12.24171', 45, NULL, 3, 4.5, 2),
-(15, 'welldone@socialfood.it', 'Welldone Cils Social Food', 'Hamburger gourmet e progetto sociale.', '4', 'Piazza della Libertà', 'Cesena', 47521, '+393464748796', '44.13730', '12.24626', 60, NULL, 3, 4.3, 3),
-(16, 'daneo@pizzeria.it', 'Da Neo Pizzeria - Stadio', 'Pizza al piatto vicino allo stadio.', '255', 'Via Fratelli Spazzoli', 'Cesena', 47521, '+390547300526', '44.13704', '12.26472', 70, NULL, 3, 4.6, 2),
-(17, 'roovido@cesena.it', 'Roovido', 'Location suggestiva e cucina raffinata.', '31', 'Piazza del Popolo', 'Cesena', 47521, '+393703791215', '44.13734', '12.24208', 40, NULL, 3, 4.6, 3),
-(18, 'lamari@pizzeria.it', 'La Mari\' Pizzeria', 'Pizzeria apprezzata per l\'impasto.', '55', 'Viale della Resistenza', 'Cesena', 47522, '+393922966670', '44.14275', '12.23082', 50, NULL, 3, 4.2, 2),
-(19, 'cene@osteria.it', 'Osteria Cené', 'Cucina della tradizione rivisitata.', '3', 'Via Albizzi', 'Cesena', 47521, '+390547612212', '44.13711', '12.24326', 45, NULL, 3, 4.4, 3),
-(20, 'michiletta@osteria.it', 'Osteria Michiletta', 'Storica osteria con pasta fatta a mano.', '41', 'Via Strinati', 'Cesena', 47521, '+393762012500', '44.13675', '12.24426', 35, NULL, 3, 4.3, 3);
+(1, 'volume@unibo.it', 'Volume', '[Spazio] [Ascolto] [Alimento]', '50', 'Via Cesare Pavese', 'Cesena', 47521, '+39 320 3562325', '44.1478691', '12.2355525', 50, 'volume.jpg', 1, 3.67, 9),
+(2, 'barwilson@cesena.it', 'Bar Wilson', 'Caffetteria accogliente vicino al centro.', '16', 'Via Martiri della Libertà', 'Cesena', 47521, '+393287092572', '44.13984', '12.24055', 25, NULL, 1, 3.75, 6),
+(3, 'nerosublime@bar.it', 'Bar Nero Sublime', 'Locale elegante per cocktail e serate.', '18', 'Corte Dandini', 'Cesena', 47521, '+39054721756', '44.13698', '12.24482', 40, NULL, 1, 3.86, 7),
+(4, 'lacantera@cesena.it', 'La Cantera', 'Punto di ritrovo serale molto frequentato.', '5', 'Piazza Mario Guidazzi', 'Cesena', 47521, '+3905471865945', '44.13608', '12.24860', 50, NULL, 1, 3.10, 5),
+(5, 'garden@barcucina.it', 'Garden Bar & Cucina', 'Ampio spazio con cucina, ideale per pranzi.', '124', 'Via G. Matteotti', 'Cesena', 47522, '+393358007853', '44.14014', '12.23330', 60, NULL, 1, 3.06, 8),
+(6, 'info@casamadie.it', 'CASAMADIE', 'Prodotti da forno e piatti creativi.', '1', 'Via Fra Michelino', 'Cesena', 47521, '+390547481742', '44.13760', '12.24126', 20, NULL, 1, 4.30, 5),
+(7, 'almondo@caffetteria.it', 'Al Mondo Caffetteria', 'Ottime colazioni e personale gentile.', '17', 'Via Veneto', 'Cesena', 47521, '+390547300442', '44.13946', '12.25792', 25, NULL, 1, 3.25, 4),
+(8, 'caffetteria@corso.it', 'Caffetteria del Corso', 'Bar classico sul corso principale.', '18', 'Corso Gastone Sozzi', 'Cesena', 47521, '+393467304473', '44.13802', '12.24539', 15, NULL, 1, 2.50, 5),
+(9, 'cibus@selfservice.it', 'Ristorante Self-Service Cibus', 'Mensa self-service veloce ed economica.', '63', 'Via Quinto Bucci', 'Cesena', 47521, '+390547632305', '44.15873', '12.24370', 100, NULL, 2, 3.04, 14),
+(10, 'tavolamica@camst.it', 'Tavolamica | Cesena', 'Ristorazione aziendale e per tutti.', '332', 'Via dell\'Arrigoni', 'Cesena', 47522, '+393389398601', '44.16512', '12.21909', 150, NULL, 2, 2.54, 13),
+(11, 'mensa@cirfood.it', 'Mensa Aziendale CIRFOOD', 'Mensa con pizzeria e piatti caldi.', '1', 'Piazzale Mario Giommi', 'Cesena', 47521, NULL, '44.13296', '12.26049', 120, NULL, 2, 0.00, 0),
+(12, 'scottadito@ristorante.it', 'Scottadito', 'Ristorante con pizza, hamburger e griglia.', '335', 'V.le Mario Angeloni', 'Cesena', 47521, '+39054728061', '44.14413', '12.24603', 80, NULL, 3, 2.50, 10),
+(13, 'sangio@ristorante.it', 'Ristorante al Sangiò', 'Cucina tipica romagnola nel centro storico.', '16', 'Piazza Giovanni Amendola', 'Cesena', 47521, '+390547061489', '44.13673', '12.24347', 50, NULL, 3, 4.31, 8),
+(14, 'cohiba@ristorante.it', 'Ristorante Cohiba', 'Ristorante moderno con piatti curati.', '21', 'Via Cesare Battisti', 'Cesena', 47521, '+39054726371', '44.13829', '12.24171', 45, NULL, 3, 4.83, 6),
+(15, 'welldone@socialfood.it', 'Welldone Cils Social Food', 'Hamburger gourmet e progetto sociale.', '4', 'Piazza della Libertà', 'Cesena', 47521, '+393464748796', '44.13730', '12.24626', 60, NULL, 3, 3.56, 9),
+(16, 'daneo@pizzeria.it', 'Da Neo Pizzeria - Stadio', 'Pizza al piatto vicino allo stadio.', '255', 'Via Fratelli Spazzoli', 'Cesena', 47521, '+390547300526', '44.13704', '12.26472', 70, NULL, 3, 3.80, 5),
+(17, 'roovido@cesena.it', 'Roovido', 'Location suggestiva e cucina raffinata.', '31', 'Piazza del Popolo', 'Cesena', 47521, '+393703791215', '44.13734', '12.24208', 40, NULL, 3, 3.69, 8),
+(18, 'lamari@pizzeria.it', 'La Mari\' Pizzeria', 'Pizzeria apprezzata per l\'impasto.', '55', 'Viale della Resistenza', 'Cesena', 47522, '+393922966670', '44.14275', '12.23082', 50, NULL, 3, 2.30, 5),
+(19, 'cene@osteria.it', 'Osteria Cené', 'Cucina della tradizione rivisitata.', '3', 'Via Albizzi', 'Cesena', 47521, '+390547612212', '44.13711', '12.24326', 45, NULL, 3, 3.67, 6),
+(20, 'michiletta@osteria.it', 'Osteria Michiletta', 'Storica osteria con pasta fatta a mano.', '41', 'Via Strinati', 'Cesena', 47521, '+393762012500', '44.13675', '12.24426', 35, NULL, 3, 4.71, 7),
+(21, 'info@piccolobar.it', 'Piccolo Bar', 'Bar storico in piazza, ideale per aperitivi.', '43', 'Piazza del Popolo', 'Cesena', 47521, '+39054724597', '44.13718', '12.24245', 30, NULL, 1, 0.00, 0);
 
 -- --------------------------------------------------------
 -- 2.5. POPOLAMENTO ORARI DI APERTURA'
