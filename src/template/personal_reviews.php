@@ -3,7 +3,7 @@
     <p class="col-11 col-md-10 text-primary fs-4 fw-bold">Visualizza le recensioni che hai assegnato</p>
 </header>
 <div class="row justify-content-center px-3">
-    <div class="col-10 p-0">
+    <div class="col-11 col-md-10 p-0">
         <?php if (isset($_GET["success"]) && $_GET["success"] == 1): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <?php switch($_GET["action"]):
