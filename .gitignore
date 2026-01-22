@@ -3,10 +3,10 @@
 
 # Ignore TeXworks files
 *.synctex.gz
-report/*.log
-report/*.aux
-report/*.out
-report/*.toc
+docs/*.log
+docs/*.aux
+docs/*.out
+docs/*.toc
 
 node_modules/
 

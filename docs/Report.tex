@@ -24,7 +24,6 @@
 % {left}{before-sep}{after-sep} -> after-sep negativo per ridurre gap tra chapter e section
 \titlespacing*{\chapter}{0pt}{-30pt}{6pt}
 
-
 % Liste compatte: rimuove spazio tra item e spazio prima/dopo la lista
 \setlist[itemize]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt, leftmargin=*}
 \setlist[enumerate]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt}
@@ -51,7 +50,7 @@
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 
-\graphicspath{{./src/img}}
+\graphicspath{{./src}}
 
 \fancypagestyle{soloNumero}{
     \fancyhf{} % Pulisce tutto
@@ -168,6 +167,15 @@ Lo sviluppo dell'applicativo è stato svolto seguendo questi passaggi:
     \item Iterazione dei passaggi 3-5, finchè non è ottenuto un design soddisfacente.
     \item Sviluppo dell'applicazione, ritorno al punto 3 nel caso di incongruenze non trovate precedentemente.
 \end{enumerate}
-\section{Progettazione dell'architettura di massima}
+\section{Architettura di massima}
 Per la gestione della maggior parte delle pagine è stato adottato un approccio template-based lato server (PHP). Per poter gestire alcune funzionalità particolari, come la mappa interattiva, la prenotazione e la rilevazione delle presenze tramite QR code, sono stati creati degli script dedicati che comunicano con le API del server tramite richieste AJAX, consentendo l'aggiornamento dinamico dei contenuti.
+
+\section{Database}
+Nella pagina seguente si riporta lo schema ER da cui è stato estratto il database alla base dell'applicativo.
+
+Data la presenza degli attributi ridondanti \texttt{media\_recensioni} e \texttt{num\_recensioni} nelle mense, è stata creata una stored procedure che li aggiorna sulla base delle recensioni: la procedura viene richiamata per ogni mensa coinvolta in azioni di \texttt{INSERT, UPDATE o DELETE} nella tabella delle recensioni.
+
+Per la gestione delle associazioni ad anello su \texttt{Mensa - Menu - Piatti}, è stata creata un'altra procedura per controllare che i piatti inseriti in un menu siano proposti dalla stessa mensa, visto che tale vincolo non è modellato a livello di schema.
+
+\includepdf{src/AlmaMensa_ER.pdf}
 \end{document}
