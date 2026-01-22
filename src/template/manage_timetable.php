@@ -1,7 +1,6 @@
 <div class="container py-4">
     <header class="row justify-content-center text-center">
-        <a class="col-10 text-dark h1"
-            href="canteen_details.php?id=<?php echo $templateParams["canteen"]->getId(); ?>"><?php echo $templateParams["canteen"]->getName(); ?></a>
+        <h1><a class="col-10 text-dark" href="canteen_details.php?id=<?php echo $templateParams["canteen"]->getId(); ?>"><?php echo $templateParams["canteen"]->getName(); ?></a></h1>
         <p class="col-10 text-primary fs-4 fw-bold"><?php echo $templateParams["subtitle"]; ?></p>
     </header>
     <?php if (isset($_GET["success"]) && isset($_GET["msg"])): ?>
@@ -70,7 +69,7 @@
     foreach ($templateParams["canteen"]->getOpeningHours() as $timetable): ?>
         <?php if ($last != $timetable->getDayOfWeek()):
             $last = $timetable->getDayOfWeek(); ?>
-            <h3><?php echo $timetable->getDayOfWeek(); ?></h3>
+            <h2 class="h3"><?php echo $timetable->getDayOfWeek(); ?></h2>
         <?php endif; ?>
         <form class="border shadow-sm rounded mb-3" action="manage_timetable.php" method="post">
             <div class="row justify-content-center p-3">

@@ -13,19 +13,19 @@
                         <div class="card-body">
                             <header class="row mb-3">
                                 <div class="col-8 justify-content-left">
-                                    <h4 class="card-title"><?php echo htmlspecialchars($dish->getName()); ?></h4>
+                                    <h2 class="card-title h4"><?php echo htmlspecialchars($dish->getName()); ?></h2>
                                 </div>
                             </header>
                             <section>
                                 <div class="row justify-content-start mb-3">
                                     <div class="col-12">
-                                        <h5 class="card-text">Descrizione: </h5>
+                                        <h3 class="card-text h5">Descrizione: </h3>
                                         <p class="card-text text-body-secondary"><?php echo htmlspecialchars($dish->getDescription()); ?></p>
                                     </div>
                                 </div>
                                 <div class="row justify-content-start">
                                     <div class="col-12">
-                                        <h5 class="card-text">Prezzo: </h5>
+                                        <h3 class="card-text h5">Prezzo: </h3>
                                         <p class="card-text text-body-secondary fw-bold">€<?php echo htmlspecialchars(number_format($dish->getPrice(), 2)); ?></p>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title fs-5" id="removeConfirmLabel-<?php echo $dish->getId(); ?>">Conferma rimozione</h5>
+                                            <h3 class="modal-title fs-5" id="removeConfirmLabel-<?php echo $dish->getId(); ?>">Conferma rimozione</h3>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">

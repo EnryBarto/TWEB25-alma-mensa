@@ -1,6 +1,6 @@
 <div class="container py-4">
     <header class="row justify-content-center text-center">
-        <a class="col-10 text-dark h1" href="canteen_details.php?id=<?php echo $templateParams["canteen"]->getId(); ?>"><?php echo $templateParams["canteen"]->getName(); ?></a>
+        <h1><a class="col-10 text-dark" href="canteen_details.php?id=<?php echo $templateParams["canteen"]->getId(); ?>"><?php echo $templateParams["canteen"]->getName(); ?></a></h1>
         <p class="col-10 text-primary fs-4 fw-bold"><?php echo $templateParams["subtitle"] ; ?></p>
     </header>
     <div class="row justify-content-center">
@@ -24,22 +24,19 @@
                             <label class="form-label">Inserisci un nome per il menu</label>
                         </div>
 
-                        <div class="mb-4">
-                            <fieldset>
-                            <legend>Stato Menu</legend>
-                                <h6 class="text-uppercase text-secondary small mb-3">Stato Menu<span class="text-primary">*</span></h6>
-                                <input type="radio" class="btn-check" name="attivoBtn" title="Attivo" id="attivo" value="1" <?php echo (isset($menu) && $menu->isAttivo()) || !isset($menu) ? 'checked' : ''; ?> />
-                                <label class="btn btn-outline-success me-2" for="attivo">Attivo</label>
-                                <input type="radio" class="btn-check" name="attivoBtn" title="Non Attivo" id="nonAttivo" value="0" <?php echo isset($menu) && !$menu->isAttivo() ? 'checked' : ''; ?> />
-                                <label class="btn btn-outline-danger" for="nonAttivo">Non Attivo</label>
-                            </fieldset>
-                        </div>
+                        <fieldset class="mb-4">
+                            <legend class="text-uppercase text-secondary fw-bold small mb-3">Stato Menu<span class="text-primary"> *</span></legend>
+                            <input type="radio" class="btn-check" name="attivoBtn" title="Attivo" id="attivo" value="1" <?php echo (isset($menu) && $menu->isAttivo()) || !isset($menu) ? 'checked' : ''; ?> />
+                            <label class="btn btn-outline-success me-2" for="attivo">Attivo</label>
+                            <input type="radio" class="btn-check" name="attivoBtn" title="Non Attivo" id="nonAttivo" value="0" <?php echo isset($menu) && !$menu->isAttivo() ? 'checked' : ''; ?> />
+                            <label class="btn btn-outline-danger" for="nonAttivo">Non Attivo</label>
+                        </fieldset>
 
-                        <div class="mb-4">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h6 class="text-uppercase text-secondary small mb-0">Piatti</h6>
+                        <fieldset class="mb-4">
+                            <legend class="text-uppercase text-secondary small mb-3 fw-bold">Piatti</legend>
+                            <div class="d-flex justify-content-start align-items-center mb-3">
                                 <a href="create_dish.php" class="btn btn-sm btn-outline-primary">
-                                    <strong class="bi bi-plus-lg"></strong> Aggiungi Piatto
+                                    <strong class="bi bi-plus-lg"></strong> Crea nuovo Piatto
                                 </a>
                             </div>
                             <label class="form-label">Seleziona i piatti da includere nel menu</label>
@@ -66,7 +63,7 @@
                                     Nessun piatto disponibile. <a href="create_dish.php">Aggiungi il primo piatto</a>
                                 </div>
                             <?php endif; ?>
-                        </div>
+                            </fieldset>
 
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <a href="manage_menus.php" class="btn btn-outline-secondary">Annulla</a>

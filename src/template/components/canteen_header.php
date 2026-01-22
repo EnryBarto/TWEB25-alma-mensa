@@ -7,7 +7,7 @@
     <?php else: ?>
     <div class="col-11 col-md-10 mt-4">
     <?php endif; ?>
-        <a class="col-11 col-md-10 p-0 text-dark h1 d-block" href="canteen_details.php?id=<?php echo $templateParams["canteen"]->getId(); ?>"><?php echo $templateParams["canteen"]->getName(); ?></a>
+        <h1><a class="col-11 col-md-10 p-0 text-dark d-block" href="canteen_details.php?id=<?php echo $templateParams["canteen"]->getId(); ?>"><?php echo $templateParams["canteen"]->getName(); ?></a></h1>
         <p class="badge bg-secondary"><?php echo $canteen->getCategory() ?></p>
         <p title="Valutazione Media: <?php echo $canteen->getAvgReviews();?> su <?php echo $canteen->getNumReviews(); ?> recensioni">
         <?php
