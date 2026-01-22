@@ -1,3 +1,4 @@
+// Build the stars based on the vote selected, and set the hidden field
 function setVote(val) {
     if (val > 5) val = 5;
     else if (val < 1) val = 1;
@@ -18,4 +19,5 @@ function setVote(val) {
     return val;
 }
 
+// Get the value of the vote set via php and build the stars
 document.getElementsByTagName("body")[0].onload = setVote(document.getElementById("vote").value);

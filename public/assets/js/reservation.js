@@ -2,25 +2,30 @@ const TIME_OFFSET = 30 // In minutes
 let timeSelectedOnUpdate = false;
 let peopleShownOnUpdate = false;
 
+// Return a new date with a offset
 function addTime(start, offset) {
     return new Date(start.getTime() + offset * 60000);
 }
 
 function generatePills(timetable) {
     let result = "";
+    // Generate buttons for each entry of the timetable
     for (let i = 0; i < timetable.length; i++) {
         let openingTime = new Date(timetable[i]["opening"]);
         let closingTime = new Date(timetable[i]["closing"]);
 
+        // Generate a button every TIME_OFFSET between the opening and closing time
         for (let j = openingTime; j <= addTime(closingTime, -TIME_OFFSET + 1); j = addTime(j, TIME_OFFSET)) {
-            if (j < Date.now()) continue;
+            if (j < Date.now()) continue; // Skip the time if it's in the past
+
             let hour = new Intl.DateTimeFormat('it', { hour: '2-digit' }).format(j);
             let minutes = new Intl.DateTimeFormat('it', { minute: '2-digit' }).format(j).padStart(2, '0');
 
             let button = `
                 <div class="col-4 col-md-3">
                     <input type="radio" class="btn-check" name="time" onclick="timeSelected()" id="time-${hour}${minutes}" value="${hour}:${minutes}" required `;
-            // We check the option that was already selected in the reservation, but only the first time that the page in
+            /* If the request is to update the reservation, we set checked the option that was already
+               selected in the reservation, but only when the page is loaded */
             if (!timeSelectedOnUpdate && document.querySelector("#action").value == "U") {
                 let old = document.querySelector("#old_time").innerHTML;
                 if (hour+":"+minutes == old) {
@@ -44,7 +49,7 @@ function generatePills(timetable) {
     return result;
 }
 
-async function getOpeningHours(id) {
+async function getTimetableAndGeneratePills(id) {
     // The date is changed: Disable submit and people selection
     document.querySelector("#time_selected").classList.add("d-none");
     document.querySelector("#time_not_selected").classList.remove("d-none");
@@ -52,6 +57,7 @@ async function getOpeningHours(id) {
 
     const date = document.querySelector("#date").value;
 
+    // Check if the selected date is in the past
     if (new Date(date).getTime() < (new Date((new Date()).toDateString())).getTime()) {
         document.querySelector("#times"). innerHTML = `<p>Data selezionata nel passato!</p>`;
         document.querySelector("#submitBtn").disabled = true;
@@ -76,6 +82,7 @@ async function getOpeningHours(id) {
     catch (error) { console.log(error.message); }
 }
 
+// Request the maximum number of guests for the datetime selected, and disable the selection if there's no space left
 async function updateMaxGuests() {
     const maxGuests = await getMaxGuests();
     document.getElementById("num_people").max = maxGuests;

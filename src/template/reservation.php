@@ -11,7 +11,7 @@
         <label for="date" class="form-label"><span class="bi bi-calendar text-primary"></span> Seleziona data</label>
     </div>
     <div class="col-10 mb-3">
-        <input class="form-control" type="date" id="date" name="date" onchange="getOpeningHours(<?php echo $templateParams["canteen"]->getId(); ?>)" value="<?php if(isset($templateParams["reservation"])) echo $templateParams["reservation"]->getDateTime()->format("Y-m-d") ?>" />
+        <input class="form-control" type="date" id="date" name="date" onchange="getTimetableAndGeneratePills(<?php echo $templateParams["canteen"]->getId(); ?>)" value="<?php if(isset($templateParams["reservation"])) echo $templateParams["reservation"]->getDateTime()->format("Y-m-d") ?>" />
     </div>
     <div class="col-10">
         <p class="form-label mb-0"><span class="bi bi-clock text-primary"></span> Seleziona orario</p>
