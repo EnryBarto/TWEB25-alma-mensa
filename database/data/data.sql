@@ -28,7 +28,7 @@ INSERT INTO `clienti` (`email`, `nome`, `cognome`) VALUES
 
 -- B. Inserimento Utenti Gestori (1 per ogni locale reale)
 INSERT INTO `utenti` (`email`, `password`, `mensa`, `cliente`) VALUES
-('volume@unibo.it', '$2y$10$G7ytJpMJt3lFRHsyjpy4nOTFhAmb8RkDh3SvVVoHUkdMiTaTmO8yy', 1, 0),
+('volume@unibo.it', '$2y$10$3Qz0XnIIJEEcxRU2ferNM.w9IRxH2jcGlYa4bXMq1kfW/yjfEecM6', 1, 0),
 ('info@piccolobar.it', '$2y$10$3Qz0XnIIJEEcxRU2ferNM.w9IRxH2jcGlYa4bXMq1kfW/yjfEecM6', 1, 0),
 ('barwilson@cesena.it', '$2y$10$3Qz0XnIIJEEcxRU2ferNM.w9IRxH2jcGlYa4bXMq1kfW/yjfEecM6', 1, 0),
 ('nerosublime@bar.it', '$2y$10$3Qz0XnIIJEEcxRU2ferNM.w9IRxH2jcGlYa4bXMq1kfW/yjfEecM6', 1, 0),
@@ -313,26 +313,28 @@ INSERT INTO `recensioni` (`voto`, `titolo`, `descrizione`, `data_ora`, `id_mensa
 -- --------------------------------------------------------
 
 INSERT INTO `prenotazioni` (`data_ora`, `codice`, `email`, `convalidata`, `num_persone`, `id_mensa`) VALUES
-('2026-01-10 20:00:00', 'PREN-26-001', 'luca.rossi@email.it', '1', 2, 12), -- Scottadito
-('2026-01-11 13:00:00', 'PREN-26-002', 'sofia.bianchi@email.it', '1', 4, 13), -- Sangio
-('2026-01-14 20:30:00', 'PREN-26-003', 'marco.verdi@email.it', '1', 2, 14), -- Cohiba
-('2026-01-16 19:30:00', 'PREN-26-004', 'giulia.neri@email.it', '1', 5, 15), -- Welldone
-('2026-01-18 12:30:00', 'PREN-26-005', 'andrea.gialli@email.it', '1', 3, 9),  -- Cibus
-('2026-01-20 21:00:00', 'PREN-26-006', 'luca.rossi@email.it', '1', 2, 17), -- Roovido
-('2026-01-22 19:00:00', 'PREN-26-007', 'sofia.bianchi@email.it', '0', 2, 16), -- Da Neo
-('2026-01-25 13:15:00', 'PREN-26-008', 'marco.verdi@email.it', '1', 4, 20), -- Michiletta
-('2026-01-28 20:00:00', 'PREN-26-009', 'giulia.neri@email.it', '1', 6, 19), -- Cene
-('2026-01-30 19:45:00', 'PREN-26-010', 'andrea.gialli@email.it', '1', 2, 18), -- La Mari
-('2026-02-02 12:45:00', 'PREN-26-011', 'luca.rossi@email.it', '1', 1, 10), -- Tavolamica
-('2026-02-05 20:30:00', 'PREN-26-012', 'sofia.bianchi@email.it', '1', 2, 3),  -- Nero Sublime
-('2026-02-08 18:30:00', 'PREN-26-013', 'marco.verdi@email.it', '1', 3, 1),  -- Piccolo Bar
-('2026-02-14 20:00:00', 'PREN-26-014', 'giulia.neri@email.it', '1', 2, 13), -- S. Valentino al Sangio
-('2026-02-15 13:00:00', 'PREN-26-015', 'andrea.gialli@email.it', '1', 4, 12), -- Scottadito
-('2026-02-18 21:00:00', 'PREN-26-016', 'luca.rossi@email.it', '1', 2, 4),  -- La Cantera
-('2026-02-20 19:30:00', 'PREN-26-017', 'sofia.bianchi@email.it', '1', 5, 15), -- Welldone
-('2026-02-22 12:30:00', 'PREN-26-018', 'marco.verdi@email.it', '1', 2, 5),  -- Garden
-('2026-02-25 20:00:00', 'PREN-26-019', 'giulia.neri@email.it', '1', 2, 14), -- Cohiba
-('2026-02-28 13:00:00', 'PREN-26-020', 'andrea.gialli@email.it', '1', 3, 19); -- Cene
+('2025-12-15 12:00:00', 'PREN-1-001', 'sofia.bianchi@email.it', '1', 7, 1), -- Volume
+('2026-01-10 13:30:00', 'PREN-1-002', 'sofia.bianchi@email.it', '0', 1, 1), -- Volume
+('2026-01-10 20:00:00', 'PREN-12-001', 'luca.rossi@email.it', '1', 2, 12), -- Scottadito
+('2026-01-11 13:00:00', 'PREN-13-002', 'sofia.bianchi@email.it', '1', 4, 13), -- Sangio
+('2026-01-14 20:30:00', 'PREN-14-003', 'marco.verdi@email.it', '0', 2, 14), -- Cohiba
+('2026-01-16 19:30:00', 'PREN-15-004', 'giulia.neri@email.it', '0', 5, 15), -- Welldone
+('2026-01-18 12:30:00', 'PREN-9-005', 'andrea.gialli@email.it', '1', 3, 9),  -- Cibus
+('2026-01-20 21:00:00', 'PREN-17-006', 'luca.rossi@email.it', '1', 2, 17), -- Roovido
+('2026-01-22 19:00:00', 'PREN-16-007', 'sofia.bianchi@email.it', '0', 2, 16), -- Da Neo
+('2026-01-25 13:30:00', 'PREN-20-008', 'marco.verdi@email.it', '0', 4, 20), -- Michiletta
+('2026-01-28 20:00:00', 'PREN-19-009', 'giulia.neri@email.it', '0', 6, 19), -- Cene
+('2026-01-30 19:30:00', 'PREN-18-010', 'andrea.gialli@email.it', '0', 2, 18), -- La Mari
+('2026-02-02 12:30:00', 'PREN-10-011', 'luca.rossi@email.it', '0', 1, 10), -- Tavolamica
+('2026-02-05 20:30:00', 'PREN-3-012', 'sofia.bianchi@email.it', '0', 2, 3),  -- Nero Sublime
+('2026-02-08 18:30:00', 'PREN-1-013', 'marco.verdi@email.it', '0', 3, 1),  -- Piccolo Bar
+('2026-02-14 20:00:00', 'PREN-13-014', 'giulia.neri@email.it', '0', 2, 13), -- S. Valentino al Sangio
+('2026-02-15 13:00:00', 'PREN-12-015', 'andrea.gialli@email.it', '0', 4, 12), -- Scottadito
+('2026-02-18 21:00:00', 'PREN-4-016', 'luca.rossi@email.it', '0', 2, 4),  -- La Cantera
+('2026-02-20 19:30:00', 'PREN-15-017', 'sofia.bianchi@email.it', '0', 5, 15), -- Welldone
+('2026-02-22 12:30:00', 'PREN-5-018', 'marco.verdi@email.it', '0', 2, 5),  -- Garden
+('2026-02-25 20:00:00', 'PREN-14-019', 'giulia.neri@email.it', '0', 2, 14), -- Cohiba
+('2026-02-28 13:00:00', 'PREN-19-020', 'andrea.gialli@email.it', '0', 3, 19); -- Cene
 
 COMMIT;
 
